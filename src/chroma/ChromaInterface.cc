@@ -125,10 +125,9 @@ namespace RAT {
 
   void ChromaInterface::ReceivePhotonData() {
     //do some check/confirmation first
-    std::string msg;
-    msg = zhelpers::s_recv (*client);
-    data = message.ParseFromString(&msg);
-    std::cout << data << "\n";
+    const std::string msg = zhelpers::s_recv (*client);
+    fPhotonData.ParseFromString(msg);
+    std::cout << "Got the photon data." << "\n";
   }
 
   void ChromaInterface::SendDetectorConfigData() {

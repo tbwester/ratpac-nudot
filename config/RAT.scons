@@ -115,6 +115,10 @@ if conf.CheckLibWithHeader('bz2', 'bzlib.h', 'c'):
 if conf.CheckLibWithHeader('z','zlib.h','c'):
     conf.env.Append(CPPDEFINES=[('_HAS_Z',1)])
 
+#Build with zmq support if header found
+if conf.CheckLibWithHeader('zmq','zmq.h','c'):
+    conf.env.Append(CPPDEFINES=[('_HAS_ZMQ',1)])
+
 # Turn on G4 visualization
 conf.env.Append(CPPDEFINES=[('G4VIS_USE',1)])
 
@@ -199,13 +203,19 @@ opt = int(ARGUMENTS.get('opt', optdefault)) == 1
 if opt:
     env.Append(CXXFLAGS=arch['OPTFLAGS'])
 
-# Protobuf headers
-env.Append(CXXFLAGS=" -std=c++11 -Wno-deprecated-register -I/Users/twongjirad/working/ratchroma/protobuf/include")
-env.Append(LINKFLAGS=" -L/Users/twongjirad/working/ratchroma/protobuf/lib -lprotobuf")
-
 # Add arch-dependent flags needed by extra packages (X11, OpenGL, etc.)
 for pkg in env['ARCHEXTRA']:
     env.Append(**arch[pkg])
+
+# Protobuf headers
+#env.Append(CXXFLAGS=" -std=c++11 -Wno-deprecated-register -I/Users/twongjirad/working/ratchroma/protobuf/include")
+#env.Append(LINKFLAGS=" -L/Users/twongjirad/working/ratchroma/protobuf/lib -lprotobuf")
+#env.Append(CXXFLAGS=" -std=c++11 -Wno-deprecated-register -I/home/nudot/protobuf/include")
+
+env.Append(CXXFLAGS=" -std=c++11  -I/home/nudot/protobuf/include")
+#env.Append(LIBS=" -std=c++11 ")
+env.Append(LIBDIRS=["/home/nudot/protobuf/protobuf"])
+env.Append(LIBS=["protobuf"])
 
 #### Set other useful RAT-specific variables
 
@@ -236,4 +246,7 @@ env.Repository('$RATROOT')
 # Return enviroment object to caller who loaded us this way:
 #
 # env = SConscript('$RATROOT/config/RAT.scons')
+
+#env.Append(LINKFLAGS=" -L/home/nudot/protobuf/lib -lprotobuf -std=c++11")
+
 Return('env')

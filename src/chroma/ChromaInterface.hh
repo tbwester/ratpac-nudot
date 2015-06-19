@@ -5,8 +5,9 @@
 #include <string>
 
 #include "ratchromadata.pb.h"
+#include "photonHit.pb.h"
 
-//#include "zhelpers.hpp"
+#include "zhelpers.hpp"
 
 class G4Track;
 class G4VParticleChange;
@@ -32,12 +33,15 @@ public:
   void ReceivePhotonData();
   void SendDetectorConfigData();
   void MakePhotonHitData();
+  void JoinQueue();  
+  void SetIdentity();  
   zmq::socket_t * S_Client_Socket (zmq::context_t & context);
 
 protected:
   zmq::socket_t *client;
   zmq::context_t *context;
   ratchroma::ChromaData message;
+  fakePhotons::PhotonHits fPhotonData;
   std::string fStrQueueAddress;
   std::string ClientIdentity;
 };
