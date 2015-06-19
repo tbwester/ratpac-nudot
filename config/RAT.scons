@@ -214,8 +214,8 @@ for pkg in env['ARCHEXTRA']:
 
 env.Append(CXXFLAGS=" -std=c++11  -I/home/nudot/protobuf/include")
 #env.Append(LIBS=" -std=c++11 ")
-env.Append(LIBDIRS=["/home/nudot/protobuf/protobuf"])
-env.Append(LIBS=["protobuf"])
+env.Append(LINKFLAGS="-L/home/nudot/protobuf/lib")
+env.Append(LIBS="protobuf")
 
 #### Set other useful RAT-specific variables
 
