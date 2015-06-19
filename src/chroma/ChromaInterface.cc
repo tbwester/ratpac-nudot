@@ -46,7 +46,7 @@ namespace RAT {
     
     // Talk to Server/Handshake/Send out detector data
     SendDetectorConfigData();
-    zhelpers::s_recv (*client);
+    //zhelpers::s_recv (*client);
   }
 
   void ChromaInterface::closeServerConnection() {

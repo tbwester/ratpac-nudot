@@ -11,7 +11,7 @@ socket.bind("tcp://*:5554")
 def MakePhotons(num_pmts):
     phits = photonHit_pb2.PhotonHits()
     pmt_id = 0
-    for x in xrange (0,num_pmts)
+    for x in xrange (0,num_pmts):
         pmt_id += 1
         phits.photon.add()
         phits.photon.count = random.randint(0,25)
@@ -41,7 +41,7 @@ def Server():
     #need to get PMT_Count here
     num_pmts = int(socket.recv())
     socket.send(b"")
-
+    print "got num. of pmts: ",num_pmts
     msg = socket.recv()
     print "message size: ",msg.ByteSize()
     print ParseFromString(msg), "\n"
