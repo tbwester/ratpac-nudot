@@ -13,38 +13,44 @@ def MakePhotons(num_pmts):
     pmt_id = 0
     for x in xrange (0,num_pmts):
         pmt_id += 1
-        phits.photon.add()
-        phits.photon.count = random.randint(0,25)
-        for x in xrange (0, phits.photon.count):
-            phits.photon.PMTID = pmt_id
-            phits.photon.Time = random.uniform(0,30)
-            phits.photon.KineticEnergy = random.uniform(2.61*(10**-6),3.22*(10**-6))
+        aphoton = phits.photon.add()
+        aphoton.count = random.randint(0,25)
+        for x in xrange (0, aphoton.count):
+            aphoton.PMTID = pmt_id
+            aphoton.Time = random.uniform(0,30)
+            aphoton.KineticEnergy = random.uniform(2.61*(10**-6),3.22*(10**-6))
             #converted to MeV
-            phits.photon.posX = random.uniform(-1,1)
-            phits.photon.posY = random.uniform(-1,1)
-            phits.photon.posZ = random.uniform(-1,1)
-            phits.photon.momX = ((phits.photon.KineticEnergy/3.0)
+            aphoton.posX = random.uniform(-1,1)
+            aphoton.posY = random.uniform(-1,1)
+            aphoton.posZ = random.uniform(-1,1)
+            aphoton.momX = ((aphoton.KineticEnergy/3.0)
                                  **0.5)
-            phits.photon.momY = ((phits.photon.KineticEnergy/3.0)
+            aphoton.momY = ((aphoton.KineticEnergy/3.0)
                                  **0.5)
-            phits.photon.momZ = ((phits.photon.KineticEnergy/3.0)
+            aphoton.momZ = ((aphoton.KineticEnergy/3.0)
                                  **0.5)
-            phits.photon.polX = random.uniform(0,((1/3.0)**.5))
-            phits.photon.polY = random.uniform(0,((1/3.0)**.5))
-            phits.photon.polZ = ((1 - phits.photon.polX**2 -
-                                  phits.photon.polY**2)**.5)
-            phits.photon.trackID = random.randint(0,25)
-            phits.photon.origin = random.randint(0,2)
+            aphoton.polX = random.uniform(0,((1/3.0)**.5))
+            aphoton.polY = random.uniform(0,((1/3.0)**.5))
+            aphoton.polZ = ((1 - aphoton.polX**2 -
+                                  aphoton.polY**2)**.5)
+            aphoton.trackID = random.randint(0,25)
+            aphoton.origin = random.randint(0,2)
     return phits
+
+
 def Server():
     print "opened"
     #need to get PMT_Count here
     num_pmts = int(socket.recv())
     socket.send(b"")
     print "got num. of pmts: ",num_pmts
+
+    # get data for chroma
     msg = socket.recv()
-    print "message size: ",msg.ByteSize()
-    print ParseFromString(msg), "\n"
+    mychromadata = ratchromadata_pb2.ChromaData()
+    mychromadata.ParseFromString(msg)
+    print mychromadata, "\n"
+    print "message size: ",mychromadata.ByteSize()
     socket.send(b"")
 
     print "making some fake photons\n"

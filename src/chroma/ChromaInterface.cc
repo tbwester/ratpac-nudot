@@ -117,9 +117,9 @@ namespace RAT {
     // Send data
     //basic implementation, probably want to handshake or do
     //some check first.
-    std::string *str_msg = NULL;
-    message.SerializeToString(str_msg);
-    zhelpers::s_send (*client, *str_msg);
+    std::string str_msg;
+    message.SerializeToString(&str_msg);
+    zhelpers::s_send (*client, str_msg);
     zhelpers::s_recv(*client);
   }
 
