@@ -125,6 +125,7 @@ namespace RAT {
 
   void ChromaInterface::ReceivePhotonData() {
     //do some check/confirmation first
+    zhelpers::s_send (*client, ""); //send ready signal
     const std::string msg = zhelpers::s_recv (*client);
     fPhotonData.ParseFromString(msg);
     std::cout << "Got the photon data." << "\n";
@@ -141,9 +142,28 @@ namespace RAT {
   }
 
   void ChromaInterface::MakePhotonHitData() {
-    GLG4HitPhoton* hit_photon = new GLG4HitPhoton();
     //hit_photon->SetPMTID((int)iopdet);
-    GLG4VEventAction::GetTheHitPMTCollection()->DetectPhoton(hit_photon);
+    for (int i = 0; i < fPhotonData.photon_size(); i++) 
+      {
+	std::cout << i << "of" << fPhotonData.photon_size();
+	GLG4HitPhoton* hit_photon = new GLG4HitPhoton();
+	hit_photon->SetPMTID(fPhotonData.photon(i).pmtid());
+	hit_photon->SetTime(fPhotonData.photon(i).time());
+	hit_photon->SetKineticEnergy(fPhotonData.photon(i).kineticenergy());
+	hit_photon->SetPosition((fPhotonData.photon(i).posx()),
+				(fPhotonData.photon(i).posy()),
+				(fPhotonData.photon(i).posz()));
+	hit_photon->SetMomentum((fPhotonData.photon(i).momx()),
+				(fPhotonData.photon(i).momy()),
+				(fPhotonData.photon(i).momz()));
+	hit_photon->SetPolarization((fPhotonData.photon(i).polx()),
+				    (fPhotonData.photon(i).poly()),
+				    (fPhotonData.photon(i).polz()));
+	hit_photon->SetCount(fPhotonData.photon(i).count());
+	hit_photon->SetTrackID(fPhotonData.photon(i).trackid());
+	hit_photon->SetOriginFlag(fPhotonData.photon(i).origin());
+	GLG4VEventAction::GetTheHitPMTCollection()->DetectPhoton(hit_photon);
+      }
   }
 
   //returns a REQ client

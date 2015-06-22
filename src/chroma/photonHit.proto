@@ -24,6 +24,7 @@ enum OriginFlag {
      CERENKOV = 0;
      SCINTILLATION = 1;
      REEMISSION = 2;
+     CHROMA = 3;
 }
 
 message PhotonHits {

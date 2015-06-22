@@ -14,7 +14,7 @@ def MakePhotons(num_pmts):
     for x in xrange (0,num_pmts):
         pmt_id += 1
         aphoton = phits.photon.add()
-        aphoton.count = random.randint(0,25)
+        aphoton.count = 1
         for x in xrange (0, aphoton.count):
             aphoton.PMTID = pmt_id
             aphoton.Time = random.uniform(0,30)
@@ -34,7 +34,7 @@ def MakePhotons(num_pmts):
             aphoton.polZ = ((1 - aphoton.polX**2 -
                                   aphoton.polY**2)**.5)
             aphoton.trackID = random.randint(0,25)
-            aphoton.origin = random.randint(0,2)
+            aphoton.origin = 4
     return phits
 
 
@@ -51,11 +51,12 @@ def Server():
     mychromadata.ParseFromString(msg)
     print mychromadata, "\n"
     print "message size: ",mychromadata.ByteSize()
-    socket.send(b"")
-
-    print "making some fake photons\n"
     phits = MakePhotons(num_pmts)
+    socket.send(b"")
+    socket.recv()
+    print "making some fake photons\n"
+    print phits
     #ship em
-    socket.send(phits.SerializeToString())
+    socket.send(phits.SerializeToString())    
 
 Server()
