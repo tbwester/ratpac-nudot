@@ -41,12 +41,12 @@ namespace RAT {
     // Here load appropriate socket
     context =  new zmq::context_t(1);//flag=# of i/o threads, apparently
     client = S_Client_Socket (*context);
-
+    SetIdentity();
+    JoinQueue();
     // Gather required geometry data
     
     // Talk to Server/Handshake/Send out detector data
     SendDetectorConfigData();
-    //zhelpers::s_recv (*client);
   }
 
   void ChromaInterface::closeServerConnection() {
@@ -102,12 +102,14 @@ namespace RAT {
 
   void ChromaInterface::ClearData() {
     message.Clear();
+    //fPhotonData.Clear();
   }
 
   void ChromaInterface::JoinQueue() {
     zhelpers::s_send (*client, "RDY");
+    zhelpers::s_recv (*client);
   }
-  //must initialize client before setting its identity
+  //must initialize client befonre setting its identity
   void ChromaInterface::SetIdentity() {
     //uses zhelpers member function to set a random identity.
     //(this method is thread-safe)
