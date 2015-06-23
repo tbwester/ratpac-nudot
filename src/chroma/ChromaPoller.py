@@ -23,7 +23,7 @@ def main():
         socks = dict(poll_RAT.poll())
         
         if socks.get(backend) == zmq.POLLIN:
-            msg = backend.recv#_multipart()
+            msg = backend.recv()#_multipart()
             #^decide whether to use multipart or not^
             if not msg:
                 break
