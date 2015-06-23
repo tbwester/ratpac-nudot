@@ -6,8 +6,8 @@ import random
 
 context = zmq.Context().instance()
 
-socket =context.socket(zmq.REP)
-socket.bind("tcp://*:5554")
+socket =context.socket(zmq.REQ)
+socket.bind("tcp://*:5555")
 def MakePhotons(num_pmts):
     phits = photonHit_pb2.PhotonHits()
     pmt_id = 0
@@ -40,20 +40,20 @@ def MakePhotons(num_pmts):
 
 def Server():
     print "opened"
-    #need to get PMT_Count here
-    num_pmts = int(socket.recv())
+    #send the queuer our identity.
     socket.send(b"")
+    num_pmts = int(socket.recv())
     print "got num. of pmts: ",num_pmts
 
     # get data for chroma
+    socket.send(b"")
     msg = socket.recv()
     mychromadata = ratchromadata_pb2.ChromaData()
     mychromadata.ParseFromString(msg)
     print mychromadata, "\n"
     print "message size: ",mychromadata.ByteSize()
+    #generate some photons
     phits = MakePhotons(num_pmts)
-    socket.send(b"")
-    socket.recv()
     print "making some fake photons\n"
     print phits
     #ship em

@@ -12,7 +12,7 @@
 #include <RAT/DB.hh>
 #include <RAT/Log.hh>
 
-//use this to simplify ZMQ functions
+
 
 namespace RAT {
 
@@ -107,9 +107,8 @@ namespace RAT {
 
   void ChromaInterface::JoinQueue() {
     zhelpers::s_send (*client, "RDY");
-    zhelpers::s_recv (*client);
   }
-  //must initialize client befonre setting its identity
+  //must initialize client before setting its identity
   void ChromaInterface::SetIdentity() {
     //uses zhelpers member function to set a random identity.
     //(this method is thread-safe)
@@ -119,15 +118,14 @@ namespace RAT {
     // Send data
     //basic implementation, probably want to handshake or do
     //some check first.
+    zhelpers::s_recv(*client); //signal
     std::string str_msg;
     message.SerializeToString(&str_msg);
     zhelpers::s_send (*client, str_msg);
-    zhelpers::s_recv(*client);
   }
 
   void ChromaInterface::ReceivePhotonData() {
     //do some check/confirmation first
-    zhelpers::s_send (*client, ""); //send ready signal
     const std::string msg = zhelpers::s_recv (*client);
     fPhotonData.ParseFromString(msg);
     std::cout << "Got the photon data." << "\n";
@@ -139,8 +137,8 @@ namespace RAT {
     // Also, geometry info has to sync. optical detector indexes between Chroma and RAT
 
     //just sending # of pmts for now
-    zhelpers::s_send(*client,"5");
     zhelpers::s_recv(*client);
+    zhelpers::s_send(*client,"5");
   }
 
   void ChromaInterface::MakePhotonHitData() {
