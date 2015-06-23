@@ -47,11 +47,12 @@ public:
   void MakePhotonHitData();
 #ifdef _HAS_ZMQ
   zmq::socket_t * S_Client_Socket (zmq::context_t & context);
-#else
-  void NoSupportWarning();
 #endif
 
 protected:
+
+  void NoSupportWarning();
+
 #ifdef _HAS_ZMQ
   zmq::socket_t *client;
   zmq::context_t *context;

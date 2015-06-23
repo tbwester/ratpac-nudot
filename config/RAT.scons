@@ -125,12 +125,14 @@ if "PROTOBUF_LIB_DIR" in os.environ:
 if "PROTOBUF_INC_DIR" in os.environ:
     protobufdirs = [x[0] for x in os.walk(os.environ["PROTOBUF_INC_DIR"])]
     conf.env.Append(CPPPATH=[os.environ["PROTOBUF_INC_DIR"]])
-
-#if conf.CheckLibWithHeader('protobuf','message.h'):
 if conf.CheckLib('protobuf'):
     conf.env.Append(CPPDEFINES=[('_HAS_PROTOBUF',1)])
     # Protobuf requires c++11
     env.Append(CXXFLAGS=" -std=c++11 -Wno-deprecated-register")
+
+# Build with G4DAE support
+if conf.CheckCXXHeader("G4DAEParser.hh"):
+    conf.env.Append(CPPDEFINES=["_HAS_G4DAE"])
 
 
 # Turn on G4 visualization
