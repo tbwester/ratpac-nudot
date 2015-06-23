@@ -2,8 +2,9 @@
   name:"GEO",
   valid_begin: [0,0],
   valid_end: [0,0],
-  gdml_file: "nudotv0.gdml",
-  opdet_lv_name: "volPC",
+  gdml_file: "nudotv0_new.gdml",
+  opdet_lv_name: ["volPhotoCathode"],
+  opchannel_pv_name: ["pvPMT"],
 }
 
 {

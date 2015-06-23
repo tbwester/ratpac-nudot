@@ -6,7 +6,8 @@ part1 = """<?xml version="1.0" encoding="UTF-8"?>
       xsi:noNamespaceSchemaLocation="http://service-spi.web.cern.ch/service-spi/app/releases/GDML/schema/gdml.xsd" >
 
 <define>
-  <position name="sipm_offset" unit="mm" x="0" y="1.0" z="0"/>
+  <position name="photocathode_offset" unit="cm" x="0" y="0" z="0.5*11.0-0.5*0.1"/>
+  <position name="origin" unit="cm" x="0" y="0" z="0"/>
   <rotation name="identity"/>
 </define>
 
@@ -24,10 +25,10 @@ part1 = """<?xml version="1.0" encoding="UTF-8"?>
   <element name="nickel" formula="Ni" Z="28"> <atom value="58.6934"/>  </element>
   <element name="calcium" formula="Ca" Z="20"> <atom value="40.078"/>   </element>
   <element name="magnesium" formula="Mg" Z="12"> <atom value="24.305"/>   </element>
-  <element name="magnesium" formula="Mg" Z="12"> <atom value="24.305"/>   </element>
   <element name="sodium" formula="Na" Z="11"> <atom value="22.99"/>    </element>
   <element name="titanium" formula="Ti" Z="22"> <atom value="47.867"/>   </element>
   <element name="argon" formula="Ar" Z="18"> <atom value="39.9480"/>  </element>
+  <element name="boron" formula="B" Z="5"> <atom value="10.811"/> </element>
   
   <material Z="1" formula=" " name="Vacuum">
     <D value="1.e-25" unit="g/cm3"/>
@@ -90,6 +91,19 @@ part1 = """<?xml version="1.0" encoding="UTF-8"?>
     <D value="2.3" unit="g/cc"/>
     <fraction n="1.0" ref="silicon"/>
   </material>
+
+  <material formula=" " name="borosilicate_glass">
+    <D value="2.23" unit="g/cc"/>
+    <fraction n="0.05238" ref="silicon"/>
+    <fraction n="0.55873" ref="oxygen"/>
+    <fraction n="0.38889" ref="boron"/>
+  </material>
+
+  <material formula=" " name="photocathode">
+    <D value="5.0" unit="g/cc"/>
+    <fraction n="1.0" ref="potassium"/>
+  </material>
+
 </materials>
 
 <solids>
@@ -101,14 +115,48 @@ part1 = """<?xml version="1.0" encoding="UTF-8"?>
        z="10.0" />
   <box name="tankbox" lunit="cm" x="100" y="100" z="100"/>
   <box name="scintbox" lunit="cm" x="99" y="99" z="99"/>
-  <tube name="pctube" lunit="cm" aunit="deg" rmin="0" rmax="2.54" z="0.1" startphi="0" deltaphi="360.0"/>
+  <tube name="pmt_bound" lunit="cm" aunit="deg" rmin="0" rmax="5.5" z="12.0" startphi="0" deltaphi="360.0"/>
+  <tube name="pctube" lunit="cm" aunit="deg" rmin="0" rmax="4.7" z="0.1" startphi="0" deltaphi="360.0"/>
+  <tube name="pmt_outertube" lunit="cm" aunit="deg" rmin="0" rmax="5.10" z="11.0" startphi="0" deltaphi="360.0"/>
+  <tube name="pmt_shield" lunit="cm" aunit="deg" rmin="4.7" rmax="5.0" z="5.5" startphi="0" deltaphi="360.0"/>
+  <subtraction name="pmt_glasstube">
+    <first ref="pmt_outertube"/>
+    <second ref="pctube"/>
+    <positionref ref="photocathode_offset"/>
+    <rotationref ref="identity"/>
+  </subtraction> 
+
 </solids>
 
 <structure>
-  <volume name="volPC">
-    <!-- <materialref ref="photocathode_R11780"/> -->
-    <materialref ref="scintillator"/>
+  <volume name="volPhotoCathode">
+    <!-- <materialref ref="scintillator"/> -->
+    <materialref ref="photocathode"/>
     <solidref ref="pctube"/>
+  </volume>
+  <volume name="volPMTShield">
+    <materialref ref="aluminum"/>
+    <solidref ref="pmt_shield"/>
+  </volume>
+  <volume name="volPMTGlassTube">
+    <materialref ref="borosilicate_glass"/>
+    <solidref ref="pmt_glasstube"/>
+    <physvol>
+      <volumeref ref="volPMTShield"/>
+      <position name="posPMTShield" unit="cm" x="0" y="0" z="0.5*11.0-0.5*5.5"/>
+    </physvol>
+  </volume>
+  <volume name="volPMTAssembly">
+    <materialref ref="scintillator"/>
+    <solidref ref="pmt_bound"/>
+    <physvol>
+      <volumeref ref="volPMTGlassTube"/>
+      <positionref ref="origin"/>
+    </physvol>
+    <physvol>
+      <volumeref ref="volPhotoCathode"/>
+      <positionref ref="photocathode_offset"/>
+    </physvol>
   </volume>
   
   <volume name="volScint">
@@ -116,6 +164,7 @@ part1 = """<?xml version="1.0" encoding="UTF-8"?>
     <solidref ref="scintbox"/>
     <!-- Add Photocathodes here -->
 """
+
 
 part2 ="""    <!-- End of photocathodes -->
   </volume>

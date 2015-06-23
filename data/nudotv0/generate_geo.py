@@ -29,8 +29,8 @@ def gen_photocathod_pos_hexpattern( radius ):
 def gen_gdml_snippet( posxy ):
     pmttxt = StringIO.StringIO()
     for n,pos in enumerate(posxy):
-        print >> pmttxt, "    <physvol name=\"PMTPC%02d\">"%(n)
-        print >> pmttxt, "      <volumeref ref=\"volPC\"/>"
+        print >> pmttxt, "    <physvol name=\"pvPMT%02d\">"%(n)
+        print >> pmttxt, "      <volumeref ref=\"volPMTAssembly\"/>"
         print >> pmttxt, "      <position name=\"posPMTPC%02d\" unit=\"cm\" x=\"%.04f\" y=\"%.04f\" z=\"%.04f\" />" % ( n, pos[0], pos[1], 0.0 )
         print >> pmttxt, "    </physvol>"
     return pmttxt.getvalue()
@@ -84,12 +84,12 @@ def gen_gdml( posxy ):
     print >> gdmlout, pmttxt
     print >> gdmlout, part2
 
-    f = open("nudotv0.gdml",'w')
+    f = open("nudotv0_new.gdml",'w')
     print >> f,gdmlout.getvalue()
     f.close()
 
 if __name__ == "__main__":
-    posxy = gen_photocathod_pos_hexpattern( 15.0 )
+    posxy = gen_photocathod_pos_hexpattern( 30.0 )
     gen_gdml( posxy )
-    gen_pmtinfo( posxy )
-    save_as_roottree( posxy )
+    #gen_pmtinfo( posxy )
+    #save_as_roottree( posxy )
