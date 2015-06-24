@@ -31,7 +31,7 @@ def gen_gdml_snippet( posxy ):
     for n,pos in enumerate(posxy):
         print >> pmttxt, "    <physvol name=\"pvPMT%02d\">"%(n)
         print >> pmttxt, "      <volumeref ref=\"volPMTAssembly\"/>"
-        print >> pmttxt, "      <position name=\"posPMTPC%02d\" unit=\"cm\" x=\"%.04f\" y=\"%.04f\" z=\"%.04f\" />" % ( n, pos[0], pos[1], 0.0 )
+        print >> pmttxt, "      <position name=\"posPMTPC%02d\" unit=\"cm\" x=\"%.04f\" y=\"%.04f\" z=\"%.04f\" />" % ( n, pos[0], pos[1], -40.0 )
         print >> pmttxt, "    </physvol>"
     return pmttxt.getvalue()
 

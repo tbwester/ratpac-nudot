@@ -164,83 +164,83 @@
 
     <physvol name="pvPMT00">
       <volumeref ref="volPMTAssembly"/>
-      <position name="posPMTPC00" unit="cm" x="15.0000" y="25.9808" z="0.0000" />
+      <position name="posPMTPC00" unit="cm" x="15.0000" y="25.9808" z="-40.0000" />
     </physvol>
     <physvol name="pvPMT01">
       <volumeref ref="volPMTAssembly"/>
-      <position name="posPMTPC01" unit="cm" x="0.0000" y="25.9808" z="0.0000" />
+      <position name="posPMTPC01" unit="cm" x="0.0000" y="25.9808" z="-40.0000" />
     </physvol>
     <physvol name="pvPMT02">
       <volumeref ref="volPMTAssembly"/>
-      <position name="posPMTPC02" unit="cm" x="-15.0000" y="25.9808" z="0.0000" />
+      <position name="posPMTPC02" unit="cm" x="-15.0000" y="25.9808" z="-40.0000" />
     </physvol>
     <physvol name="pvPMT03">
       <volumeref ref="volPMTAssembly"/>
-      <position name="posPMTPC03" unit="cm" x="25.9808" y="12.9904" z="0.0000" />
+      <position name="posPMTPC03" unit="cm" x="25.9808" y="12.9904" z="-40.0000" />
     </physvol>
     <physvol name="pvPMT04">
       <volumeref ref="volPMTAssembly"/>
-      <position name="posPMTPC04" unit="cm" x="8.6603" y="12.9904" z="0.0000" />
+      <position name="posPMTPC04" unit="cm" x="8.6603" y="12.9904" z="-40.0000" />
     </physvol>
     <physvol name="pvPMT05">
       <volumeref ref="volPMTAssembly"/>
-      <position name="posPMTPC05" unit="cm" x="-8.6603" y="12.9904" z="0.0000" />
+      <position name="posPMTPC05" unit="cm" x="-8.6603" y="12.9904" z="-40.0000" />
     </physvol>
     <physvol name="pvPMT06">
       <volumeref ref="volPMTAssembly"/>
-      <position name="posPMTPC06" unit="cm" x="-25.9808" y="12.9904" z="0.0000" />
+      <position name="posPMTPC06" unit="cm" x="-25.9808" y="12.9904" z="-40.0000" />
     </physvol>
     <physvol name="pvPMT07">
       <volumeref ref="volPMTAssembly"/>
-      <position name="posPMTPC07" unit="cm" x="30.0000" y="0.0000" z="0.0000" />
+      <position name="posPMTPC07" unit="cm" x="30.0000" y="0.0000" z="-40.0000" />
     </physvol>
     <physvol name="pvPMT08">
       <volumeref ref="volPMTAssembly"/>
-      <position name="posPMTPC08" unit="cm" x="18.0000" y="0.0000" z="0.0000" />
+      <position name="posPMTPC08" unit="cm" x="18.0000" y="0.0000" z="-40.0000" />
     </physvol>
     <physvol name="pvPMT09">
       <volumeref ref="volPMTAssembly"/>
-      <position name="posPMTPC09" unit="cm" x="6.0000" y="0.0000" z="0.0000" />
+      <position name="posPMTPC09" unit="cm" x="6.0000" y="0.0000" z="-40.0000" />
     </physvol>
     <physvol name="pvPMT10">
       <volumeref ref="volPMTAssembly"/>
-      <position name="posPMTPC10" unit="cm" x="-6.0000" y="0.0000" z="0.0000" />
+      <position name="posPMTPC10" unit="cm" x="-6.0000" y="0.0000" z="-40.0000" />
     </physvol>
     <physvol name="pvPMT11">
       <volumeref ref="volPMTAssembly"/>
-      <position name="posPMTPC11" unit="cm" x="-18.0000" y="0.0000" z="0.0000" />
+      <position name="posPMTPC11" unit="cm" x="-18.0000" y="0.0000" z="-40.0000" />
     </physvol>
     <physvol name="pvPMT12">
       <volumeref ref="volPMTAssembly"/>
-      <position name="posPMTPC12" unit="cm" x="-30.0000" y="0.0000" z="0.0000" />
+      <position name="posPMTPC12" unit="cm" x="-30.0000" y="0.0000" z="-40.0000" />
     </physvol>
     <physvol name="pvPMT13">
       <volumeref ref="volPMTAssembly"/>
-      <position name="posPMTPC13" unit="cm" x="25.9808" y="-12.9904" z="0.0000" />
+      <position name="posPMTPC13" unit="cm" x="25.9808" y="-12.9904" z="-40.0000" />
     </physvol>
     <physvol name="pvPMT14">
       <volumeref ref="volPMTAssembly"/>
-      <position name="posPMTPC14" unit="cm" x="8.6603" y="-12.9904" z="0.0000" />
+      <position name="posPMTPC14" unit="cm" x="8.6603" y="-12.9904" z="-40.0000" />
     </physvol>
     <physvol name="pvPMT15">
       <volumeref ref="volPMTAssembly"/>
-      <position name="posPMTPC15" unit="cm" x="-8.6603" y="-12.9904" z="0.0000" />
+      <position name="posPMTPC15" unit="cm" x="-8.6603" y="-12.9904" z="-40.0000" />
     </physvol>
     <physvol name="pvPMT16">
       <volumeref ref="volPMTAssembly"/>
-      <position name="posPMTPC16" unit="cm" x="-25.9808" y="-12.9904" z="0.0000" />
+      <position name="posPMTPC16" unit="cm" x="-25.9808" y="-12.9904" z="-40.0000" />
     </physvol>
     <physvol name="pvPMT17">
       <volumeref ref="volPMTAssembly"/>
-      <position name="posPMTPC17" unit="cm" x="15.0000" y="-25.9808" z="0.0000" />
+      <position name="posPMTPC17" unit="cm" x="15.0000" y="-25.9808" z="-40.0000" />
     </physvol>
     <physvol name="pvPMT18">
       <volumeref ref="volPMTAssembly"/>
-      <position name="posPMTPC18" unit="cm" x="0.0000" y="-25.9808" z="0.0000" />
+      <position name="posPMTPC18" unit="cm" x="0.0000" y="-25.9808" z="-40.0000" />
     </physvol>
     <physvol name="pvPMT19">
       <volumeref ref="volPMTAssembly"/>
-      <position name="posPMTPC19" unit="cm" x="-15.0000" y="-25.9808" z="0.0000" />
+      <position name="posPMTPC19" unit="cm" x="-15.0000" y="-25.9808" z="-40.0000" />
     </physvol>
 
     <!-- End of photocathodes -->
