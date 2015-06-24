@@ -30,7 +30,7 @@ namespace RAT {
     DB* db = DB::Get();
     DBLinkPtr lChroma = db->GetLink("CHROMA");
 
-    fStrQueueAdress = lChroma->GetS("QueueManagerAddress");
+    fStrQueueAddress = lChroma->GetS("QueueManagerAddress");
     try {
       info << "Chroma/RAT Queue manager address is " << fStrQueueAddress << newline;
     }
