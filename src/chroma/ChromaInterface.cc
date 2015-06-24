@@ -30,7 +30,7 @@ namespace RAT {
     DB* db = DB::Get();
     DBLinkPtr lChroma = db->GetLink("CHROMA");
 
-    fStrQueueAddress = lChroma->GetS("QueueManagerAddress");
+    fStrQueueAdress = lChroma->GetS("QueueManagerAddress");
     try {
       info << "Chroma/RAT Queue manager address is " << fStrQueueAddress << newline;
     }
@@ -145,7 +145,6 @@ namespace RAT {
     //hit_photon->SetPMTID((int)iopdet);
     for (int i = 0; i < fPhotonData.photon_size(); i++) 
       {
-	std::cout << i << "of" << fPhotonData.photon_size();
 	GLG4HitPhoton* hit_photon = new GLG4HitPhoton();
 	hit_photon->SetPMTID(fPhotonData.photon(i).pmtid());
 	hit_photon->SetTime(fPhotonData.photon(i).time());

@@ -6,8 +6,11 @@ import random
 
 context = zmq.Context().instance()
 
-socket =context.socket(zmq.REQ)
+socket = context.socket(zmq.REQ)
 socket.bind("tcp://*:5555")
+
+chromaSocket = context.socket(zmq.REQ)
+chromaSocket.bind("tcp://*:5556")
 def MakePhotons(num_pmts):
     phits = photonHit_pb2.PhotonHits()
     pmt_id = 0
@@ -52,11 +55,14 @@ def Server():
     mychromadata.ParseFromString(msg)
     print mychromadata, "\n"
     print "message size: ",mychromadata.ByteSize()
+    mychromadata.SerializeToString()
+    chromaSocket.send(mychromadata)
+    print "sent to chroma"
     #generate some photons
-    phits = MakePhotons(num_pmts)
-    print "making some fake photons\n"
-    print phits
+    #phits = MakePhotons(num_pmts)
+    #print "making some fake photons\n"
+    #print phits
     #ship em
-    socket.send(phits.SerializeToString())    
+    #socket.send(phits.SerializeToString())    
 
 Server()
