@@ -41,7 +41,7 @@ protected:
   zmq::socket_t *client;
   zmq::context_t *context;
   ratchroma::ChromaData message;
-  fakePhotons::PhotonHits fPhotonData;
+  hitPhotons::PhotonHits fPhotonData;
   std::string fStrQueueAddress;
   std::string ClientIdentity;
 };

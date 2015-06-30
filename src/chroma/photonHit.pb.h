@@ -30,7 +30,7 @@
 #include <google/protobuf/unknown_field_set.h>
 // @@protoc_insertion_point(includes)
 
-namespace fakePhotons {
+namespace hitPhotons {
 
 // Internal implementation detail -- do not call these.
 void protobuf_AddDesc_photonHit_2eproto();
@@ -44,12 +44,13 @@ enum OriginFlag {
   CERENKOV = 0,
   SCINTILLATION = 1,
   REEMISSION = 2,
+  CHROMA = 3,
   OriginFlag_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
   OriginFlag_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
 };
 bool OriginFlag_IsValid(int value);
 const OriginFlag OriginFlag_MIN = CERENKOV;
-const OriginFlag OriginFlag_MAX = REEMISSION;
+const OriginFlag OriginFlag_MAX = CHROMA;
 const int OriginFlag_ARRAYSIZE = OriginFlag_MAX + 1;
 
 const ::google::protobuf::EnumDescriptor* OriginFlag_descriptor();
@@ -192,25 +193,19 @@ class Photon : public ::google::protobuf::Message {
   double polz() const;
   void set_polz(double value);
 
-  // optional int32 count = 13;
-  void clear_count();
-  static const int kCountFieldNumber = 13;
-  ::google::protobuf::int32 count() const;
-  void set_count(::google::protobuf::int32 value);
-
   // optional int32 trackID = 14;
   void clear_trackid();
   static const int kTrackIDFieldNumber = 14;
   ::google::protobuf::int32 trackid() const;
   void set_trackid(::google::protobuf::int32 value);
 
-  // optional .fakePhotons.OriginFlag origin = 15;
+  // optional .hitPhotons.OriginFlag origin = 15;
   void clear_origin();
   static const int kOriginFieldNumber = 15;
-  ::fakePhotons::OriginFlag origin() const;
-  void set_origin(::fakePhotons::OriginFlag value);
+  ::hitPhotons::OriginFlag origin() const;
+  void set_origin(::hitPhotons::OriginFlag value);
 
-  // @@protoc_insertion_point(class_scope:fakePhotons.Photon)
+  // @@protoc_insertion_point(class_scope:hitPhotons.Photon)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
@@ -222,13 +217,12 @@ class Photon : public ::google::protobuf::Message {
   double posz_;
   double momx_;
   ::google::protobuf::int32 pmtid_;
-  ::google::protobuf::int32 count_;
+  ::google::protobuf::int32 trackid_;
   double momy_;
   double momz_;
   double polx_;
   double poly_;
   double polz_;
-  ::google::protobuf::int32 trackid_;
   int origin_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_photonHit_2eproto();
@@ -296,24 +290,31 @@ class PhotonHits : public ::google::protobuf::Message {
 
   // accessors -------------------------------------------------------
 
-  // repeated .fakePhotons.Photon photon = 1;
+  // optional int32 count = 1;
+  void clear_count();
+  static const int kCountFieldNumber = 1;
+  ::google::protobuf::int32 count() const;
+  void set_count(::google::protobuf::int32 value);
+
+  // repeated .hitPhotons.Photon photon = 2;
   int photon_size() const;
   void clear_photon();
-  static const int kPhotonFieldNumber = 1;
-  const ::fakePhotons::Photon& photon(int index) const;
-  ::fakePhotons::Photon* mutable_photon(int index);
-  ::fakePhotons::Photon* add_photon();
-  const ::google::protobuf::RepeatedPtrField< ::fakePhotons::Photon >&
+  static const int kPhotonFieldNumber = 2;
+  const ::hitPhotons::Photon& photon(int index) const;
+  ::hitPhotons::Photon* mutable_photon(int index);
+  ::hitPhotons::Photon* add_photon();
+  const ::google::protobuf::RepeatedPtrField< ::hitPhotons::Photon >&
       photon() const;
-  ::google::protobuf::RepeatedPtrField< ::fakePhotons::Photon >*
+  ::google::protobuf::RepeatedPtrField< ::hitPhotons::Photon >*
       mutable_photon();
 
-  // @@protoc_insertion_point(class_scope:fakePhotons.PhotonHits)
+  // @@protoc_insertion_point(class_scope:hitPhotons.PhotonHits)
  private:
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   bool _is_default_instance_;
-  ::google::protobuf::RepeatedPtrField< ::fakePhotons::Photon > photon_;
+  ::google::protobuf::RepeatedPtrField< ::hitPhotons::Photon > photon_;
+  ::google::protobuf::int32 count_;
   mutable int _cached_size_;
   friend void  protobuf_AddDesc_photonHit_2eproto();
   friend void protobuf_AssignDesc_photonHit_2eproto();
@@ -335,13 +336,13 @@ inline void Photon::clear_pmtid() {
   pmtid_ = 0;
 }
 inline ::google::protobuf::int32 Photon::pmtid() const {
-  // @@protoc_insertion_point(field_get:fakePhotons.Photon.PMTID)
+  // @@protoc_insertion_point(field_get:hitPhotons.Photon.PMTID)
   return pmtid_;
 }
 inline void Photon::set_pmtid(::google::protobuf::int32 value) {
   
   pmtid_ = value;
-  // @@protoc_insertion_point(field_set:fakePhotons.Photon.PMTID)
+  // @@protoc_insertion_point(field_set:hitPhotons.Photon.PMTID)
 }
 
 // optional double Time = 2;
@@ -349,13 +350,13 @@ inline void Photon::clear_time() {
   time_ = 0;
 }
 inline double Photon::time() const {
-  // @@protoc_insertion_point(field_get:fakePhotons.Photon.Time)
+  // @@protoc_insertion_point(field_get:hitPhotons.Photon.Time)
   return time_;
 }
 inline void Photon::set_time(double value) {
   
   time_ = value;
-  // @@protoc_insertion_point(field_set:fakePhotons.Photon.Time)
+  // @@protoc_insertion_point(field_set:hitPhotons.Photon.Time)
 }
 
 // optional double KineticEnergy = 3;
@@ -363,13 +364,13 @@ inline void Photon::clear_kineticenergy() {
   kineticenergy_ = 0;
 }
 inline double Photon::kineticenergy() const {
-  // @@protoc_insertion_point(field_get:fakePhotons.Photon.KineticEnergy)
+  // @@protoc_insertion_point(field_get:hitPhotons.Photon.KineticEnergy)
   return kineticenergy_;
 }
 inline void Photon::set_kineticenergy(double value) {
   
   kineticenergy_ = value;
-  // @@protoc_insertion_point(field_set:fakePhotons.Photon.KineticEnergy)
+  // @@protoc_insertion_point(field_set:hitPhotons.Photon.KineticEnergy)
 }
 
 // optional double posX = 4;
@@ -377,13 +378,13 @@ inline void Photon::clear_posx() {
   posx_ = 0;
 }
 inline double Photon::posx() const {
-  // @@protoc_insertion_point(field_get:fakePhotons.Photon.posX)
+  // @@protoc_insertion_point(field_get:hitPhotons.Photon.posX)
   return posx_;
 }
 inline void Photon::set_posx(double value) {
   
   posx_ = value;
-  // @@protoc_insertion_point(field_set:fakePhotons.Photon.posX)
+  // @@protoc_insertion_point(field_set:hitPhotons.Photon.posX)
 }
 
 // optional double posY = 5;
@@ -391,13 +392,13 @@ inline void Photon::clear_posy() {
   posy_ = 0;
 }
 inline double Photon::posy() const {
-  // @@protoc_insertion_point(field_get:fakePhotons.Photon.posY)
+  // @@protoc_insertion_point(field_get:hitPhotons.Photon.posY)
   return posy_;
 }
 inline void Photon::set_posy(double value) {
   
   posy_ = value;
-  // @@protoc_insertion_point(field_set:fakePhotons.Photon.posY)
+  // @@protoc_insertion_point(field_set:hitPhotons.Photon.posY)
 }
 
 // optional double posZ = 6;
@@ -405,13 +406,13 @@ inline void Photon::clear_posz() {
   posz_ = 0;
 }
 inline double Photon::posz() const {
-  // @@protoc_insertion_point(field_get:fakePhotons.Photon.posZ)
+  // @@protoc_insertion_point(field_get:hitPhotons.Photon.posZ)
   return posz_;
 }
 inline void Photon::set_posz(double value) {
   
   posz_ = value;
-  // @@protoc_insertion_point(field_set:fakePhotons.Photon.posZ)
+  // @@protoc_insertion_point(field_set:hitPhotons.Photon.posZ)
 }
 
 // optional double momX = 7;
@@ -419,13 +420,13 @@ inline void Photon::clear_momx() {
   momx_ = 0;
 }
 inline double Photon::momx() const {
-  // @@protoc_insertion_point(field_get:fakePhotons.Photon.momX)
+  // @@protoc_insertion_point(field_get:hitPhotons.Photon.momX)
   return momx_;
 }
 inline void Photon::set_momx(double value) {
   
   momx_ = value;
-  // @@protoc_insertion_point(field_set:fakePhotons.Photon.momX)
+  // @@protoc_insertion_point(field_set:hitPhotons.Photon.momX)
 }
 
 // optional double momY = 8;
@@ -433,13 +434,13 @@ inline void Photon::clear_momy() {
   momy_ = 0;
 }
 inline double Photon::momy() const {
-  // @@protoc_insertion_point(field_get:fakePhotons.Photon.momY)
+  // @@protoc_insertion_point(field_get:hitPhotons.Photon.momY)
   return momy_;
 }
 inline void Photon::set_momy(double value) {
   
   momy_ = value;
-  // @@protoc_insertion_point(field_set:fakePhotons.Photon.momY)
+  // @@protoc_insertion_point(field_set:hitPhotons.Photon.momY)
 }
 
 // optional double momZ = 9;
@@ -447,13 +448,13 @@ inline void Photon::clear_momz() {
   momz_ = 0;
 }
 inline double Photon::momz() const {
-  // @@protoc_insertion_point(field_get:fakePhotons.Photon.momZ)
+  // @@protoc_insertion_point(field_get:hitPhotons.Photon.momZ)
   return momz_;
 }
 inline void Photon::set_momz(double value) {
   
   momz_ = value;
-  // @@protoc_insertion_point(field_set:fakePhotons.Photon.momZ)
+  // @@protoc_insertion_point(field_set:hitPhotons.Photon.momZ)
 }
 
 // optional double polX = 10;
@@ -461,13 +462,13 @@ inline void Photon::clear_polx() {
   polx_ = 0;
 }
 inline double Photon::polx() const {
-  // @@protoc_insertion_point(field_get:fakePhotons.Photon.polX)
+  // @@protoc_insertion_point(field_get:hitPhotons.Photon.polX)
   return polx_;
 }
 inline void Photon::set_polx(double value) {
   
   polx_ = value;
-  // @@protoc_insertion_point(field_set:fakePhotons.Photon.polX)
+  // @@protoc_insertion_point(field_set:hitPhotons.Photon.polX)
 }
 
 // optional double polY = 11;
@@ -475,13 +476,13 @@ inline void Photon::clear_poly() {
   poly_ = 0;
 }
 inline double Photon::poly() const {
-  // @@protoc_insertion_point(field_get:fakePhotons.Photon.polY)
+  // @@protoc_insertion_point(field_get:hitPhotons.Photon.polY)
   return poly_;
 }
 inline void Photon::set_poly(double value) {
   
   poly_ = value;
-  // @@protoc_insertion_point(field_set:fakePhotons.Photon.polY)
+  // @@protoc_insertion_point(field_set:hitPhotons.Photon.polY)
 }
 
 // optional double polZ = 12;
@@ -489,27 +490,13 @@ inline void Photon::clear_polz() {
   polz_ = 0;
 }
 inline double Photon::polz() const {
-  // @@protoc_insertion_point(field_get:fakePhotons.Photon.polZ)
+  // @@protoc_insertion_point(field_get:hitPhotons.Photon.polZ)
   return polz_;
 }
 inline void Photon::set_polz(double value) {
   
   polz_ = value;
-  // @@protoc_insertion_point(field_set:fakePhotons.Photon.polZ)
-}
-
-// optional int32 count = 13;
-inline void Photon::clear_count() {
-  count_ = 0;
-}
-inline ::google::protobuf::int32 Photon::count() const {
-  // @@protoc_insertion_point(field_get:fakePhotons.Photon.count)
-  return count_;
-}
-inline void Photon::set_count(::google::protobuf::int32 value) {
-  
-  count_ = value;
-  // @@protoc_insertion_point(field_set:fakePhotons.Photon.count)
+  // @@protoc_insertion_point(field_set:hitPhotons.Photon.polZ)
 }
 
 // optional int32 trackID = 14;
@@ -517,60 +504,74 @@ inline void Photon::clear_trackid() {
   trackid_ = 0;
 }
 inline ::google::protobuf::int32 Photon::trackid() const {
-  // @@protoc_insertion_point(field_get:fakePhotons.Photon.trackID)
+  // @@protoc_insertion_point(field_get:hitPhotons.Photon.trackID)
   return trackid_;
 }
 inline void Photon::set_trackid(::google::protobuf::int32 value) {
   
   trackid_ = value;
-  // @@protoc_insertion_point(field_set:fakePhotons.Photon.trackID)
+  // @@protoc_insertion_point(field_set:hitPhotons.Photon.trackID)
 }
 
-// optional .fakePhotons.OriginFlag origin = 15;
+// optional .hitPhotons.OriginFlag origin = 15;
 inline void Photon::clear_origin() {
   origin_ = 0;
 }
-inline ::fakePhotons::OriginFlag Photon::origin() const {
-  // @@protoc_insertion_point(field_get:fakePhotons.Photon.origin)
-  return static_cast< ::fakePhotons::OriginFlag >(origin_);
+inline ::hitPhotons::OriginFlag Photon::origin() const {
+  // @@protoc_insertion_point(field_get:hitPhotons.Photon.origin)
+  return static_cast< ::hitPhotons::OriginFlag >(origin_);
 }
-inline void Photon::set_origin(::fakePhotons::OriginFlag value) {
+inline void Photon::set_origin(::hitPhotons::OriginFlag value) {
   
   origin_ = value;
-  // @@protoc_insertion_point(field_set:fakePhotons.Photon.origin)
+  // @@protoc_insertion_point(field_set:hitPhotons.Photon.origin)
 }
 
 // -------------------------------------------------------------------
 
 // PhotonHits
 
-// repeated .fakePhotons.Photon photon = 1;
+// optional int32 count = 1;
+inline void PhotonHits::clear_count() {
+  count_ = 0;
+}
+inline ::google::protobuf::int32 PhotonHits::count() const {
+  // @@protoc_insertion_point(field_get:hitPhotons.PhotonHits.count)
+  return count_;
+}
+inline void PhotonHits::set_count(::google::protobuf::int32 value) {
+  
+  count_ = value;
+  // @@protoc_insertion_point(field_set:hitPhotons.PhotonHits.count)
+}
+
+// repeated .hitPhotons.Photon photon = 2;
 inline int PhotonHits::photon_size() const {
   return photon_.size();
 }
 inline void PhotonHits::clear_photon() {
   photon_.Clear();
 }
-inline const ::fakePhotons::Photon& PhotonHits::photon(int index) const {
-  // @@protoc_insertion_point(field_get:fakePhotons.PhotonHits.photon)
+inline const ::hitPhotons::Photon& PhotonHits::photon(int index) const {
+  // @@protoc_insertion_point(field_get:hitPhotons.PhotonHits.photon)
   return photon_.Get(index);
 }
-inline ::fakePhotons::Photon* PhotonHits::mutable_photon(int index) {
-  // @@protoc_insertion_point(field_mutable:fakePhotons.PhotonHits.photon)
+inline ::hitPhotons::Photon* PhotonHits::mutable_photon(int index) {
+  // @@protoc_insertion_point(field_mutable:hitPhotons.PhotonHits.photon)
   return photon_.Mutable(index);
 }
-inline ::fakePhotons::Photon* PhotonHits::add_photon() {
-  // @@protoc_insertion_point(field_add:fakePhotons.PhotonHits.photon)
+inline ::hitPhotons::Photon* PhotonHits::add_photon() {
+  // @@protoc_insertion_point(field_add:hitPhotons.PhotonHits.photon)
   return photon_.Add();
 }
-inline const ::google::protobuf::RepeatedPtrField< ::fakePhotons::Photon >&
+inline const ::google::protobuf::RepeatedPtrField< ::hitPhotons::Photon >&
 PhotonHits::photon() const {
-  // @@protoc_insertion_point(field_list:fakePhotons.PhotonHits.photon)
+  // @@protoc_insertion_point(field_list:hitPhotons.PhotonHits.photon)
   return photon_;
 }
-inline ::google::protobuf::RepeatedPtrField< ::fakePhotons::Photon >*
+inline ::google::protobuf::RepeatedPtrField< ::hitPhotons::Photon >*
 PhotonHits::mutable_photon() {
-  // @@protoc_insertion_point(field_mutable_list:fakePhotons.PhotonHits.photon)
+  // @@protoc_insertion_point(field_mutable_list:hitPhotons.PhotonHits.photon)
   return &photon_;
 }
 
@@ -580,16 +581,16 @@ PhotonHits::mutable_photon() {
 
 // @@protoc_insertion_point(namespace_scope)
 
-}  // namespace fakePhotons
+}  // namespace hitPhotons
 
 #ifndef SWIG
 namespace google {
 namespace protobuf {
 
-template <> struct is_proto_enum< ::fakePhotons::OriginFlag> : ::google::protobuf::internal::true_type {};
+template <> struct is_proto_enum< ::hitPhotons::OriginFlag> : ::google::protobuf::internal::true_type {};
 template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::fakePhotons::OriginFlag>() {
-  return ::fakePhotons::OriginFlag_descriptor();
+inline const EnumDescriptor* GetEnumDescriptor< ::hitPhotons::OriginFlag>() {
+  return ::hitPhotons::OriginFlag_descriptor();
 }
 
 }  // namespace protobuf

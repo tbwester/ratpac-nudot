@@ -128,6 +128,7 @@ namespace RAT {
     //do some check/confirmation first
     const std::string msg = zhelpers::s_recv (*client);
     fPhotonData.ParseFromString(msg);
+    std::cout << fPhotonData.photon_size();
     std::cout << "Got the photon data." << "\n";
   }
 
@@ -147,18 +148,31 @@ namespace RAT {
       {
 	GLG4HitPhoton* hit_photon = new GLG4HitPhoton();
 	hit_photon->SetPMTID(fPhotonData.photon(i).pmtid());
+	std::cout << "pmtid: " << fPhotonData.photon(i).pmtid();
 	hit_photon->SetTime(fPhotonData.photon(i).time());
+	std::cout << "\ntime: " << fPhotonData.photon(i).time();
 	hit_photon->SetKineticEnergy(fPhotonData.photon(i).kineticenergy());
+	std::cout << "\nKE: " << fPhotonData.photon(i).kineticenergy();
 	hit_photon->SetPosition((fPhotonData.photon(i).posx()),
 				(fPhotonData.photon(i).posy()),
 				(fPhotonData.photon(i).posz()));
+	std::cout << "\npos x: " << fPhotonData.photon(i).posx();
+	std::cout << "\npos y: " << fPhotonData.photon(i).posy();
+	std::cout << "\npos z: " << fPhotonData.photon(i).posz();
 	hit_photon->SetMomentum((fPhotonData.photon(i).momx()),
 				(fPhotonData.photon(i).momy()),
 				(fPhotonData.photon(i).momz()));
+	std::cout << "\nmom x: " << fPhotonData.photon(i).momx();
+	std::cout << "\nmom y: " << fPhotonData.photon(i).momy();
+	std::cout << "\nmom z: " << fPhotonData.photon(i).momz();
 	hit_photon->SetPolarization((fPhotonData.photon(i).polx()),
 				    (fPhotonData.photon(i).poly()),
 				    (fPhotonData.photon(i).polz()));
-	hit_photon->SetCount(fPhotonData.photon(i).count());
+	std::cout << "\npol x: " << fPhotonData.photon(i).polx();
+	std::cout << "\npol y: " << fPhotonData.photon(i).poly();
+	std::cout << "\npol z: " << fPhotonData.photon(i).polz();
+	hit_photon->SetCount(1);
+	std::cout << "\ncount: " << fPhotonData.photon(i).pmtid();
 	hit_photon->SetTrackID(fPhotonData.photon(i).trackid());
 	hit_photon->SetOriginFlag(fPhotonData.photon(i).origin());
 	GLG4VEventAction::GetTheHitPMTCollection()->DetectPhoton(hit_photon);

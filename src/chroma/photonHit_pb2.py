@@ -18,15 +18,15 @@ _sym_db = _symbol_database.Default()
 
 DESCRIPTOR = _descriptor.FileDescriptor(
   name='photonHit.proto',
-  package='fakePhotons',
+  package='hitPhotons',
   syntax='proto3',
-  serialized_pb=_b('\n\x0fphotonHit.proto\x12\x0b\x66\x61kePhotons\"\x83\x02\n\x06Photon\x12\r\n\x05PMTID\x18\x01 \x01(\x05\x12\x0c\n\x04Time\x18\x02 \x01(\x01\x12\x15\n\rKineticEnergy\x18\x03 \x01(\x01\x12\x0c\n\x04posX\x18\x04 \x01(\x01\x12\x0c\n\x04posY\x18\x05 \x01(\x01\x12\x0c\n\x04posZ\x18\x06 \x01(\x01\x12\x0c\n\x04momX\x18\x07 \x01(\x01\x12\x0c\n\x04momY\x18\x08 \x01(\x01\x12\x0c\n\x04momZ\x18\t \x01(\x01\x12\x0c\n\x04polX\x18\n \x01(\x01\x12\x0c\n\x04polY\x18\x0b \x01(\x01\x12\x0c\n\x04polZ\x18\x0c \x01(\x01\x12\r\n\x05\x63ount\x18\r \x01(\x05\x12\x0f\n\x07trackID\x18\x0e \x01(\x05\x12\'\n\x06origin\x18\x0f \x01(\x0e\x32\x17.fakePhotons.OriginFlag\"1\n\nPhotonHits\x12#\n\x06photon\x18\x01 \x03(\x0b\x32\x13.fakePhotons.Photon*I\n\nOriginFlag\x12\x0c\n\x08\x43\x45RENKOV\x10\x00\x12\x11\n\rSCINTILLATION\x10\x01\x12\x0e\n\nREEMISSION\x10\x02\x12\n\n\x06\x43HROMA\x10\x03\x62\x06proto3')
+  serialized_pb=_b('\n\x0fphotonHit.proto\x12\nhitPhotons\"\xf3\x01\n\x06Photon\x12\r\n\x05PMTID\x18\x01 \x01(\x05\x12\x0c\n\x04Time\x18\x02 \x01(\x01\x12\x15\n\rKineticEnergy\x18\x03 \x01(\x01\x12\x0c\n\x04posX\x18\x04 \x01(\x01\x12\x0c\n\x04posY\x18\x05 \x01(\x01\x12\x0c\n\x04posZ\x18\x06 \x01(\x01\x12\x0c\n\x04momX\x18\x07 \x01(\x01\x12\x0c\n\x04momY\x18\x08 \x01(\x01\x12\x0c\n\x04momZ\x18\t \x01(\x01\x12\x0c\n\x04polX\x18\n \x01(\x01\x12\x0c\n\x04polY\x18\x0b \x01(\x01\x12\x0c\n\x04polZ\x18\x0c \x01(\x01\x12\x0f\n\x07trackID\x18\x0e \x01(\x05\x12&\n\x06origin\x18\x0f \x01(\x0e\x32\x16.hitPhotons.OriginFlag\"?\n\nPhotonHits\x12\r\n\x05\x63ount\x18\x01 \x01(\x05\x12\"\n\x06photon\x18\x02 \x03(\x0b\x32\x12.hitPhotons.Photon*I\n\nOriginFlag\x12\x0c\n\x08\x43\x45RENKOV\x10\x00\x12\x11\n\rSCINTILLATION\x10\x01\x12\x0e\n\nREEMISSION\x10\x02\x12\n\n\x06\x43HROMA\x10\x03\x62\x06proto3')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
 _ORIGINFLAG = _descriptor.EnumDescriptor(
   name='OriginFlag',
-  full_name='fakePhotons.OriginFlag',
+  full_name='hitPhotons.OriginFlag',
   filename=None,
   file=DESCRIPTOR,
   values=[
@@ -49,8 +49,8 @@ _ORIGINFLAG = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=345,
-  serialized_end=418,
+  serialized_start=342,
+  serialized_end=415,
 )
 _sym_db.RegisterEnumDescriptor(_ORIGINFLAG)
 
@@ -64,111 +64,104 @@ CHROMA = 3
 
 _PHOTON = _descriptor.Descriptor(
   name='Photon',
-  full_name='fakePhotons.Photon',
+  full_name='hitPhotons.Photon',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='PMTID', full_name='fakePhotons.Photon.PMTID', index=0,
+      name='PMTID', full_name='hitPhotons.Photon.PMTID', index=0,
       number=1, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='Time', full_name='fakePhotons.Photon.Time', index=1,
+      name='Time', full_name='hitPhotons.Photon.Time', index=1,
       number=2, type=1, cpp_type=5, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='KineticEnergy', full_name='fakePhotons.Photon.KineticEnergy', index=2,
+      name='KineticEnergy', full_name='hitPhotons.Photon.KineticEnergy', index=2,
       number=3, type=1, cpp_type=5, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='posX', full_name='fakePhotons.Photon.posX', index=3,
+      name='posX', full_name='hitPhotons.Photon.posX', index=3,
       number=4, type=1, cpp_type=5, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='posY', full_name='fakePhotons.Photon.posY', index=4,
+      name='posY', full_name='hitPhotons.Photon.posY', index=4,
       number=5, type=1, cpp_type=5, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='posZ', full_name='fakePhotons.Photon.posZ', index=5,
+      name='posZ', full_name='hitPhotons.Photon.posZ', index=5,
       number=6, type=1, cpp_type=5, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='momX', full_name='fakePhotons.Photon.momX', index=6,
+      name='momX', full_name='hitPhotons.Photon.momX', index=6,
       number=7, type=1, cpp_type=5, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='momY', full_name='fakePhotons.Photon.momY', index=7,
+      name='momY', full_name='hitPhotons.Photon.momY', index=7,
       number=8, type=1, cpp_type=5, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='momZ', full_name='fakePhotons.Photon.momZ', index=8,
+      name='momZ', full_name='hitPhotons.Photon.momZ', index=8,
       number=9, type=1, cpp_type=5, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='polX', full_name='fakePhotons.Photon.polX', index=9,
+      name='polX', full_name='hitPhotons.Photon.polX', index=9,
       number=10, type=1, cpp_type=5, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='polY', full_name='fakePhotons.Photon.polY', index=10,
+      name='polY', full_name='hitPhotons.Photon.polY', index=10,
       number=11, type=1, cpp_type=5, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='polZ', full_name='fakePhotons.Photon.polZ', index=11,
+      name='polZ', full_name='hitPhotons.Photon.polZ', index=11,
       number=12, type=1, cpp_type=5, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='count', full_name='fakePhotons.Photon.count', index=12,
-      number=13, type=5, cpp_type=1, label=1,
-      has_default_value=False, default_value=0,
-      message_type=None, enum_type=None, containing_type=None,
-      is_extension=False, extension_scope=None,
-      options=None),
-    _descriptor.FieldDescriptor(
-      name='trackID', full_name='fakePhotons.Photon.trackID', index=13,
+      name='trackID', full_name='hitPhotons.Photon.trackID', index=12,
       number=14, type=5, cpp_type=1, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='origin', full_name='fakePhotons.Photon.origin', index=14,
+      name='origin', full_name='hitPhotons.Photon.origin', index=13,
       number=15, type=14, cpp_type=8, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
@@ -186,21 +179,28 @@ _PHOTON = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=33,
-  serialized_end=292,
+  serialized_start=32,
+  serialized_end=275,
 )
 
 
 _PHOTONHITS = _descriptor.Descriptor(
   name='PhotonHits',
-  full_name='fakePhotons.PhotonHits',
+  full_name='hitPhotons.PhotonHits',
   filename=None,
   file=DESCRIPTOR,
   containing_type=None,
   fields=[
     _descriptor.FieldDescriptor(
-      name='photon', full_name='fakePhotons.PhotonHits.photon', index=0,
-      number=1, type=11, cpp_type=10, label=3,
+      name='count', full_name='hitPhotons.PhotonHits.count', index=0,
+      number=1, type=5, cpp_type=1, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='photon', full_name='hitPhotons.PhotonHits.photon', index=1,
+      number=2, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -217,8 +217,8 @@ _PHOTONHITS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=294,
-  serialized_end=343,
+  serialized_start=277,
+  serialized_end=340,
 )
 
 _PHOTON.fields_by_name['origin'].enum_type = _ORIGINFLAG
@@ -230,14 +230,14 @@ DESCRIPTOR.enum_types_by_name['OriginFlag'] = _ORIGINFLAG
 Photon = _reflection.GeneratedProtocolMessageType('Photon', (_message.Message,), dict(
   DESCRIPTOR = _PHOTON,
   __module__ = 'photonHit_pb2'
-  # @@protoc_insertion_point(class_scope:fakePhotons.Photon)
+  # @@protoc_insertion_point(class_scope:hitPhotons.Photon)
   ))
 _sym_db.RegisterMessage(Photon)
 
 PhotonHits = _reflection.GeneratedProtocolMessageType('PhotonHits', (_message.Message,), dict(
   DESCRIPTOR = _PHOTONHITS,
   __module__ = 'photonHit_pb2'
-  # @@protoc_insertion_point(class_scope:fakePhotons.PhotonHits)
+  # @@protoc_insertion_point(class_scope:hitPhotons.PhotonHits)
   ))
 _sym_db.RegisterMessage(PhotonHits)
 

@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='ratchromadata.proto',
   package='ratchroma',
   syntax='proto3',
-  serialized_pb=_b('\n\x13ratchromadata.proto\x12\tratchroma\"\x99\x01\n\x0f\x43herenkovPhoton\x12\t\n\x01x\x18\x02 \x01(\x02\x12\t\n\x01y\x18\x03 \x01(\x02\x12\t\n\x01z\x18\x04 \x01(\x02\x12\t\n\x01t\x18\x05 \x01(\x02\x12\n\n\x02\x64x\x18\x06 \x01(\x02\x12\n\n\x02\x64y\x18\x07 \x01(\x02\x12\n\n\x02\x64z\x18\x08 \x01(\x02\x12\x12\n\nwavelength\x18\t \x01(\x02\x12\n\n\x02px\x18\n \x01(\x02\x12\n\n\x02py\x18\x0b \x01(\x02\x12\n\n\x02pz\x18\x0c \x01(\x02\"\xd7\x01\n\tScintStep\x12\x10\n\x08nphotons\x18\x01 \x01(\x05\x12\x14\n\x0cstep_start_x\x18\x02 \x01(\x02\x12\x14\n\x0cstep_start_y\x18\x03 \x01(\x02\x12\x14\n\x0cstep_start_z\x18\x04 \x01(\x02\x12\x14\n\x0cstep_start_t\x18\x05 \x01(\x02\x12\x12\n\nstep_end_x\x18\x06 \x01(\x02\x12\x12\n\nstep_end_y\x18\x07 \x01(\x02\x12\x12\n\nstep_end_z\x18\x08 \x01(\x02\x12\x12\n\nstep_end_t\x18\t \x01(\x02\x12\x10\n\x08material\x18\n \x01(\t\"w\n\nChromaData\x12\x0f\n\x07\x65ventid\x18\x01 \x01(\x05\x12\x30\n\x0c\x63herekovdata\x18\x02 \x03(\x0b\x32\x1a.ratchroma.CherenkovPhoton\x12&\n\x08stepdata\x18\x03 \x03(\x0b\x32\x14.ratchroma.ScintStepb\x06proto3')
+  serialized_pb=_b('\n\x13ratchromadata.proto\x12\tratchroma\"\x99\x01\n\x0f\x43herenkovPhoton\x12\t\n\x01x\x18\x02 \x01(\x02\x12\t\n\x01y\x18\x03 \x01(\x02\x12\t\n\x01z\x18\x04 \x01(\x02\x12\t\n\x01t\x18\x05 \x01(\x02\x12\n\n\x02\x64x\x18\x06 \x01(\x02\x12\n\n\x02\x64y\x18\x07 \x01(\x02\x12\n\n\x02\x64z\x18\x08 \x01(\x02\x12\x12\n\nwavelength\x18\t \x01(\x02\x12\n\n\x02px\x18\n \x01(\x02\x12\n\n\x02py\x18\x0b \x01(\x02\x12\n\n\x02pz\x18\x0c \x01(\x02\"\xd7\x01\n\tScintStep\x12\x10\n\x08nphotons\x18\x01 \x01(\x05\x12\x14\n\x0cstep_start_x\x18\x02 \x01(\x02\x12\x14\n\x0cstep_start_y\x18\x03 \x01(\x02\x12\x14\n\x0cstep_start_z\x18\x04 \x01(\x02\x12\x14\n\x0cstep_start_t\x18\x05 \x01(\x02\x12\x12\n\nstep_end_x\x18\x06 \x01(\x02\x12\x12\n\nstep_end_y\x18\x07 \x01(\x02\x12\x12\n\nstep_end_z\x18\x08 \x01(\x02\x12\x12\n\nstep_end_t\x18\t \x01(\x02\x12\x10\n\x08material\x18\n \x01(\t\"x\n\nChromaData\x12\x0f\n\x07\x65ventid\x18\x01 \x01(\x05\x12\x31\n\rcherenkovdata\x18\x02 \x03(\x0b\x32\x1a.ratchroma.CherenkovPhoton\x12&\n\x08stepdata\x18\x03 \x03(\x0b\x32\x14.ratchroma.ScintStepb\x06proto3')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -236,7 +236,7 @@ _CHROMADATA = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='cherekovdata', full_name='ratchroma.ChromaData.cherekovdata', index=1,
+      name='cherenkovdata', full_name='ratchroma.ChromaData.cherenkovdata', index=1,
       number=2, type=11, cpp_type=10, label=3,
       has_default_value=False, default_value=[],
       message_type=None, enum_type=None, containing_type=None,
@@ -262,10 +262,10 @@ _CHROMADATA = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=408,
-  serialized_end=527,
+  serialized_end=528,
 )
 
-_CHROMADATA.fields_by_name['cherekovdata'].message_type = _CHERENKOVPHOTON
+_CHROMADATA.fields_by_name['cherenkovdata'].message_type = _CHERENKOVPHOTON
 _CHROMADATA.fields_by_name['stepdata'].message_type = _SCINTSTEP
 DESCRIPTOR.message_types_by_name['CherenkovPhoton'] = _CHERENKOVPHOTON
 DESCRIPTOR.message_types_by_name['ScintStep'] = _SCINTSTEP

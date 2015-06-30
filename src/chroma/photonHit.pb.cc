@@ -16,7 +16,7 @@
 #include <google/protobuf/wire_format.h>
 // @@protoc_insertion_point(includes)
 
-namespace fakePhotons {
+namespace hitPhotons {
 
 namespace {
 
@@ -38,7 +38,7 @@ void protobuf_AssignDesc_photonHit_2eproto() {
       "photonHit.proto");
   GOOGLE_CHECK(file != NULL);
   Photon_descriptor_ = file->message_type(0);
-  static const int Photon_offsets_[15] = {
+  static const int Photon_offsets_[14] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Photon, pmtid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Photon, time_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Photon, kineticenergy_),
@@ -51,7 +51,6 @@ void protobuf_AssignDesc_photonHit_2eproto() {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Photon, polx_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Photon, poly_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Photon, polz_),
-    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Photon, count_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Photon, trackid_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Photon, origin_),
   };
@@ -67,7 +66,8 @@ void protobuf_AssignDesc_photonHit_2eproto() {
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Photon, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Photon, _is_default_instance_));
   PhotonHits_descriptor_ = file->message_type(1);
-  static const int PhotonHits_offsets_[1] = {
+  static const int PhotonHits_offsets_[2] = {
+    GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PhotonHits, count_),
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PhotonHits, photon_),
   };
   PhotonHits_reflection_ =
@@ -116,17 +116,17 @@ void protobuf_AddDesc_photonHit_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\017photonHit.proto\022\013fakePhotons\"\203\002\n\006Photo"
-    "n\022\r\n\005PMTID\030\001 \001(\005\022\014\n\004Time\030\002 \001(\001\022\025\n\rKineti"
-    "cEnergy\030\003 \001(\001\022\014\n\004posX\030\004 \001(\001\022\014\n\004posY\030\005 \001("
-    "\001\022\014\n\004posZ\030\006 \001(\001\022\014\n\004momX\030\007 \001(\001\022\014\n\004momY\030\010 "
-    "\001(\001\022\014\n\004momZ\030\t \001(\001\022\014\n\004polX\030\n \001(\001\022\014\n\004polY\030"
-    "\013 \001(\001\022\014\n\004polZ\030\014 \001(\001\022\r\n\005count\030\r \001(\005\022\017\n\007tr"
-    "ackID\030\016 \001(\005\022\'\n\006origin\030\017 \001(\0162\027.fakePhoton"
-    "s.OriginFlag\"1\n\nPhotonHits\022#\n\006photon\030\001 \003"
-    "(\0132\023.fakePhotons.Photon*=\n\nOriginFlag\022\014\n"
-    "\010CERENKOV\020\000\022\021\n\rSCINTILLATION\020\001\022\016\n\nREEMIS"
-    "SION\020\002b\006proto3", 414);
+    "\n\017photonHit.proto\022\nhitPhotons\"\363\001\n\006Photon"
+    "\022\r\n\005PMTID\030\001 \001(\005\022\014\n\004Time\030\002 \001(\001\022\025\n\rKinetic"
+    "Energy\030\003 \001(\001\022\014\n\004posX\030\004 \001(\001\022\014\n\004posY\030\005 \001(\001"
+    "\022\014\n\004posZ\030\006 \001(\001\022\014\n\004momX\030\007 \001(\001\022\014\n\004momY\030\010 \001"
+    "(\001\022\014\n\004momZ\030\t \001(\001\022\014\n\004polX\030\n \001(\001\022\014\n\004polY\030\013"
+    " \001(\001\022\014\n\004polZ\030\014 \001(\001\022\017\n\007trackID\030\016 \001(\005\022&\n\006o"
+    "rigin\030\017 \001(\0162\026.hitPhotons.OriginFlag\"\?\n\nP"
+    "hotonHits\022\r\n\005count\030\001 \001(\005\022\"\n\006photon\030\002 \003(\013"
+    "2\022.hitPhotons.Photon*I\n\nOriginFlag\022\014\n\010CE"
+    "RENKOV\020\000\022\021\n\rSCINTILLATION\020\001\022\016\n\nREEMISSIO"
+    "N\020\002\022\n\n\006CHROMA\020\003b\006proto3", 423);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "photonHit.proto", &protobuf_RegisterTypes);
   Photon::default_instance_ = new Photon();
@@ -151,6 +151,7 @@ bool OriginFlag_IsValid(int value) {
     case 0:
     case 1:
     case 2:
+    case 3:
       return true;
     default:
       return false;
@@ -183,7 +184,6 @@ const int Photon::kMomZFieldNumber;
 const int Photon::kPolXFieldNumber;
 const int Photon::kPolYFieldNumber;
 const int Photon::kPolZFieldNumber;
-const int Photon::kCountFieldNumber;
 const int Photon::kTrackIDFieldNumber;
 const int Photon::kOriginFieldNumber;
 #endif  // !_MSC_VER
@@ -191,7 +191,7 @@ const int Photon::kOriginFieldNumber;
 Photon::Photon()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:fakePhotons.Photon)
+  // @@protoc_insertion_point(constructor:hitPhotons.Photon)
 }
 
 void Photon::InitAsDefaultInstance() {
@@ -203,7 +203,7 @@ Photon::Photon(const Photon& from)
     _internal_metadata_(NULL) {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:fakePhotons.Photon)
+  // @@protoc_insertion_point(copy_constructor:hitPhotons.Photon)
 }
 
 void Photon::SharedCtor() {
@@ -221,13 +221,12 @@ void Photon::SharedCtor() {
   polx_ = 0;
   poly_ = 0;
   polz_ = 0;
-  count_ = 0;
   trackid_ = 0;
   origin_ = 0;
 }
 
 Photon::~Photon() {
-  // @@protoc_insertion_point(destructor:fakePhotons.Photon)
+  // @@protoc_insertion_point(destructor:hitPhotons.Photon)
   SharedDtor();
 }
 
@@ -273,7 +272,7 @@ void Photon::Clear() {
   ZR_(time_, pmtid_);
   momy_ = 0;
   ZR_(momz_, origin_);
-  count_ = 0;
+  trackid_ = 0;
 
 #undef ZR_HELPER_
 #undef ZR_
@@ -284,7 +283,7 @@ bool Photon::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:fakePhotons.Photon)
+  // @@protoc_insertion_point(parse_start:hitPhotons.Photon)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
@@ -465,21 +464,6 @@ bool Photon::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(104)) goto parse_count;
-        break;
-      }
-
-      // optional int32 count = 13;
-      case 13: {
-        if (tag == 104) {
-         parse_count:
-          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
-                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
-                 input, &count_)));
-
-        } else {
-          goto handle_unusual;
-        }
         if (input->ExpectTag(112)) goto parse_trackID;
         break;
       }
@@ -499,7 +483,7 @@ bool Photon::MergePartialFromCodedStream(
         break;
       }
 
-      // optional .fakePhotons.OriginFlag origin = 15;
+      // optional .hitPhotons.OriginFlag origin = 15;
       case 15: {
         if (tag == 120) {
          parse_origin:
@@ -507,7 +491,7 @@ bool Photon::MergePartialFromCodedStream(
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
                  input, &value)));
-          set_origin(static_cast< ::fakePhotons::OriginFlag >(value));
+          set_origin(static_cast< ::hitPhotons::OriginFlag >(value));
         } else {
           goto handle_unusual;
         }
@@ -528,17 +512,17 @@ bool Photon::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:fakePhotons.Photon)
+  // @@protoc_insertion_point(parse_success:hitPhotons.Photon)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:fakePhotons.Photon)
+  // @@protoc_insertion_point(parse_failure:hitPhotons.Photon)
   return false;
 #undef DO_
 }
 
 void Photon::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:fakePhotons.Photon)
+  // @@protoc_insertion_point(serialize_start:hitPhotons.Photon)
   // optional int32 PMTID = 1;
   if (this->pmtid() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->pmtid(), output);
@@ -599,28 +583,23 @@ void Photon::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteDouble(12, this->polz(), output);
   }
 
-  // optional int32 count = 13;
-  if (this->count() != 0) {
-    ::google::protobuf::internal::WireFormatLite::WriteInt32(13, this->count(), output);
-  }
-
   // optional int32 trackID = 14;
   if (this->trackid() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteInt32(14, this->trackid(), output);
   }
 
-  // optional .fakePhotons.OriginFlag origin = 15;
+  // optional .hitPhotons.OriginFlag origin = 15;
   if (this->origin() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteEnum(
       15, this->origin(), output);
   }
 
-  // @@protoc_insertion_point(serialize_end:fakePhotons.Photon)
+  // @@protoc_insertion_point(serialize_end:hitPhotons.Photon)
 }
 
 ::google::protobuf::uint8* Photon::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:fakePhotons.Photon)
+  // @@protoc_insertion_point(serialize_to_array_start:hitPhotons.Photon)
   // optional int32 PMTID = 1;
   if (this->pmtid() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->pmtid(), target);
@@ -681,23 +660,18 @@ void Photon::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteDoubleToArray(12, this->polz(), target);
   }
 
-  // optional int32 count = 13;
-  if (this->count() != 0) {
-    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(13, this->count(), target);
-  }
-
   // optional int32 trackID = 14;
   if (this->trackid() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(14, this->trackid(), target);
   }
 
-  // optional .fakePhotons.OriginFlag origin = 15;
+  // optional .hitPhotons.OriginFlag origin = 15;
   if (this->origin() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
       15, this->origin(), target);
   }
 
-  // @@protoc_insertion_point(serialize_to_array_end:fakePhotons.Photon)
+  // @@protoc_insertion_point(serialize_to_array_end:hitPhotons.Photon)
   return target;
 }
 
@@ -766,13 +740,6 @@ int Photon::ByteSize() const {
     total_size += 1 + 8;
   }
 
-  // optional int32 count = 13;
-  if (this->count() != 0) {
-    total_size += 1 +
-      ::google::protobuf::internal::WireFormatLite::Int32Size(
-        this->count());
-  }
-
   // optional int32 trackID = 14;
   if (this->trackid() != 0) {
     total_size += 1 +
@@ -780,7 +747,7 @@ int Photon::ByteSize() const {
         this->trackid());
   }
 
-  // optional .fakePhotons.OriginFlag origin = 15;
+  // optional .hitPhotons.OriginFlag origin = 15;
   if (this->origin() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::EnumSize(this->origin());
@@ -842,9 +809,6 @@ void Photon::MergeFrom(const Photon& from) {
   if (from.polz() != 0) {
     set_polz(from.polz());
   }
-  if (from.count() != 0) {
-    set_count(from.count());
-  }
   if (from.trackid() != 0) {
     set_trackid(from.trackid());
   }
@@ -887,7 +851,6 @@ void Photon::InternalSwap(Photon* other) {
   std::swap(polx_, other->polx_);
   std::swap(poly_, other->poly_);
   std::swap(polz_, other->polz_);
-  std::swap(count_, other->count_);
   std::swap(trackid_, other->trackid_);
   std::swap(origin_, other->origin_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
@@ -910,13 +873,13 @@ void Photon::clear_pmtid() {
   pmtid_ = 0;
 }
  ::google::protobuf::int32 Photon::pmtid() const {
-  // @@protoc_insertion_point(field_get:fakePhotons.Photon.PMTID)
+  // @@protoc_insertion_point(field_get:hitPhotons.Photon.PMTID)
   return pmtid_;
 }
  void Photon::set_pmtid(::google::protobuf::int32 value) {
   
   pmtid_ = value;
-  // @@protoc_insertion_point(field_set:fakePhotons.Photon.PMTID)
+  // @@protoc_insertion_point(field_set:hitPhotons.Photon.PMTID)
 }
 
 // optional double Time = 2;
@@ -924,13 +887,13 @@ void Photon::clear_time() {
   time_ = 0;
 }
  double Photon::time() const {
-  // @@protoc_insertion_point(field_get:fakePhotons.Photon.Time)
+  // @@protoc_insertion_point(field_get:hitPhotons.Photon.Time)
   return time_;
 }
  void Photon::set_time(double value) {
   
   time_ = value;
-  // @@protoc_insertion_point(field_set:fakePhotons.Photon.Time)
+  // @@protoc_insertion_point(field_set:hitPhotons.Photon.Time)
 }
 
 // optional double KineticEnergy = 3;
@@ -938,13 +901,13 @@ void Photon::clear_kineticenergy() {
   kineticenergy_ = 0;
 }
  double Photon::kineticenergy() const {
-  // @@protoc_insertion_point(field_get:fakePhotons.Photon.KineticEnergy)
+  // @@protoc_insertion_point(field_get:hitPhotons.Photon.KineticEnergy)
   return kineticenergy_;
 }
  void Photon::set_kineticenergy(double value) {
   
   kineticenergy_ = value;
-  // @@protoc_insertion_point(field_set:fakePhotons.Photon.KineticEnergy)
+  // @@protoc_insertion_point(field_set:hitPhotons.Photon.KineticEnergy)
 }
 
 // optional double posX = 4;
@@ -952,13 +915,13 @@ void Photon::clear_posx() {
   posx_ = 0;
 }
  double Photon::posx() const {
-  // @@protoc_insertion_point(field_get:fakePhotons.Photon.posX)
+  // @@protoc_insertion_point(field_get:hitPhotons.Photon.posX)
   return posx_;
 }
  void Photon::set_posx(double value) {
   
   posx_ = value;
-  // @@protoc_insertion_point(field_set:fakePhotons.Photon.posX)
+  // @@protoc_insertion_point(field_set:hitPhotons.Photon.posX)
 }
 
 // optional double posY = 5;
@@ -966,13 +929,13 @@ void Photon::clear_posy() {
   posy_ = 0;
 }
  double Photon::posy() const {
-  // @@protoc_insertion_point(field_get:fakePhotons.Photon.posY)
+  // @@protoc_insertion_point(field_get:hitPhotons.Photon.posY)
   return posy_;
 }
  void Photon::set_posy(double value) {
   
   posy_ = value;
-  // @@protoc_insertion_point(field_set:fakePhotons.Photon.posY)
+  // @@protoc_insertion_point(field_set:hitPhotons.Photon.posY)
 }
 
 // optional double posZ = 6;
@@ -980,13 +943,13 @@ void Photon::clear_posz() {
   posz_ = 0;
 }
  double Photon::posz() const {
-  // @@protoc_insertion_point(field_get:fakePhotons.Photon.posZ)
+  // @@protoc_insertion_point(field_get:hitPhotons.Photon.posZ)
   return posz_;
 }
  void Photon::set_posz(double value) {
   
   posz_ = value;
-  // @@protoc_insertion_point(field_set:fakePhotons.Photon.posZ)
+  // @@protoc_insertion_point(field_set:hitPhotons.Photon.posZ)
 }
 
 // optional double momX = 7;
@@ -994,13 +957,13 @@ void Photon::clear_momx() {
   momx_ = 0;
 }
  double Photon::momx() const {
-  // @@protoc_insertion_point(field_get:fakePhotons.Photon.momX)
+  // @@protoc_insertion_point(field_get:hitPhotons.Photon.momX)
   return momx_;
 }
  void Photon::set_momx(double value) {
   
   momx_ = value;
-  // @@protoc_insertion_point(field_set:fakePhotons.Photon.momX)
+  // @@protoc_insertion_point(field_set:hitPhotons.Photon.momX)
 }
 
 // optional double momY = 8;
@@ -1008,13 +971,13 @@ void Photon::clear_momy() {
   momy_ = 0;
 }
  double Photon::momy() const {
-  // @@protoc_insertion_point(field_get:fakePhotons.Photon.momY)
+  // @@protoc_insertion_point(field_get:hitPhotons.Photon.momY)
   return momy_;
 }
  void Photon::set_momy(double value) {
   
   momy_ = value;
-  // @@protoc_insertion_point(field_set:fakePhotons.Photon.momY)
+  // @@protoc_insertion_point(field_set:hitPhotons.Photon.momY)
 }
 
 // optional double momZ = 9;
@@ -1022,13 +985,13 @@ void Photon::clear_momz() {
   momz_ = 0;
 }
  double Photon::momz() const {
-  // @@protoc_insertion_point(field_get:fakePhotons.Photon.momZ)
+  // @@protoc_insertion_point(field_get:hitPhotons.Photon.momZ)
   return momz_;
 }
  void Photon::set_momz(double value) {
   
   momz_ = value;
-  // @@protoc_insertion_point(field_set:fakePhotons.Photon.momZ)
+  // @@protoc_insertion_point(field_set:hitPhotons.Photon.momZ)
 }
 
 // optional double polX = 10;
@@ -1036,13 +999,13 @@ void Photon::clear_polx() {
   polx_ = 0;
 }
  double Photon::polx() const {
-  // @@protoc_insertion_point(field_get:fakePhotons.Photon.polX)
+  // @@protoc_insertion_point(field_get:hitPhotons.Photon.polX)
   return polx_;
 }
  void Photon::set_polx(double value) {
   
   polx_ = value;
-  // @@protoc_insertion_point(field_set:fakePhotons.Photon.polX)
+  // @@protoc_insertion_point(field_set:hitPhotons.Photon.polX)
 }
 
 // optional double polY = 11;
@@ -1050,13 +1013,13 @@ void Photon::clear_poly() {
   poly_ = 0;
 }
  double Photon::poly() const {
-  // @@protoc_insertion_point(field_get:fakePhotons.Photon.polY)
+  // @@protoc_insertion_point(field_get:hitPhotons.Photon.polY)
   return poly_;
 }
  void Photon::set_poly(double value) {
   
   poly_ = value;
-  // @@protoc_insertion_point(field_set:fakePhotons.Photon.polY)
+  // @@protoc_insertion_point(field_set:hitPhotons.Photon.polY)
 }
 
 // optional double polZ = 12;
@@ -1064,27 +1027,13 @@ void Photon::clear_polz() {
   polz_ = 0;
 }
  double Photon::polz() const {
-  // @@protoc_insertion_point(field_get:fakePhotons.Photon.polZ)
+  // @@protoc_insertion_point(field_get:hitPhotons.Photon.polZ)
   return polz_;
 }
  void Photon::set_polz(double value) {
   
   polz_ = value;
-  // @@protoc_insertion_point(field_set:fakePhotons.Photon.polZ)
-}
-
-// optional int32 count = 13;
-void Photon::clear_count() {
-  count_ = 0;
-}
- ::google::protobuf::int32 Photon::count() const {
-  // @@protoc_insertion_point(field_get:fakePhotons.Photon.count)
-  return count_;
-}
- void Photon::set_count(::google::protobuf::int32 value) {
-  
-  count_ = value;
-  // @@protoc_insertion_point(field_set:fakePhotons.Photon.count)
+  // @@protoc_insertion_point(field_set:hitPhotons.Photon.polZ)
 }
 
 // optional int32 trackID = 14;
@@ -1092,27 +1041,27 @@ void Photon::clear_trackid() {
   trackid_ = 0;
 }
  ::google::protobuf::int32 Photon::trackid() const {
-  // @@protoc_insertion_point(field_get:fakePhotons.Photon.trackID)
+  // @@protoc_insertion_point(field_get:hitPhotons.Photon.trackID)
   return trackid_;
 }
  void Photon::set_trackid(::google::protobuf::int32 value) {
   
   trackid_ = value;
-  // @@protoc_insertion_point(field_set:fakePhotons.Photon.trackID)
+  // @@protoc_insertion_point(field_set:hitPhotons.Photon.trackID)
 }
 
-// optional .fakePhotons.OriginFlag origin = 15;
+// optional .hitPhotons.OriginFlag origin = 15;
 void Photon::clear_origin() {
   origin_ = 0;
 }
- ::fakePhotons::OriginFlag Photon::origin() const {
-  // @@protoc_insertion_point(field_get:fakePhotons.Photon.origin)
-  return static_cast< ::fakePhotons::OriginFlag >(origin_);
+ ::hitPhotons::OriginFlag Photon::origin() const {
+  // @@protoc_insertion_point(field_get:hitPhotons.Photon.origin)
+  return static_cast< ::hitPhotons::OriginFlag >(origin_);
 }
- void Photon::set_origin(::fakePhotons::OriginFlag value) {
+ void Photon::set_origin(::hitPhotons::OriginFlag value) {
   
   origin_ = value;
-  // @@protoc_insertion_point(field_set:fakePhotons.Photon.origin)
+  // @@protoc_insertion_point(field_set:hitPhotons.Photon.origin)
 }
 
 #endif  // PROTOBUF_INLINE_NOT_IN_HEADERS
@@ -1120,13 +1069,14 @@ void Photon::clear_origin() {
 // ===================================================================
 
 #ifndef _MSC_VER
+const int PhotonHits::kCountFieldNumber;
 const int PhotonHits::kPhotonFieldNumber;
 #endif  // !_MSC_VER
 
 PhotonHits::PhotonHits()
   : ::google::protobuf::Message(), _internal_metadata_(NULL) {
   SharedCtor();
-  // @@protoc_insertion_point(constructor:fakePhotons.PhotonHits)
+  // @@protoc_insertion_point(constructor:hitPhotons.PhotonHits)
 }
 
 void PhotonHits::InitAsDefaultInstance() {
@@ -1138,16 +1088,17 @@ PhotonHits::PhotonHits(const PhotonHits& from)
     _internal_metadata_(NULL) {
   SharedCtor();
   MergeFrom(from);
-  // @@protoc_insertion_point(copy_constructor:fakePhotons.PhotonHits)
+  // @@protoc_insertion_point(copy_constructor:hitPhotons.PhotonHits)
 }
 
 void PhotonHits::SharedCtor() {
     _is_default_instance_ = false;
   _cached_size_ = 0;
+  count_ = 0;
 }
 
 PhotonHits::~PhotonHits() {
-  // @@protoc_insertion_point(destructor:fakePhotons.PhotonHits)
+  // @@protoc_insertion_point(destructor:hitPhotons.PhotonHits)
   SharedDtor();
 }
 
@@ -1182,6 +1133,7 @@ PhotonHits* PhotonHits::New(::google::protobuf::Arena* arena) const {
 }
 
 void PhotonHits::Clear() {
+  count_ = 0;
   photon_.Clear();
 }
 
@@ -1189,15 +1141,30 @@ bool PhotonHits::MergePartialFromCodedStream(
     ::google::protobuf::io::CodedInputStream* input) {
 #define DO_(EXPRESSION) if (!(EXPRESSION)) goto failure
   ::google::protobuf::uint32 tag;
-  // @@protoc_insertion_point(parse_start:fakePhotons.PhotonHits)
+  // @@protoc_insertion_point(parse_start:hitPhotons.PhotonHits)
   for (;;) {
     ::std::pair< ::google::protobuf::uint32, bool> p = input->ReadTagWithCutoff(127);
     tag = p.first;
     if (!p.second) goto handle_unusual;
     switch (::google::protobuf::internal::WireFormatLite::GetTagFieldNumber(tag)) {
-      // repeated .fakePhotons.Photon photon = 1;
+      // optional int32 count = 1;
       case 1: {
-        if (tag == 10) {
+        if (tag == 8) {
+          DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
+                   ::google::protobuf::int32, ::google::protobuf::internal::WireFormatLite::TYPE_INT32>(
+                 input, &count_)));
+
+        } else {
+          goto handle_unusual;
+        }
+        if (input->ExpectTag(18)) goto parse_photon;
+        break;
+      }
+
+      // repeated .hitPhotons.Photon photon = 2;
+      case 2: {
+        if (tag == 18) {
+         parse_photon:
           DO_(input->IncrementRecursionDepth());
          parse_loop_photon:
           DO_(::google::protobuf::internal::WireFormatLite::ReadMessageNoVirtualNoRecursionDepth(
@@ -1205,7 +1172,7 @@ bool PhotonHits::MergePartialFromCodedStream(
         } else {
           goto handle_unusual;
         }
-        if (input->ExpectTag(10)) goto parse_loop_photon;
+        if (input->ExpectTag(18)) goto parse_loop_photon;
         input->UnsafeDecrementRecursionDepth();
         if (input->ExpectAtEnd()) goto success;
         break;
@@ -1224,44 +1191,61 @@ bool PhotonHits::MergePartialFromCodedStream(
     }
   }
 success:
-  // @@protoc_insertion_point(parse_success:fakePhotons.PhotonHits)
+  // @@protoc_insertion_point(parse_success:hitPhotons.PhotonHits)
   return true;
 failure:
-  // @@protoc_insertion_point(parse_failure:fakePhotons.PhotonHits)
+  // @@protoc_insertion_point(parse_failure:hitPhotons.PhotonHits)
   return false;
 #undef DO_
 }
 
 void PhotonHits::SerializeWithCachedSizes(
     ::google::protobuf::io::CodedOutputStream* output) const {
-  // @@protoc_insertion_point(serialize_start:fakePhotons.PhotonHits)
-  // repeated .fakePhotons.Photon photon = 1;
-  for (unsigned int i = 0, n = this->photon_size(); i < n; i++) {
-    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
-      1, this->photon(i), output);
+  // @@protoc_insertion_point(serialize_start:hitPhotons.PhotonHits)
+  // optional int32 count = 1;
+  if (this->count() != 0) {
+    ::google::protobuf::internal::WireFormatLite::WriteInt32(1, this->count(), output);
   }
 
-  // @@protoc_insertion_point(serialize_end:fakePhotons.PhotonHits)
+  // repeated .hitPhotons.Photon photon = 2;
+  for (unsigned int i = 0, n = this->photon_size(); i < n; i++) {
+    ::google::protobuf::internal::WireFormatLite::WriteMessageMaybeToArray(
+      2, this->photon(i), output);
+  }
+
+  // @@protoc_insertion_point(serialize_end:hitPhotons.PhotonHits)
 }
 
 ::google::protobuf::uint8* PhotonHits::SerializeWithCachedSizesToArray(
     ::google::protobuf::uint8* target) const {
-  // @@protoc_insertion_point(serialize_to_array_start:fakePhotons.PhotonHits)
-  // repeated .fakePhotons.Photon photon = 1;
+  // @@protoc_insertion_point(serialize_to_array_start:hitPhotons.PhotonHits)
+  // optional int32 count = 1;
+  if (this->count() != 0) {
+    target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(1, this->count(), target);
+  }
+
+  // repeated .hitPhotons.Photon photon = 2;
   for (unsigned int i = 0, n = this->photon_size(); i < n; i++) {
     target = ::google::protobuf::internal::WireFormatLite::
       WriteMessageNoVirtualToArray(
-        1, this->photon(i), target);
+        2, this->photon(i), target);
   }
 
-  // @@protoc_insertion_point(serialize_to_array_end:fakePhotons.PhotonHits)
+  // @@protoc_insertion_point(serialize_to_array_end:hitPhotons.PhotonHits)
   return target;
 }
 
 int PhotonHits::ByteSize() const {
   int total_size = 0;
 
-  // repeated .fakePhotons.Photon photon = 1;
+  // optional int32 count = 1;
+  if (this->count() != 0) {
+    total_size += 1 +
+      ::google::protobuf::internal::WireFormatLite::Int32Size(
+        this->count());
+  }
+
+  // repeated .hitPhotons.Photon photon = 2;
   total_size += 1 * this->photon_size();
   for (int i = 0; i < this->photon_size(); i++) {
     total_size +=
@@ -1290,6 +1274,9 @@ void PhotonHits::MergeFrom(const ::google::protobuf::Message& from) {
 void PhotonHits::MergeFrom(const PhotonHits& from) {
   if (GOOGLE_PREDICT_FALSE(&from == this)) MergeFromFail(__LINE__);
   photon_.MergeFrom(from.photon_);
+  if (from.count() != 0) {
+    set_count(from.count());
+  }
 }
 
 void PhotonHits::CopyFrom(const ::google::protobuf::Message& from) {
@@ -1314,6 +1301,7 @@ void PhotonHits::Swap(PhotonHits* other) {
   InternalSwap(other);
 }
 void PhotonHits::InternalSwap(PhotonHits* other) {
+  std::swap(count_, other->count_);
   photon_.UnsafeArenaSwap(&other->photon_);
   _internal_metadata_.Swap(&other->_internal_metadata_);
   std::swap(_cached_size_, other->_cached_size_);
@@ -1330,33 +1318,47 @@ void PhotonHits::InternalSwap(PhotonHits* other) {
 #if PROTOBUF_INLINE_NOT_IN_HEADERS
 // PhotonHits
 
-// repeated .fakePhotons.Photon photon = 1;
+// optional int32 count = 1;
+void PhotonHits::clear_count() {
+  count_ = 0;
+}
+ ::google::protobuf::int32 PhotonHits::count() const {
+  // @@protoc_insertion_point(field_get:hitPhotons.PhotonHits.count)
+  return count_;
+}
+ void PhotonHits::set_count(::google::protobuf::int32 value) {
+  
+  count_ = value;
+  // @@protoc_insertion_point(field_set:hitPhotons.PhotonHits.count)
+}
+
+// repeated .hitPhotons.Photon photon = 2;
 int PhotonHits::photon_size() const {
   return photon_.size();
 }
 void PhotonHits::clear_photon() {
   photon_.Clear();
 }
- const ::fakePhotons::Photon& PhotonHits::photon(int index) const {
-  // @@protoc_insertion_point(field_get:fakePhotons.PhotonHits.photon)
+ const ::hitPhotons::Photon& PhotonHits::photon(int index) const {
+  // @@protoc_insertion_point(field_get:hitPhotons.PhotonHits.photon)
   return photon_.Get(index);
 }
- ::fakePhotons::Photon* PhotonHits::mutable_photon(int index) {
-  // @@protoc_insertion_point(field_mutable:fakePhotons.PhotonHits.photon)
+ ::hitPhotons::Photon* PhotonHits::mutable_photon(int index) {
+  // @@protoc_insertion_point(field_mutable:hitPhotons.PhotonHits.photon)
   return photon_.Mutable(index);
 }
- ::fakePhotons::Photon* PhotonHits::add_photon() {
-  // @@protoc_insertion_point(field_add:fakePhotons.PhotonHits.photon)
+ ::hitPhotons::Photon* PhotonHits::add_photon() {
+  // @@protoc_insertion_point(field_add:hitPhotons.PhotonHits.photon)
   return photon_.Add();
 }
- const ::google::protobuf::RepeatedPtrField< ::fakePhotons::Photon >&
+ const ::google::protobuf::RepeatedPtrField< ::hitPhotons::Photon >&
 PhotonHits::photon() const {
-  // @@protoc_insertion_point(field_list:fakePhotons.PhotonHits.photon)
+  // @@protoc_insertion_point(field_list:hitPhotons.PhotonHits.photon)
   return photon_;
 }
- ::google::protobuf::RepeatedPtrField< ::fakePhotons::Photon >*
+ ::google::protobuf::RepeatedPtrField< ::hitPhotons::Photon >*
 PhotonHits::mutable_photon() {
-  // @@protoc_insertion_point(field_mutable_list:fakePhotons.PhotonHits.photon)
+  // @@protoc_insertion_point(field_mutable_list:hitPhotons.PhotonHits.photon)
   return &photon_;
 }
 
@@ -1364,6 +1366,6 @@ PhotonHits::mutable_photon() {
 
 // @@protoc_insertion_point(namespace_scope)
 
-}  // namespace fakePhotons
+}  // namespace hitPhotons
 
 // @@protoc_insertion_point(global_scope)
