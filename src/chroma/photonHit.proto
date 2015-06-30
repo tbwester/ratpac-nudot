@@ -16,15 +16,15 @@ message Photon {
 	double polY = 11;
 	double polZ = 12;
 	int32 trackID = 14;
+	enum OriginFlag {
+     		CHERENKOV = 0;
+     		SCINTILLATION = 1;
+     		REEMISSION = 2;
+     		CHROMA = 3;
+		}		
 	OriginFlag origin = 15;
 }
 
-enum OriginFlag {
-     CERENKOV = 0;
-     SCINTILLATION = 1;
-     REEMISSION = 2;
-     CHROMA = 3;
-}
 
 message PhotonHits {
 	int32 count = 1;
