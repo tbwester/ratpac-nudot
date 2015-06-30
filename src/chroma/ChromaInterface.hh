@@ -10,11 +10,17 @@
 
 #ifdef _HAS_PROTOBUF
 #include "ratchromadata.pb.h"
+
 #endif
 
 #ifdef _HAS_ZMQ
 #include "zhelpers.hpp"
 #endif
+
+#include "photonHit.pb.h"
+
+
+
 
 class G4Track;
 class G4VParticleChange;
@@ -46,6 +52,8 @@ public:
   void SendDetectorConfigData();
   void MakePhotonHitData();
 #ifdef _HAS_ZMQ
+  void JoinQueue();  
+  void SetIdentity();  
   zmq::socket_t * S_Client_Socket (zmq::context_t & context);
 #else
   void NoSupportWarning();
@@ -59,8 +67,8 @@ protected:
 #ifdef _HAS_PROTOBUF
   ratchroma::ChromaData message; // data we send to Chroma
 #endif
-
   bool fActive;
+  hitPhotons::PhotonHits fPhotonData;
   std::string fStrQueueAddress;
   std::string ClientIdentity;
 };

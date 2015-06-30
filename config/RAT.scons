@@ -119,6 +119,7 @@ if conf.CheckLibWithHeader('z','zlib.h','c'):
 if conf.CheckLibWithHeader('zmq','zmq.h','c'):
     conf.env.Append(CPPDEFINES=[('_HAS_ZMQ',1)])
 
+<<<<<<< HEAD
 #Build with Google Protobuf support if lib found
 if "PROTOBUF_LIB_DIR" in os.environ:
     conf.env.Append(LIBPATH=[os.environ["PROTOBUF_LIB_DIR"]])
@@ -135,6 +136,8 @@ if conf.CheckCXXHeader("G4DAEParser.hh"):
     conf.env.Append(CPPDEFINES=["_HAS_G4DAE"])
 
 
+=======
+>>>>>>> ph
 # Turn on G4 visualization
 conf.env.Append(CPPDEFINES=[('G4VIS_USE',1)])
 
@@ -223,6 +226,16 @@ if opt:
 for pkg in env['ARCHEXTRA']:
     env.Append(**arch[pkg])
 
+# Protobuf headers
+#env.Append(CXXFLAGS=" -std=c++11 -Wno-deprecated-register -I/Users/twongjirad/working/ratchroma/protobuf/include")
+#env.Append(LINKFLAGS=" -L/Users/twongjirad/working/ratchroma/protobuf/lib -lprotobuf")
+#env.Append(CXXFLAGS=" -std=c++11 -Wno-deprecated-register -I/home/nudot/protobuf/include")
+
+env.Append(CXXFLAGS=" -std=c++11  -I/home/nudot/protobuf/include")
+#env.Append(LIBS=" -std=c++11 ")
+env.Append(LINKFLAGS="-L/home/nudot/protobuf/lib")
+env.Append(LIBS="protobuf")
+
 #### Set other useful RAT-specific variables
 
 # Put all intermediate build targets into build/[ROOTARCH] directory
@@ -252,4 +265,7 @@ env.Repository('$RATROOT')
 # Return enviroment object to caller who loaded us this way:
 #
 # env = SConscript('$RATROOT/config/RAT.scons')
+
+#env.Append(LINKFLAGS=" -L/home/nudot/protobuf/lib -lprotobuf -std=c++11")
+
 Return('env')

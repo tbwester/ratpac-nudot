@@ -12,7 +12,6 @@
 #include <RAT/DB.hh>
 #include <RAT/Log.hh>
 
-//use this to simplify ZMQ functions
 
 namespace RAT {
 
@@ -52,7 +51,8 @@ namespace RAT {
     // Here load appropriate socket
     context =  new zmq::context_t(1);//flag=# of i/o threads, apparently
     client = S_Client_Socket (*context);
-
+    SetIdentity();
+    JoinQueue();
     // Gather required geometry data
     
     // Talk to Server/Handshake/Send out detector data
@@ -129,6 +129,7 @@ namespace RAT {
     zhelpers::s_send (*client, "RDY");
 #endif
   }
+
   //must initialize client before setting its identity
   void ChromaInterface::SetIdentity() {
     //uses zhelpers member function to set a random identity.
@@ -151,24 +152,64 @@ namespace RAT {
   void ChromaInterface::ReceivePhotonData() {
     //do some check/configrmation first
 #ifdef _HAS_CHROMA_INTERFACE
-    std::string msg;
+    const std::string msg;
     msg = zhelpers::s_recv (*client);
-    //data = message.ParseFromString(msg);
-    //std::cout << data << "\n" ;
+    fPhotonData.ParseFromString(msg);
+    std::cout << fPhotonData.photon_size();
+    std::cout << "Got the photon data." << "\n";
 #endif
+    zhelpers::s_recv(*client); //signal
+    std::string str_msg;
+    message.SerializeToString(&str_msg);
+    zhelpers::s_send (*client, str_msg);
   }
 
   void ChromaInterface::SendDetectorConfigData() {
     // Send geometry information.
     // Includes mesh representation of detector (or activation of cache).  
     // Also, geometry info has to sync. optical detector indexes between Chroma and RAT
+
+    //just sending # of pmts for now
+    zhelpers::s_recv(*client);
+    zhelpers::s_send(*client,"5");
   }
 
   void ChromaInterface::MakePhotonHitData() {
 #ifdef _HAS_CHROMA_INTERFACE
-    GLG4HitPhoton* hit_photon = new GLG4HitPhoton();
     //hit_photon->SetPMTID((int)iopdet);
-    GLG4VEventAction::GetTheHitPMTCollection()->DetectPhoton(hit_photon);
+    for (int i = 0; i < fPhotonData.photon_size(); i++) 
+      {
+	GLG4HitPhoton* hit_photon = new GLG4HitPhoton();
+	hit_photon->SetPMTID(fPhotonData.photon(i).pmtid());
+	std::cout << "pmtid: " << fPhotonData.photon(i).pmtid();
+	hit_photon->SetTime(fPhotonData.photon(i).time());
+	std::cout << "\ntime: " << fPhotonData.photon(i).time();
+	hit_photon->SetKineticEnergy(fPhotonData.photon(i).kineticenergy());
+	std::cout << "\nKE: " << fPhotonData.photon(i).kineticenergy();
+	hit_photon->SetPosition((fPhotonData.photon(i).posx()),
+				(fPhotonData.photon(i).posy()),
+				(fPhotonData.photon(i).posz()));
+	std::cout << "\npos x: " << fPhotonData.photon(i).posx();
+	std::cout << "\npos y: " << fPhotonData.photon(i).posy();
+	std::cout << "\npos z: " << fPhotonData.photon(i).posz();
+	hit_photon->SetMomentum((fPhotonData.photon(i).momx()),
+				(fPhotonData.photon(i).momy()),
+				(fPhotonData.photon(i).momz()));
+	std::cout << "\nmom x: " << fPhotonData.photon(i).momx();
+	std::cout << "\nmom y: " << fPhotonData.photon(i).momy();
+	std::cout << "\nmom z: " << fPhotonData.photon(i).momz();
+	hit_photon->SetPolarization((fPhotonData.photon(i).polx()),
+				    (fPhotonData.photon(i).poly()),
+				    (fPhotonData.photon(i).polz()));
+	std::cout << "\npol x: " << fPhotonData.photon(i).polx();
+	std::cout << "\npol y: " << fPhotonData.photon(i).poly();
+	std::cout << "\npol z: " << fPhotonData.photon(i).polz();
+	hit_photon->SetCount(1);
+	std::cout << "\ncount: " << fPhotonData.photon(i).pmtid();
+	hit_photon->SetTrackID(fPhotonData.photon(i).trackid());
+	hit_photon->SetOriginFlag(fPhotonData.photon(i).origin());
+	GLG4VEventAction::GetTheHitPMTCollection()->DetectPhoton(hit_photon);
+      }
 #endif
   }
 
@@ -188,6 +229,5 @@ namespace RAT {
   }
 #endif
 }// end of namespace RAT
-
 
 
