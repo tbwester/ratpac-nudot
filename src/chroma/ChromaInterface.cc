@@ -16,11 +16,11 @@
 namespace RAT {
 
   ChromaInterface::ChromaInterface() {
-#ifdef _HAS_CHROMA_INTERFACE
+    #ifdef _HAS_CHROMA_INTERFACE
     GOOGLE_PROTOBUF_VERIFY_VERSION; // checks protobuf version
     fActive = false;
     ClearData();
-#endif
+    #endif
   }
 
 
@@ -78,7 +78,7 @@ namespace RAT {
       if ( (*it)->GetParticleDefinition()->GetParticleName()=="opticalphoton" && (*it)->GetCreatorProcess()->GetProcessName()=="cerenkov" ) {
 	std::cout << "  " << (*it)->GetParticleDefinition()->GetParticleName() << " " << (*it)->GetCreatorProcess()->GetProcessName() << std::endl;
 	// create new data
-	ratchroma::CherenkovPhoton* cerenkov = message.add_cherekovdata();
+	ratchroma::CherenkovPhoton* cerenkov = message.add_cherenkovdata();
 	cerenkov->set_x( (*it)->GetVertexPosition().x() );
 	cerenkov->set_y( (*it)->GetVertexPosition().y() );
 	cerenkov->set_z( (*it)->GetVertexPosition().z() );
@@ -127,6 +127,7 @@ namespace RAT {
   void ChromaInterface::JoinQueue() {
 #ifdef _HAS_CHROMA_INTERFACE
     zhelpers::s_send (*client, "RDY");
+    zhelpers::s_recv(*client);
 #endif
   }
 
@@ -143,25 +144,29 @@ namespace RAT {
     //basic implementation, probably want to handshake or do
     //some check first.
 #ifdef _HAS_CHROMA_INTERFACE
-    std::string *str_msg = NULL;
-    message.SerializeToString(str_msg);
-    zhelpers::s_send (*client, *str_msg);
+    zhelpers::s_recv(*client);
+    std::string str_msg;
+
+    //message.DebugString() displays the message data (similar to using print in python)
+    //std::string debug;
+    //debug = message.DebugString();
+    //std::cout << "!!!!!!!!!!!!!!!!!\n\n\n\n";
+    //std::cout << debug;
+
+    message.SerializeToString(&str_msg);
+    zhelpers::s_send (*client, str_msg);
 #endif
   }
 
   void ChromaInterface::ReceivePhotonData() {
     //do some check/configrmation first
 #ifdef _HAS_CHROMA_INTERFACE
-    const std::string msg;
+    std::string msg;
     msg = zhelpers::s_recv (*client);
     fPhotonData.ParseFromString(msg);
     std::cout << fPhotonData.photon_size();
     std::cout << "Got the photon data." << "\n";
 #endif
-    zhelpers::s_recv(*client); //signal
-    std::string str_msg;
-    message.SerializeToString(&str_msg);
-    zhelpers::s_send (*client, str_msg);
   }
 
   void ChromaInterface::SendDetectorConfigData() {
@@ -169,9 +174,14 @@ namespace RAT {
     // Includes mesh representation of detector (or activation of cache).  
     // Also, geometry info has to sync. optical detector indexes between Chroma and RAT
 
-    //just sending # of pmts for now
-    zhelpers::s_recv(*client);
-    zhelpers::s_send(*client,"5");
+    //sending optical info found in /data/OPTICS.ratdb
+    std::ifstream optics ("/home/nudot/ratpac-chroma/data/OPTICS.ratdb");
+    std::string oData;
+    std::stringstream buffer;
+    buffer << optics.rdbuf();
+    oData = buffer.str();
+    zhelpers::s_send(*client,oData);
+    std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\n\n " << oData;
   }
 
   void ChromaInterface::MakePhotonHitData() {
@@ -181,31 +191,31 @@ namespace RAT {
       {
 	GLG4HitPhoton* hit_photon = new GLG4HitPhoton();
 	hit_photon->SetPMTID(fPhotonData.photon(i).pmtid());
-	std::cout << "pmtid: " << fPhotonData.photon(i).pmtid();
+	//std::cout << "pmtid: " << fPhotonData.photon(i).pmtid();
 	hit_photon->SetTime(fPhotonData.photon(i).time());
-	std::cout << "\ntime: " << fPhotonData.photon(i).time();
+	//std::cout << "\ntime: " << fPhotonData.photon(i).time();
 	hit_photon->SetKineticEnergy(fPhotonData.photon(i).kineticenergy());
-	std::cout << "\nKE: " << fPhotonData.photon(i).kineticenergy();
+	//std::cout << "\nKE: " << fPhotonData.photon(i).kineticenergy();
 	hit_photon->SetPosition((fPhotonData.photon(i).posx()),
 				(fPhotonData.photon(i).posy()),
 				(fPhotonData.photon(i).posz()));
-	std::cout << "\npos x: " << fPhotonData.photon(i).posx();
-	std::cout << "\npos y: " << fPhotonData.photon(i).posy();
-	std::cout << "\npos z: " << fPhotonData.photon(i).posz();
+	//std::cout << "\npos x: " << fPhotonData.photon(i).posx();
+	//std::cout << "\npos y: " << fPhotonData.photon(i).posy();
+	//std::cout << "\npos z: " << fPhotonData.photon(i).posz();
 	hit_photon->SetMomentum((fPhotonData.photon(i).momx()),
 				(fPhotonData.photon(i).momy()),
 				(fPhotonData.photon(i).momz()));
-	std::cout << "\nmom x: " << fPhotonData.photon(i).momx();
-	std::cout << "\nmom y: " << fPhotonData.photon(i).momy();
-	std::cout << "\nmom z: " << fPhotonData.photon(i).momz();
+	//std::cout << "\nmom x: " << fPhotonData.photon(i).momx();
+	//std::cout << "\nmom y: " << fPhotonData.photon(i).momy();
+	//std::cout << "\nmom z: " << fPhotonData.photon(i).momz();
 	hit_photon->SetPolarization((fPhotonData.photon(i).polx()),
 				    (fPhotonData.photon(i).poly()),
 				    (fPhotonData.photon(i).polz()));
-	std::cout << "\npol x: " << fPhotonData.photon(i).polx();
-	std::cout << "\npol y: " << fPhotonData.photon(i).poly();
-	std::cout << "\npol z: " << fPhotonData.photon(i).polz();
+	//std::cout << "\npol x: " << fPhotonData.photon(i).polx();
+	//std::cout << "\npol y: " << fPhotonData.photon(i).poly();
+	//std::cout << "\npol z: " << fPhotonData.photon(i).polz();
 	hit_photon->SetCount(1);
-	std::cout << "\ncount: " << fPhotonData.photon(i).pmtid();
+	//std::cout << "\ncount: " << fPhotonData.photon(i).pmtid();
 	hit_photon->SetTrackID(fPhotonData.photon(i).trackid());
 	hit_photon->SetOriginFlag(fPhotonData.photon(i).origin());
 	GLG4VEventAction::GetTheHitPMTCollection()->DetectPhoton(hit_photon);
