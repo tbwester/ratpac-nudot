@@ -3,7 +3,6 @@
 
 import sys
 _b=sys.version_info[0]<3 and (lambda x:x) or (lambda x:x.encode('latin1'))
-from google.protobuf.internal import enum_type_wrapper
 from google.protobuf import descriptor as _descriptor
 from google.protobuf import message as _message
 from google.protobuf import reflection as _reflection
@@ -20,18 +19,20 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='photonHit.proto',
   package='hitPhotons',
   syntax='proto3',
-  serialized_pb=_b('\n\x0fphotonHit.proto\x12\nhitPhotons\"\xf3\x01\n\x06Photon\x12\r\n\x05PMTID\x18\x01 \x01(\x05\x12\x0c\n\x04Time\x18\x02 \x01(\x01\x12\x15\n\rKineticEnergy\x18\x03 \x01(\x01\x12\x0c\n\x04posX\x18\x04 \x01(\x01\x12\x0c\n\x04posY\x18\x05 \x01(\x01\x12\x0c\n\x04posZ\x18\x06 \x01(\x01\x12\x0c\n\x04momX\x18\x07 \x01(\x01\x12\x0c\n\x04momY\x18\x08 \x01(\x01\x12\x0c\n\x04momZ\x18\t \x01(\x01\x12\x0c\n\x04polX\x18\n \x01(\x01\x12\x0c\n\x04polY\x18\x0b \x01(\x01\x12\x0c\n\x04polZ\x18\x0c \x01(\x01\x12\x0f\n\x07trackID\x18\x0e \x01(\x05\x12&\n\x06origin\x18\x0f \x01(\x0e\x32\x16.hitPhotons.OriginFlag\"?\n\nPhotonHits\x12\r\n\x05\x63ount\x18\x01 \x01(\x05\x12\"\n\x06photon\x18\x02 \x03(\x0b\x32\x12.hitPhotons.Photon*I\n\nOriginFlag\x12\x0c\n\x08\x43\x45RENKOV\x10\x00\x12\x11\n\rSCINTILLATION\x10\x01\x12\x0e\n\nREEMISSION\x10\x02\x12\n\n\x06\x43HROMA\x10\x03\x62\x06proto3')
+  serialized_pb=_b('\n\x0fphotonHit.proto\x12\nhitPhotons\"\xc6\x02\n\x06Photon\x12\r\n\x05PMTID\x18\x01 \x01(\x05\x12\x0c\n\x04Time\x18\x02 \x01(\x01\x12\x15\n\rKineticEnergy\x18\x03 \x01(\x01\x12\x0c\n\x04posX\x18\x04 \x01(\x01\x12\x0c\n\x04posY\x18\x05 \x01(\x01\x12\x0c\n\x04posZ\x18\x06 \x01(\x01\x12\x0c\n\x04momX\x18\x07 \x01(\x01\x12\x0c\n\x04momY\x18\x08 \x01(\x01\x12\x0c\n\x04momZ\x18\t \x01(\x01\x12\x0c\n\x04polX\x18\n \x01(\x01\x12\x0c\n\x04polY\x18\x0b \x01(\x01\x12\x0c\n\x04polZ\x18\x0c \x01(\x01\x12\x0f\n\x07trackID\x18\x0e \x01(\x05\x12-\n\x06origin\x18\x0f \x01(\x0e\x32\x1d.hitPhotons.Photon.OriginFlag\"J\n\nOriginFlag\x12\r\n\tCHERENKOV\x10\x00\x12\x11\n\rSCINTILLATION\x10\x01\x12\x0e\n\nREEMISSION\x10\x02\x12\n\n\x06\x43HROMA\x10\x03\"?\n\nPhotonHits\x12\r\n\x05\x63ount\x18\x01 \x01(\x05\x12\"\n\x06photon\x18\x02 \x03(\x0b\x32\x12.hitPhotons.Photonb\x06proto3')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
-_ORIGINFLAG = _descriptor.EnumDescriptor(
+
+
+_PHOTON_ORIGINFLAG = _descriptor.EnumDescriptor(
   name='OriginFlag',
-  full_name='hitPhotons.OriginFlag',
+  full_name='hitPhotons.Photon.OriginFlag',
   filename=None,
   file=DESCRIPTOR,
   values=[
     _descriptor.EnumValueDescriptor(
-      name='CERENKOV', index=0, number=0,
+      name='CHERENKOV', index=0, number=0,
       options=None,
       type=None),
     _descriptor.EnumValueDescriptor(
@@ -49,17 +50,10 @@ _ORIGINFLAG = _descriptor.EnumDescriptor(
   ],
   containing_type=None,
   options=None,
-  serialized_start=342,
-  serialized_end=415,
+  serialized_start=284,
+  serialized_end=358,
 )
-_sym_db.RegisterEnumDescriptor(_ORIGINFLAG)
-
-OriginFlag = enum_type_wrapper.EnumTypeWrapper(_ORIGINFLAG)
-CERENKOV = 0
-SCINTILLATION = 1
-REEMISSION = 2
-CHROMA = 3
-
+_sym_db.RegisterEnumDescriptor(_PHOTON_ORIGINFLAG)
 
 
 _PHOTON = _descriptor.Descriptor(
@@ -172,6 +166,7 @@ _PHOTON = _descriptor.Descriptor(
   ],
   nested_types=[],
   enum_types=[
+    _PHOTON_ORIGINFLAG,
   ],
   options=None,
   is_extendable=False,
@@ -180,7 +175,7 @@ _PHOTON = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=32,
-  serialized_end=275,
+  serialized_end=358,
 )
 
 
@@ -217,15 +212,15 @@ _PHOTONHITS = _descriptor.Descriptor(
   extension_ranges=[],
   oneofs=[
   ],
-  serialized_start=277,
-  serialized_end=340,
+  serialized_start=360,
+  serialized_end=423,
 )
 
-_PHOTON.fields_by_name['origin'].enum_type = _ORIGINFLAG
+_PHOTON.fields_by_name['origin'].enum_type = _PHOTON_ORIGINFLAG
+_PHOTON_ORIGINFLAG.containing_type = _PHOTON
 _PHOTONHITS.fields_by_name['photon'].message_type = _PHOTON
 DESCRIPTOR.message_types_by_name['Photon'] = _PHOTON
 DESCRIPTOR.message_types_by_name['PhotonHits'] = _PHOTONHITS
-DESCRIPTOR.enum_types_by_name['OriginFlag'] = _ORIGINFLAG
 
 Photon = _reflection.GeneratedProtocolMessageType('Photon', (_message.Message,), dict(
   DESCRIPTOR = _PHOTON,

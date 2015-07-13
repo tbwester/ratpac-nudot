@@ -6,6 +6,7 @@
 #/tracking/storeTrajectory 1
 #/tracking/discardParticleTrajectory opticalphoton
 
+/chroma/activate
 /run/initialize
 
 # BEGIN EVENT LOOP
@@ -15,7 +16,6 @@
 # Use IO.default_output_filename
 /rat/proclast outroot
 #END EVENT LOOP
-
 /generator/add combo gun:point
 /generator/vtx/set mu-  0.0 0.0 200.0
 /generator/pos/set 0 0 0.0
