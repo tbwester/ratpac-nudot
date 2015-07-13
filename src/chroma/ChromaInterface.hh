@@ -52,8 +52,8 @@ public:
   void SendDetectorConfigData();
   void MakePhotonHitData();
 #ifdef _HAS_ZMQ
-  void JoinQueue();  
-  void SetIdentity();  
+  //void JoinQueue();  
+  //void SetIdentity();  
   zmq::socket_t * S_Client_Socket (zmq::context_t & context);
 #else
   void NoSupportWarning();

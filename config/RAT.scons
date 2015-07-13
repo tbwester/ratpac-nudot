@@ -119,7 +119,7 @@ if conf.CheckLibWithHeader('z','zlib.h','c'):
 if conf.CheckLibWithHeader('zmq','zmq.h','c'):
     conf.env.Append(CPPDEFINES=[('_HAS_ZMQ',1)])
 
-<<<<<<< HEAD
+
 #Build with Google Protobuf support if lib found
 if "PROTOBUF_LIB_DIR" in os.environ:
     conf.env.Append(LIBPATH=[os.environ["PROTOBUF_LIB_DIR"]])
@@ -135,9 +135,6 @@ if conf.CheckLib('protobuf'):
 if conf.CheckCXXHeader("G4DAEParser.hh"):
     conf.env.Append(CPPDEFINES=["_HAS_G4DAE"])
 
-
-=======
->>>>>>> ph
 # Turn on G4 visualization
 conf.env.Append(CPPDEFINES=[('G4VIS_USE',1)])
 

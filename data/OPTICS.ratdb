@@ -856,3 +856,32 @@ EFFICIENCY_value2: [1.0d, 1.0d, ],
 //PROPERTY_LIST: ["REFLECTIVITY", "ABSLENGTH", "EFFICIENCY"],
 PROPERTY_LIST: ["ABSLENGTH", "EFFICIENCY",],
 }
+
+// -------------  General Environment ---------------
+
+{
+name: "OPTICS",
+index: "LAr",
+valid_begin : [0, 0],
+valid_end : [0, 0],
+RINDEX_option: "wavelength",
+RINDEX_value1: [200d, 800d, ],
+RINDEX_value2: [1.23d, 1.23d, ],
+ABSLENGTH_option: "wavelength",
+ABSLENGTH_value1: [ 200d,   800d, ],
+ABSLENGTH_value2: [ 7000.0d, 7000.0d ],
+OPSCATFRAC_option: "wavelength",
+OPSCATFRAC_value1: [200d, 800d, ],
+OPSCATFRAC_value2: [0.0d, 0.0d, ],
+RAYLEIGH: 70.0d,
+SCINTILLATION_option: "dy_dwavelength",
+SCINTILLATION_value1: [100d, 125d, 128d,       131d, 800d, ],
+SCINTILLATION_value2: [0d,     0d, 13333.33d,  0.0d, 0.0d, ],
+SCINTWAVEFORM_value1: [-6.0d, -1500d, ],
+SCINTWAVEFORM_value2: [0.30d, 0.70d,],
+SCINTWAVEFORMalpha_value1: [-6.0d,-1500d],
+SCINTWAVEFORMalpha_value2: [0.7d, 0.3d],
+SCINTWAVEFORMneutron_value1: [-6.0d,-1500d],
+SCINTWAVEFORMneutron_value2: [0.5d, 0.5d],
+PROPERTY_LIST: ["RINDEX", "ABSLENGTH","OPSCATFRAC","RAYLEIGH", "SCINTILLATION", "SCINTWAVEFORM", "SCINTWAVEFORMalpha", "SCINTWAVEFORMneutron" ]
+}

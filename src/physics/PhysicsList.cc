@@ -1,6 +1,7 @@
 #include <Shielding.hh>
 #include <G4FastSimulationManagerProcess.hh>
 #include <G4OpticalPhoton.hh>
+#include <G4OpRayleigh.hh>
 #include <G4ParticleDefinition.hh>
 #include <G4ProcessManager.hh>
 #include <G4Cerenkov.hh>
@@ -86,6 +87,7 @@ void PhysicsList::ConstructOpticalProcesses() {
     if (particleName == "opticalphoton") {
       pmanager->AddDiscreteProcess(attenuationProcess);
       pmanager->AddDiscreteProcess(opBoundaryProcess);
+      pmanager->AddDiscreteProcess( new  G4OpRayleigh );
     }
   }
 }
