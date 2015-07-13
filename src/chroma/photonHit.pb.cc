@@ -23,10 +23,10 @@ namespace {
 const ::google::protobuf::Descriptor* Photon_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   Photon_reflection_ = NULL;
+const ::google::protobuf::EnumDescriptor* Photon_OriginFlag_descriptor_ = NULL;
 const ::google::protobuf::Descriptor* PhotonHits_descriptor_ = NULL;
 const ::google::protobuf::internal::GeneratedMessageReflection*
   PhotonHits_reflection_ = NULL;
-const ::google::protobuf::EnumDescriptor* OriginFlag_descriptor_ = NULL;
 
 }  // namespace
 
@@ -65,6 +65,7 @@ void protobuf_AssignDesc_photonHit_2eproto() {
       sizeof(Photon),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Photon, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(Photon, _is_default_instance_));
+  Photon_OriginFlag_descriptor_ = Photon_descriptor_->enum_type(0);
   PhotonHits_descriptor_ = file->message_type(1);
   static const int PhotonHits_offsets_[2] = {
     GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PhotonHits, count_),
@@ -81,7 +82,6 @@ void protobuf_AssignDesc_photonHit_2eproto() {
       sizeof(PhotonHits),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PhotonHits, _internal_metadata_),
       GOOGLE_PROTOBUF_GENERATED_MESSAGE_FIELD_OFFSET(PhotonHits, _is_default_instance_));
-  OriginFlag_descriptor_ = file->enum_type(0);
 }
 
 namespace {
@@ -116,17 +116,17 @@ void protobuf_AddDesc_photonHit_2eproto() {
   GOOGLE_PROTOBUF_VERIFY_VERSION;
 
   ::google::protobuf::DescriptorPool::InternalAddGeneratedFile(
-    "\n\017photonHit.proto\022\nhitPhotons\"\363\001\n\006Photon"
+    "\n\017photonHit.proto\022\nhitPhotons\"\306\002\n\006Photon"
     "\022\r\n\005PMTID\030\001 \001(\005\022\014\n\004Time\030\002 \001(\001\022\025\n\rKinetic"
     "Energy\030\003 \001(\001\022\014\n\004posX\030\004 \001(\001\022\014\n\004posY\030\005 \001(\001"
     "\022\014\n\004posZ\030\006 \001(\001\022\014\n\004momX\030\007 \001(\001\022\014\n\004momY\030\010 \001"
     "(\001\022\014\n\004momZ\030\t \001(\001\022\014\n\004polX\030\n \001(\001\022\014\n\004polY\030\013"
-    " \001(\001\022\014\n\004polZ\030\014 \001(\001\022\017\n\007trackID\030\016 \001(\005\022&\n\006o"
-    "rigin\030\017 \001(\0162\026.hitPhotons.OriginFlag\"\?\n\nP"
-    "hotonHits\022\r\n\005count\030\001 \001(\005\022\"\n\006photon\030\002 \003(\013"
-    "2\022.hitPhotons.Photon*I\n\nOriginFlag\022\014\n\010CE"
-    "RENKOV\020\000\022\021\n\rSCINTILLATION\020\001\022\016\n\nREEMISSIO"
-    "N\020\002\022\n\n\006CHROMA\020\003b\006proto3", 423);
+    " \001(\001\022\014\n\004polZ\030\014 \001(\001\022\017\n\007trackID\030\016 \001(\005\022-\n\006o"
+    "rigin\030\017 \001(\0162\035.hitPhotons.Photon.OriginFl"
+    "ag\"J\n\nOriginFlag\022\r\n\tCHERENKOV\020\000\022\021\n\rSCINT"
+    "ILLATION\020\001\022\016\n\nREEMISSION\020\002\022\n\n\006CHROMA\020\003\"\?"
+    "\n\nPhotonHits\022\r\n\005count\030\001 \001(\005\022\"\n\006photon\030\002 "
+    "\003(\0132\022.hitPhotons.Photonb\006proto3", 431);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "photonHit.proto", &protobuf_RegisterTypes);
   Photon::default_instance_ = new Photon();
@@ -142,22 +142,6 @@ struct StaticDescriptorInitializer_photonHit_2eproto {
     protobuf_AddDesc_photonHit_2eproto();
   }
 } static_descriptor_initializer_photonHit_2eproto_;
-const ::google::protobuf::EnumDescriptor* OriginFlag_descriptor() {
-  protobuf_AssignDescriptorsOnce();
-  return OriginFlag_descriptor_;
-}
-bool OriginFlag_IsValid(int value) {
-  switch(value) {
-    case 0:
-    case 1:
-    case 2:
-    case 3:
-      return true;
-    default:
-      return false;
-  }
-}
-
 
 namespace {
 
@@ -171,6 +155,31 @@ static void MergeFromFail(int line) {
 
 // ===================================================================
 
+const ::google::protobuf::EnumDescriptor* Photon_OriginFlag_descriptor() {
+  protobuf_AssignDescriptorsOnce();
+  return Photon_OriginFlag_descriptor_;
+}
+bool Photon_OriginFlag_IsValid(int value) {
+  switch(value) {
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+      return true;
+    default:
+      return false;
+  }
+}
+
+#ifndef _MSC_VER
+const Photon_OriginFlag Photon::CHERENKOV;
+const Photon_OriginFlag Photon::SCINTILLATION;
+const Photon_OriginFlag Photon::REEMISSION;
+const Photon_OriginFlag Photon::CHROMA;
+const Photon_OriginFlag Photon::OriginFlag_MIN;
+const Photon_OriginFlag Photon::OriginFlag_MAX;
+const int Photon::OriginFlag_ARRAYSIZE;
+#endif  // _MSC_VER
 #ifndef _MSC_VER
 const int Photon::kPMTIDFieldNumber;
 const int Photon::kTimeFieldNumber;
@@ -483,7 +492,7 @@ bool Photon::MergePartialFromCodedStream(
         break;
       }
 
-      // optional .hitPhotons.OriginFlag origin = 15;
+      // optional .hitPhotons.Photon.OriginFlag origin = 15;
       case 15: {
         if (tag == 120) {
          parse_origin:
@@ -491,7 +500,7 @@ bool Photon::MergePartialFromCodedStream(
           DO_((::google::protobuf::internal::WireFormatLite::ReadPrimitive<
                    int, ::google::protobuf::internal::WireFormatLite::TYPE_ENUM>(
                  input, &value)));
-          set_origin(static_cast< ::hitPhotons::OriginFlag >(value));
+          set_origin(static_cast< ::hitPhotons::Photon_OriginFlag >(value));
         } else {
           goto handle_unusual;
         }
@@ -588,7 +597,7 @@ void Photon::SerializeWithCachedSizes(
     ::google::protobuf::internal::WireFormatLite::WriteInt32(14, this->trackid(), output);
   }
 
-  // optional .hitPhotons.OriginFlag origin = 15;
+  // optional .hitPhotons.Photon.OriginFlag origin = 15;
   if (this->origin() != 0) {
     ::google::protobuf::internal::WireFormatLite::WriteEnum(
       15, this->origin(), output);
@@ -665,7 +674,7 @@ void Photon::SerializeWithCachedSizes(
     target = ::google::protobuf::internal::WireFormatLite::WriteInt32ToArray(14, this->trackid(), target);
   }
 
-  // optional .hitPhotons.OriginFlag origin = 15;
+  // optional .hitPhotons.Photon.OriginFlag origin = 15;
   if (this->origin() != 0) {
     target = ::google::protobuf::internal::WireFormatLite::WriteEnumToArray(
       15, this->origin(), target);
@@ -747,7 +756,7 @@ int Photon::ByteSize() const {
         this->trackid());
   }
 
-  // optional .hitPhotons.OriginFlag origin = 15;
+  // optional .hitPhotons.Photon.OriginFlag origin = 15;
   if (this->origin() != 0) {
     total_size += 1 +
       ::google::protobuf::internal::WireFormatLite::EnumSize(this->origin());
@@ -1050,15 +1059,15 @@ void Photon::clear_trackid() {
   // @@protoc_insertion_point(field_set:hitPhotons.Photon.trackID)
 }
 
-// optional .hitPhotons.OriginFlag origin = 15;
+// optional .hitPhotons.Photon.OriginFlag origin = 15;
 void Photon::clear_origin() {
   origin_ = 0;
 }
- ::hitPhotons::OriginFlag Photon::origin() const {
+ ::hitPhotons::Photon_OriginFlag Photon::origin() const {
   // @@protoc_insertion_point(field_get:hitPhotons.Photon.origin)
-  return static_cast< ::hitPhotons::OriginFlag >(origin_);
+  return static_cast< ::hitPhotons::Photon_OriginFlag >(origin_);
 }
- void Photon::set_origin(::hitPhotons::OriginFlag value) {
+ void Photon::set_origin(::hitPhotons::Photon_OriginFlag value) {
   
   origin_ = value;
   // @@protoc_insertion_point(field_set:hitPhotons.Photon.origin)

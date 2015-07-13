@@ -40,28 +40,28 @@ void protobuf_ShutdownFile_photonHit_2eproto();
 class Photon;
 class PhotonHits;
 
-enum OriginFlag {
-  CERENKOV = 0,
-  SCINTILLATION = 1,
-  REEMISSION = 2,
-  CHROMA = 3,
-  OriginFlag_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
-  OriginFlag_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
+enum Photon_OriginFlag {
+  Photon_OriginFlag_CHERENKOV = 0,
+  Photon_OriginFlag_SCINTILLATION = 1,
+  Photon_OriginFlag_REEMISSION = 2,
+  Photon_OriginFlag_CHROMA = 3,
+  Photon_OriginFlag_Photon_OriginFlag_INT_MIN_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32min,
+  Photon_OriginFlag_Photon_OriginFlag_INT_MAX_SENTINEL_DO_NOT_USE_ = ::google::protobuf::kint32max
 };
-bool OriginFlag_IsValid(int value);
-const OriginFlag OriginFlag_MIN = CERENKOV;
-const OriginFlag OriginFlag_MAX = CHROMA;
-const int OriginFlag_ARRAYSIZE = OriginFlag_MAX + 1;
+bool Photon_OriginFlag_IsValid(int value);
+const Photon_OriginFlag Photon_OriginFlag_OriginFlag_MIN = Photon_OriginFlag_CHERENKOV;
+const Photon_OriginFlag Photon_OriginFlag_OriginFlag_MAX = Photon_OriginFlag_CHROMA;
+const int Photon_OriginFlag_OriginFlag_ARRAYSIZE = Photon_OriginFlag_OriginFlag_MAX + 1;
 
-const ::google::protobuf::EnumDescriptor* OriginFlag_descriptor();
-inline const ::std::string& OriginFlag_Name(OriginFlag value) {
+const ::google::protobuf::EnumDescriptor* Photon_OriginFlag_descriptor();
+inline const ::std::string& Photon_OriginFlag_Name(Photon_OriginFlag value) {
   return ::google::protobuf::internal::NameOfEnum(
-    OriginFlag_descriptor(), value);
+    Photon_OriginFlag_descriptor(), value);
 }
-inline bool OriginFlag_Parse(
-    const ::std::string& name, OriginFlag* value) {
-  return ::google::protobuf::internal::ParseNamedEnum<OriginFlag>(
-    OriginFlag_descriptor(), name, value);
+inline bool Photon_OriginFlag_Parse(
+    const ::std::string& name, Photon_OriginFlag* value) {
+  return ::google::protobuf::internal::ParseNamedEnum<Photon_OriginFlag>(
+    Photon_OriginFlag_descriptor(), name, value);
 }
 // ===================================================================
 
@@ -118,6 +118,32 @@ class Photon : public ::google::protobuf::Message {
   ::google::protobuf::Metadata GetMetadata() const;
 
   // nested types ----------------------------------------------------
+
+  typedef Photon_OriginFlag OriginFlag;
+  static const OriginFlag CHERENKOV = Photon_OriginFlag_CHERENKOV;
+  static const OriginFlag SCINTILLATION = Photon_OriginFlag_SCINTILLATION;
+  static const OriginFlag REEMISSION = Photon_OriginFlag_REEMISSION;
+  static const OriginFlag CHROMA = Photon_OriginFlag_CHROMA;
+  static inline bool OriginFlag_IsValid(int value) {
+    return Photon_OriginFlag_IsValid(value);
+  }
+  static const OriginFlag OriginFlag_MIN =
+    Photon_OriginFlag_OriginFlag_MIN;
+  static const OriginFlag OriginFlag_MAX =
+    Photon_OriginFlag_OriginFlag_MAX;
+  static const int OriginFlag_ARRAYSIZE =
+    Photon_OriginFlag_OriginFlag_ARRAYSIZE;
+  static inline const ::google::protobuf::EnumDescriptor*
+  OriginFlag_descriptor() {
+    return Photon_OriginFlag_descriptor();
+  }
+  static inline const ::std::string& OriginFlag_Name(OriginFlag value) {
+    return Photon_OriginFlag_Name(value);
+  }
+  static inline bool OriginFlag_Parse(const ::std::string& name,
+      OriginFlag* value) {
+    return Photon_OriginFlag_Parse(name, value);
+  }
 
   // accessors -------------------------------------------------------
 
@@ -199,11 +225,11 @@ class Photon : public ::google::protobuf::Message {
   ::google::protobuf::int32 trackid() const;
   void set_trackid(::google::protobuf::int32 value);
 
-  // optional .hitPhotons.OriginFlag origin = 15;
+  // optional .hitPhotons.Photon.OriginFlag origin = 15;
   void clear_origin();
   static const int kOriginFieldNumber = 15;
-  ::hitPhotons::OriginFlag origin() const;
-  void set_origin(::hitPhotons::OriginFlag value);
+  ::hitPhotons::Photon_OriginFlag origin() const;
+  void set_origin(::hitPhotons::Photon_OriginFlag value);
 
   // @@protoc_insertion_point(class_scope:hitPhotons.Photon)
  private:
@@ -513,15 +539,15 @@ inline void Photon::set_trackid(::google::protobuf::int32 value) {
   // @@protoc_insertion_point(field_set:hitPhotons.Photon.trackID)
 }
 
-// optional .hitPhotons.OriginFlag origin = 15;
+// optional .hitPhotons.Photon.OriginFlag origin = 15;
 inline void Photon::clear_origin() {
   origin_ = 0;
 }
-inline ::hitPhotons::OriginFlag Photon::origin() const {
+inline ::hitPhotons::Photon_OriginFlag Photon::origin() const {
   // @@protoc_insertion_point(field_get:hitPhotons.Photon.origin)
-  return static_cast< ::hitPhotons::OriginFlag >(origin_);
+  return static_cast< ::hitPhotons::Photon_OriginFlag >(origin_);
 }
-inline void Photon::set_origin(::hitPhotons::OriginFlag value) {
+inline void Photon::set_origin(::hitPhotons::Photon_OriginFlag value) {
   
   origin_ = value;
   // @@protoc_insertion_point(field_set:hitPhotons.Photon.origin)
@@ -587,10 +613,10 @@ PhotonHits::mutable_photon() {
 namespace google {
 namespace protobuf {
 
-template <> struct is_proto_enum< ::hitPhotons::OriginFlag> : ::google::protobuf::internal::true_type {};
+template <> struct is_proto_enum< ::hitPhotons::Photon_OriginFlag> : ::google::protobuf::internal::true_type {};
 template <>
-inline const EnumDescriptor* GetEnumDescriptor< ::hitPhotons::OriginFlag>() {
-  return ::hitPhotons::OriginFlag_descriptor();
+inline const EnumDescriptor* GetEnumDescriptor< ::hitPhotons::Photon_OriginFlag>() {
+  return ::hitPhotons::Photon_OriginFlag_descriptor();
 }
 
 }  // namespace protobuf

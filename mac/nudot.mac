@@ -5,7 +5,7 @@
 /rat/db/set DETECTOR geo_file "nudotv0/nudotv0.geo"
 #/tracking/storeTrajectory 1
 #/tracking/discardParticleTrajectory opticalphoton
-
+/chroma/activate
 /run/initialize
 
 # BEGIN EVENT LOOP
@@ -20,4 +20,4 @@
 /generator/vtx/set e-  0.0 0.0 -1.1
 /generator/pos/set 0 0 200.0
 
-/run/beamOn 10
+/run/beamOn 10000

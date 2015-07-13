@@ -398,17 +398,17 @@ class ChromaData : public ::google::protobuf::Message {
   ::google::protobuf::int32 eventid() const;
   void set_eventid(::google::protobuf::int32 value);
 
-  // repeated .ratchroma.CherenkovPhoton cherekovdata = 2;
-  int cherekovdata_size() const;
-  void clear_cherekovdata();
-  static const int kCherekovdataFieldNumber = 2;
-  const ::ratchroma::CherenkovPhoton& cherekovdata(int index) const;
-  ::ratchroma::CherenkovPhoton* mutable_cherekovdata(int index);
-  ::ratchroma::CherenkovPhoton* add_cherekovdata();
+  // repeated .ratchroma.CherenkovPhoton cherenkovdata = 2;
+  int cherenkovdata_size() const;
+  void clear_cherenkovdata();
+  static const int kCherenkovdataFieldNumber = 2;
+  const ::ratchroma::CherenkovPhoton& cherenkovdata(int index) const;
+  ::ratchroma::CherenkovPhoton* mutable_cherenkovdata(int index);
+  ::ratchroma::CherenkovPhoton* add_cherenkovdata();
   const ::google::protobuf::RepeatedPtrField< ::ratchroma::CherenkovPhoton >&
-      cherekovdata() const;
+      cherenkovdata() const;
   ::google::protobuf::RepeatedPtrField< ::ratchroma::CherenkovPhoton >*
-      mutable_cherekovdata();
+      mutable_cherenkovdata();
 
   // repeated .ratchroma.ScintStep stepdata = 3;
   int stepdata_size() const;
@@ -427,7 +427,7 @@ class ChromaData : public ::google::protobuf::Message {
 
   ::google::protobuf::internal::InternalMetadataWithArena _internal_metadata_;
   bool _is_default_instance_;
-  ::google::protobuf::RepeatedPtrField< ::ratchroma::CherenkovPhoton > cherekovdata_;
+  ::google::protobuf::RepeatedPtrField< ::ratchroma::CherenkovPhoton > cherenkovdata_;
   ::google::protobuf::RepeatedPtrField< ::ratchroma::ScintStep > stepdata_;
   ::google::protobuf::int32 eventid_;
   mutable int _cached_size_;
@@ -791,34 +791,34 @@ inline void ChromaData::set_eventid(::google::protobuf::int32 value) {
   // @@protoc_insertion_point(field_set:ratchroma.ChromaData.eventid)
 }
 
-// repeated .ratchroma.CherenkovPhoton cherekovdata = 2;
-inline int ChromaData::cherekovdata_size() const {
-  return cherekovdata_.size();
+// repeated .ratchroma.CherenkovPhoton cherenkovdata = 2;
+inline int ChromaData::cherenkovdata_size() const {
+  return cherenkovdata_.size();
 }
-inline void ChromaData::clear_cherekovdata() {
-  cherekovdata_.Clear();
+inline void ChromaData::clear_cherenkovdata() {
+  cherenkovdata_.Clear();
 }
-inline const ::ratchroma::CherenkovPhoton& ChromaData::cherekovdata(int index) const {
-  // @@protoc_insertion_point(field_get:ratchroma.ChromaData.cherekovdata)
-  return cherekovdata_.Get(index);
+inline const ::ratchroma::CherenkovPhoton& ChromaData::cherenkovdata(int index) const {
+  // @@protoc_insertion_point(field_get:ratchroma.ChromaData.cherenkovdata)
+  return cherenkovdata_.Get(index);
 }
-inline ::ratchroma::CherenkovPhoton* ChromaData::mutable_cherekovdata(int index) {
-  // @@protoc_insertion_point(field_mutable:ratchroma.ChromaData.cherekovdata)
-  return cherekovdata_.Mutable(index);
+inline ::ratchroma::CherenkovPhoton* ChromaData::mutable_cherenkovdata(int index) {
+  // @@protoc_insertion_point(field_mutable:ratchroma.ChromaData.cherenkovdata)
+  return cherenkovdata_.Mutable(index);
 }
-inline ::ratchroma::CherenkovPhoton* ChromaData::add_cherekovdata() {
-  // @@protoc_insertion_point(field_add:ratchroma.ChromaData.cherekovdata)
-  return cherekovdata_.Add();
+inline ::ratchroma::CherenkovPhoton* ChromaData::add_cherenkovdata() {
+  // @@protoc_insertion_point(field_add:ratchroma.ChromaData.cherenkovdata)
+  return cherenkovdata_.Add();
 }
 inline const ::google::protobuf::RepeatedPtrField< ::ratchroma::CherenkovPhoton >&
-ChromaData::cherekovdata() const {
-  // @@protoc_insertion_point(field_list:ratchroma.ChromaData.cherekovdata)
-  return cherekovdata_;
+ChromaData::cherenkovdata() const {
+  // @@protoc_insertion_point(field_list:ratchroma.ChromaData.cherenkovdata)
+  return cherenkovdata_;
 }
 inline ::google::protobuf::RepeatedPtrField< ::ratchroma::CherenkovPhoton >*
-ChromaData::mutable_cherekovdata() {
-  // @@protoc_insertion_point(field_mutable_list:ratchroma.ChromaData.cherekovdata)
-  return &cherekovdata_;
+ChromaData::mutable_cherenkovdata() {
+  // @@protoc_insertion_point(field_mutable_list:ratchroma.ChromaData.cherenkovdata)
+  return &cherenkovdata_;
 }
 
 // repeated .ratchroma.ScintStep stepdata = 3;
