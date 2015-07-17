@@ -148,6 +148,7 @@ G4VPhysicalVolume *GeoBuilder::ConstructAll(std::string geo_tablename)
       }
 
       if (type == "border"){
+	// Border Surface Definition
         string volume1, volume2;
         try {
           volume1 = table->GetS("volume1");
@@ -159,10 +160,8 @@ G4VPhysicalVolume *GeoBuilder::ConstructAll(std::string geo_tablename)
         } catch (DBNotFoundError &e) {
         Log::Die("GeoBuilder error: border " + name + " has no volume2");
         }
-        //G4LogicalVolume* LogVol1 = GeoFactory::FindPhysMother(volume1);
-        //G4LogicalVolume* LogVol2 = GeoFactory::FindPhysMother(volume2);
-        G4VPhysicalVolume* LogVol1 = GeoFactory::FindPhysMother(volume1); // redundant
-        G4VPhysicalVolume* LogVol2 = GeoFactory::FindPhysMother(volume2); // redundant
+        G4VPhysicalVolume* LogVol1 = GeoFactory::FindPhysMother(volume1);
+        G4VPhysicalVolume* LogVol2 = GeoFactory::FindPhysMother(volume2);
 
         if (LogVol1 != 0 && LogVol2 != 0) {
           try {
@@ -179,6 +178,9 @@ G4VPhysicalVolume *GeoBuilder::ConstructAll(std::string geo_tablename)
               Log::Die("GeoBuilder error: Cannot find "+volume1+" or "+volume2+" for " + name);
             }
       }
+      else if ( type=="skin" ) {
+	// Skin
+      }
       else{
         if (mother == "" || GeoFactory::FindMother(mother) != 0) { // Found volume to build
   
@@ -192,7 +194,7 @@ G4VPhysicalVolume *GeoBuilder::ConstructAll(std::string geo_tablename)
           }
   
           debug << "GeoBuilder: Removing " << name << " from geo list.\n";
-          geo.erase(i_table);
+          geo.erase(i_btable);
           break;
         } else if (geo.count(mother) == 0) { // No mother yet to be built
               Log::Die("GeoBuilder error: Cannot find mother volume " + mother

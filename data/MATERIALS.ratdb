@@ -114,6 +114,26 @@ elemprop:[
 
 {
 name: "MATERIAL",
+index: "STEEL_STAINLESS_Fe7Cr2Ni",
+valid_begin : [0, 0],
+valid_end : [0, 0],
+// taken from http://www.sandmeyersteel.com/316-316L.html
+// and assuming the MAXIMUM permitted amounts of each element by the code. Iron makes up the remainder
+density: 8.027d,
+nelements: 10,
+nmaterials: 0,
+elements: [
+  "Carbon",     "Manganese",  "Silicon", "Chromium", "Nickel",
+  "Molybdenum", "Phosphorus", "Sulphur", "Nitrogen", "Iron"
+],
+elemprop:[
+  0.00030d, 0.0200d,  0.0075d,  0.1800d, 0.1400d, 
+  0.0300d,  0.00045d, 0.00030d, 0.0010d, 0.62045d
+],
+}
+
+{
+name: "MATERIAL",
 index: "dirt",
 valid_begin : [0, 0],
 valid_end : [0, 0],
