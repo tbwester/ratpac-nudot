@@ -124,21 +124,20 @@ namespace RAT {
 #endif
   }
 
-  void ChromaInterface::JoinQueue() {
 #ifdef _HAS_CHROMA_INTERFACE
+  void ChromaInterface::JoinQueue() {
     zhelpers::s_send (*client, "RDY");
     zhelpers::s_recv(*client);
-#endif
   }
 
   //must initialize client before setting its identity
   void ChromaInterface::SetIdentity() {
     //uses zhelpers member function to set a random identity.
     //(this method is thread-safe)
-#ifdef _HAS_CHROMA_INTERFACE
     ClientIdentity = zhelpers::s_set_id(*client);
-#endif
   }
+#endif
+
   void ChromaInterface::SendPhotonData() {
     // Send data
     //basic implementation, probably want to handshake or do
@@ -187,6 +186,7 @@ namespace RAT {
     // Also, geometry info has to sync. optical detector indexes between Chroma and RAT
 
     //sending optical info found in /data/OPTICS.ratdb
+#ifdef _HAS_CHROMA_INTERFACE
     std::ifstream optics ("/home/nudot/ratpac-chroma/data/OPTICS.ratdb");
     std::string oData;
     std::stringstream buffer;
@@ -194,6 +194,7 @@ namespace RAT {
     oData = buffer.str();
     zhelpers::s_send(*client,oData);
     std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\n\n " << oData;
+#endif
   }
 
   void ChromaInterface::MakePhotonHitData() {
