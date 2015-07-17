@@ -144,6 +144,7 @@ namespace RAT {
     //basic implementation, probably want to handshake or do
     //some check first.
 #ifdef _HAS_CHROMA_INTERFACE
+
     zhelpers::s_recv(*client);
     std::string str_msg;
 
@@ -172,11 +173,13 @@ namespace RAT {
 //     message.SerializeToString(&str_msg);
 //     zhelpers::s_send (*client, str_msg);
 // =======
+
     std::string msg;
     msg = zhelpers::s_recv (*client);
     fPhotonData.ParseFromString(msg);
-    std::cout << fPhotonData.photon_size();
-    std::cout << "Got the photon data." << "\n";
+    zhelpers::s_send(*client, " ");
+    //std::cout << fPhotonData.photon_size();
+    //std::cout << "Got the photon data." << "\n";
     //>>>>>>> 3c61392dd25cf2fa705974dc4797c40ab1bf4d45
 #endif
   }
@@ -193,12 +196,13 @@ namespace RAT {
     buffer << optics.rdbuf();
     oData = buffer.str();
     zhelpers::s_send(*client,oData);
-    std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\n\n " << oData;
+    //std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\n\n " << oData;
   }
 
   void ChromaInterface::MakePhotonHitData() {
 #ifdef _HAS_CHROMA_INTERFACE
     //hit_photon->SetPMTID((int)iopdet);
+    std::cout << "Chroma returns " << fPhotonData.photon_size() << " hits" << std::endl;
     for (int i = 0; i < fPhotonData.photon_size(); i++) 
       {
 	GLG4HitPhoton* hit_photon = new GLG4HitPhoton();
@@ -232,6 +236,7 @@ namespace RAT {
 	hit_photon->SetOriginFlag(fPhotonData.photon(i).origin());
 	GLG4VEventAction::GetTheHitPMTCollection()->DetectPhoton(hit_photon);
       }
+    std::cout << "finished glg4hitphoton vector\n";
 #endif
   }
 
