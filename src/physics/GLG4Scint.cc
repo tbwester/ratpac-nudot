@@ -49,6 +49,9 @@
 #include <G4EventManager.hh>
 #include <sstream>
 
+// CHROMA (HACK FOR NOW)
+#include <RAT/ChromaInterface.hh>
+
 ////////////////
 // Static data members
 ////////////////
@@ -379,6 +382,22 @@ GLG4Scint::PostPostStepDoIt(const G4Track& aTrack, const G4Step& aStep) {
       aParticleChange.SetNumberOfSecondaries(0);
       goto PostStepDoIt_DONE;
     }
+
+    // ================================================
+    // CHROMA HACK
+    // below is where secondaries get made. this is 
+    // an allocation on the heap that will just get 
+    // deleted later, wasting time
+    // we intercept, storing step info instead.
+    // after we are done we use the *gulp* goto
+    // ------------------------------------------------
+    if ( RAT::ChromaInterface::GetTheChromaInterface()->isActive() ) {
+      RAT::ChromaInterface::GetTheChromaInterface()->storeStepInfo( &aStep, numSecondaries );
+      aParticleChange.SetNumberOfSecondaries(0);
+      goto PostStepDoIt_DONE;
+    }
+    // ================================================
+
 
     // Okay, we will make at least one secondary.
     // Notify the proper authorities.
