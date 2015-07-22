@@ -179,7 +179,10 @@ G4VPhysicalVolume *GeoBuilder::ConstructAll(std::string geo_tablename)
             }
       }
       else if ( type=="skin" ) {
-	// Skin
+	// Check if volume defined already before processing.
+	// to d
+	// make surface
+	GeoFactory::ConstructWithFactory(type, table);
       }
       else{
         if (mother == "" || GeoFactory::FindMother(mother) != 0) { // Found volume to build
@@ -194,7 +197,7 @@ G4VPhysicalVolume *GeoBuilder::ConstructAll(std::string geo_tablename)
           }
   
           debug << "GeoBuilder: Removing " << name << " from geo list.\n";
-          geo.erase(i_btable);
+          geo.erase(i_table);
           break;
         } else if (geo.count(mother) == 0) { // No mother yet to be built
               Log::Die("GeoBuilder error: Cannot find mother volume " + mother
