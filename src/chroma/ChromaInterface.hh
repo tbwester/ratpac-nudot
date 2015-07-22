@@ -29,15 +29,23 @@ class ChromaInterface {
 
 public:
 
+  static ChromaInterface* GetTheChromaInterface();
+
+private:
+  // during this into a singleton -- this is a terrible hack!
+
   ChromaInterface();
   ~ChromaInterface();
 
-  bool isActive();
+public:
+
+  static bool isActive();
 
   void initializeServerConnection();
   void closeServerConnection();
   void readStoreKillCherenkovPhotons( std::vector< G4Track* >* secondaries );
   void readStoreKillScintillationPhotons( const G4Step* astep, G4VParticleChange* scint_photons );
+  void storeStepInfo( const G4Step* aStep, int nscintphotons_in_step );
   void ClearData();
   void SendPhotonData();
   void ReceivePhotonData();
@@ -61,9 +69,14 @@ protected:
   ratchroma::ChromaData message; // data we send to Chroma
   hitPhotons::PhotonHits fPhotonData;
   #endif
-  bool fActive;
+  static bool fActive;
   std::string fStrQueueAddress;
   std::string ClientIdentity;
+
+public:
+  
+  static ChromaInterface* gSingleton;
+
 };
 
 }// end of RAT namespace

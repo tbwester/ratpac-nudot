@@ -282,10 +282,12 @@ GLG4SteppingAction::UserSteppingAction(const G4Step* aStep)
   }
 #endif
 
-  // before scintillation: check for cerenkov photons. Chroma absorbs them.
-  if ( !fChroma && fChroma->isActive() ) {
-    fChroma->readStoreKillCherenkovPhotons( fpSteppingManager->GetfSecondary() );
-  };
+  // // deprecated
+  // // before scintillation: check for cerenkov photons. Chroma absorbs them.
+  // if ( !fChroma && fChroma->isActive() ) {
+  //   fChroma->readStoreKillCherenkovPhotons( fpSteppingManager->GetfSecondary() );
+  // };
+
 //   std::cout << "prescint secondary list: " << std::endl;
 //   const std::vector< const G4Track* >* sndries = aStep->GetSecondaryInCurrentStep();
 //   for (  std::vector< const G4Track* >::const_iterator it=sndries->begin(); it!=sndries->end(); it++ ) {
@@ -298,27 +300,25 @@ GLG4SteppingAction::UserSteppingAction(const G4Step* aStep)
       G4VParticleChange * pParticleChange
 	= GLG4Scint::GenericPostPostStepDoIt(aStep);
 
+      
       if ( fChroma==NULL || !fChroma->isActive() ) {
 
-	// were any secondaries defined?
-	G4int iSecondary= pParticleChange->GetNumberOfSecondaries();
-	if (iSecondary > 0)
-	  {
-	    // add secondaries to the list
-	    while ( (iSecondary--) > 0 )
-	      {
-		G4Track * tempSecondaryTrack
-		  = pParticleChange->GetSecondary(iSecondary);
-		fpSteppingManager->GetfSecondary()
-		  ->push_back( tempSecondaryTrack );
-	      }
-	  }
-	// clear ParticleChange
-	pParticleChange->Clear();
-	//std::cout << "GLGLScint: number of photons " << iSecondary << std::endl;
-      }
-      else {
-	fChroma->readStoreKillScintillationPhotons( aStep, pParticleChange );
+      	// were any secondaries defined?
+      	G4int iSecondary= pParticleChange->GetNumberOfSecondaries();
+      	if (iSecondary > 0)
+      	  {
+      	    // add secondaries to the list
+      	    while ( (iSecondary--) > 0 )
+      	      {
+      		G4Track * tempSecondaryTrack
+      		  = pParticleChange->GetSecondary(iSecondary);
+      		fpSteppingManager->GetfSecondary()
+      		  ->push_back( tempSecondaryTrack );
+      	      }
+      	  }
+      	// clear ParticleChange
+      	pParticleChange->Clear();
+      	//std::cout << "GLGLScint: number of photons " << iSecondary << std::endl;
       }
   }
 

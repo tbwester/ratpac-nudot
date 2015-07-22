@@ -156,7 +156,7 @@ void protobuf_AddDesc_ratchromadata_2eproto() {
     "\030\n \001(\t\"x\n\nChromaData\022\017\n\007eventid\030\001 \001(\005\0221\n"
     "\rcherenkovdata\030\002 \003(\0132\032.ratchroma.Cherenk"
     "ovPhoton\022&\n\010stepdata\030\003 \003(\0132\024.ratchroma.S"
-    "cintStepb\006proto3", 536);
+    "cintStepB\002H\001b\006proto3", 540);
   ::google::protobuf::MessageFactory::InternalRegisterGeneratedFile(
     "ratchromadata.proto", &protobuf_RegisterTypes);
   CherenkovPhoton::default_instance_ = new CherenkovPhoton();

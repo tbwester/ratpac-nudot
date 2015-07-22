@@ -26,6 +26,7 @@
 #include <RAT/GLG4PrimaryGeneratorAction.hh>
 #include <RAT/GLG4Scint.hh>
 #include <RAT/PhysicsList.hh>
+#include <RAT/PhysicsListFast.hh>
 #include <RAT/GLG4SteppingAction.hh>
 #include <RAT/GLG4DebugMessenger.hh>
 #include <RAT/GLG4VertexGen.hh>
@@ -45,6 +46,14 @@
 #include <vector>
 #include <cstdlib>
 #include <math.h>
+
+#ifdef HAS_GPROF
+#include <gperftools/profiler.h>
+#endif
+#ifdef HAS_HEAPCHK
+#include <gperftools/heap-profiler.h>
+#endif
+
 
 namespace RAT {
 
@@ -129,7 +138,7 @@ void Gsim::Init() {
   //   to capture particle track information
   // Optional ChromaInterface can be activated to use GPUs to 
   //   accelerate photon transport.
-  fChroma = new ChromaInterface();
+  fChroma = ChromaInterface::GetTheChromaInterface();
   theChromaMessenger = new ChromaInterfaceMessenger( fChroma );
   theRunManager->SetUserAction(static_cast<G4UserTrackingAction*>(this));
   theRunManager->SetUserAction(new GLG4SteppingAction( fChroma ));
@@ -146,9 +155,8 @@ void Gsim::Init() {
 Gsim::~Gsim() {
 
   // destroy chroma connection
-  if ( fChroma ) {
+  if ( fChroma->isActive() ) {
     fChroma->closeServerConnection();
-    delete fChroma;
   }
 
   // GEANT4 will try to delete the G4UserEventAction when we delete
@@ -231,6 +239,13 @@ void Gsim::BeginOfRunAction(const G4Run* /*aRun*/) {
     maxpe = 0;
   }
   nabort = 0;
+
+#ifdef HAS_GPROF
+  ProfilerStart( "rat.prof"  );
+#endif  
+#ifdef HAS_HEAPCHK
+  HeapProfilerStart("rat.hprof");
+#endif
 }
 
 void Gsim::EndOfRunAction(const G4Run* /*arun*/) {
@@ -238,6 +253,12 @@ void Gsim::EndOfRunAction(const G4Run* /*arun*/) {
     info << "Gsim: Tracking aborted for " << nabort 
          << " events exceeding " << maxpe << " photoelectrons" << newline;
   }
+#ifdef HAS_GPROF
+  ProfilerStop();
+#endif
+#ifdef HAS_HEAPCHK
+  HeapProfilerStop();
+#endif
 }
 
 void Gsim::BeginOfEventAction(const G4Event* anEvent) {
@@ -257,7 +278,7 @@ void Gsim::BeginOfEventAction(const G4Event* anEvent) {
   }
 
   // only necessary if we run chroma interface: clears protobuf data (retains allocation)
-  if ( fChroma )
+  if ( fChroma->isActive() )
     fChroma->ClearData();
 }
 

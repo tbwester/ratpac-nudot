@@ -1,4 +1,6 @@
 #include "ChromaInterface.hh"
+#include <stdlib.h>
+#include <assert.h>
 
 #include "G4Track.hh"
 #include "G4VProcess.hh"
@@ -14,6 +16,16 @@
 
 
 namespace RAT {
+
+  ChromaInterface* ChromaInterface::gSingleton  = NULL;
+  bool ChromaInterface::fActive = false;
+
+  ChromaInterface* ChromaInterface::GetTheChromaInterface() {
+    if ( gSingleton==NULL ) {
+      gSingleton = new ChromaInterface();
+    }
+    return gSingleton;
+  }
 
   ChromaInterface::ChromaInterface() {
     #ifdef _HAS_CHROMA_INTERFACE
@@ -96,17 +108,13 @@ namespace RAT {
 #endif
   }
 
-  void ChromaInterface::readStoreKillScintillationPhotons( const G4Step* aStep, G4VParticleChange* scint_photons ) {
+  void ChromaInterface::storeStepInfo( const G4Step* aStep, int nscintphotons_in_step ) {
 #ifdef _HAS_CHROMA_INTERFACE
-    G4int iSecondary= scint_photons->GetNumberOfSecondaries();
-    if ( iSecondary==0 )
-      return;
-
     ratchroma::ScintStep* scintinfo = message.add_stepdata();
     G4StepPoint* prestep = aStep->GetPreStepPoint();
     G4StepPoint* poststep = aStep->GetPostStepPoint();
 
-    scintinfo->set_nphotons( (int)iSecondary );
+    scintinfo->set_nphotons( (int)nscintphotons_in_step );
     scintinfo->set_step_start_x( prestep->GetPosition().x() );
     scintinfo->set_step_start_y( prestep->GetPosition().y() );
     scintinfo->set_step_start_z( prestep->GetPosition().z() );
@@ -114,7 +122,26 @@ namespace RAT {
     scintinfo->set_step_end_y( poststep->GetPosition().y() );
     scintinfo->set_step_end_z( poststep->GetPosition().z() );
     scintinfo->set_material( prestep->GetMaterial()->GetName() );
+#endif
+  }
+
+  void ChromaInterface::readStoreKillScintillationPhotons( const G4Step* aStep, G4VParticleChange* scint_photons ) {
+    // deprecated. will be removed eventually.
+#ifdef _HAS_CHROMA_INTERFACE
+    G4int iSecondary= scint_photons->GetNumberOfSecondaries();
+    if ( iSecondary==0 )
+      return;
+
+    storeStepInfo( aStep, iSecondary );
+
+    // we are responsible for destroying the secondaries properly
+    for (int ipart=0; ipart<scint_photons->GetNumberOfSecondaries(); ipart++) {
+      G4Track* atrack = scint_photons->GetSecondary( ipart );
+      delete atrack;
+      atrack = NULL;
+    }
     scint_photons->Clear();
+    
 #endif
   }
 
@@ -124,27 +151,29 @@ namespace RAT {
 #endif
   }
 
-  void ChromaInterface::JoinQueue() {
 #ifdef _HAS_CHROMA_INTERFACE
+  void ChromaInterface::JoinQueue() {
     zhelpers::s_send (*client, "RDY");
-    zhelpers::s_recv(*client);
-#endif
+    std::vector<std::string> msg;
+    zhelpers::s_recv_multipart(*client, msg);
+    std::cout << "Joined ZINC Queue" << std::endl;
   }
 
   //must initialize client before setting its identity
   void ChromaInterface::SetIdentity() {
     //uses zhelpers member function to set a random identity.
     //(this method is thread-safe)
-#ifdef _HAS_CHROMA_INTERFACE
     ClientIdentity = zhelpers::s_set_id(*client);
-#endif
   }
+#endif
+
   void ChromaInterface::SendPhotonData() {
     // Send data
     //basic implementation, probably want to handshake or do
     //some check first.
 #ifdef _HAS_CHROMA_INTERFACE
-    zhelpers::s_recv(*client);
+
+    //zhelpers::s_recv(*client);
     std::string str_msg;
 
     //message.DebugString() displays the message data (similar to using print in python)
@@ -154,30 +183,22 @@ namespace RAT {
     //std::cout << debug;
 
     message.SerializeToString(&str_msg);
+    zhelpers::s_sendmore (*client, "EVT" );
     zhelpers::s_send (*client, str_msg);
+    // paired recv is ReceivePhotonData()
 #endif
   }
 
   void ChromaInterface::ReceivePhotonData() {
     //do some check/configrmation first
 #ifdef _HAS_CHROMA_INTERFACE
-// <<<<<<< HEAD
-//     const std::string msg = zhelpers::s_recv (*client);
-//     fPhotonData.ParseFromString(msg);
-//     std::cout << fPhotonData.photon_size();
-//     std::cout << "Got the photon data." << "\n";
-
-//     zhelpers::s_recv(*client); //signal
-//     std::string str_msg;
-//     message.SerializeToString(&str_msg);
-//     zhelpers::s_send (*client, str_msg);
-// =======
-    std::string msg;
-    msg = zhelpers::s_recv (*client);
-    fPhotonData.ParseFromString(msg);
-    std::cout << fPhotonData.photon_size();
-    std::cout << "Got the photon data." << "\n";
-    //>>>>>>> 3c61392dd25cf2fa705974dc4797c40ab1bf4d45
+    std::vector<std::string> msg;
+    zhelpers::s_recv_multipart (*client, msg);
+    std::cout << "[ChromaInterface] number of msg parts=" << msg.size() << std::endl;
+    fPhotonData.ParseFromString(msg.at(msg.size()-1));
+    //zhelpers::s_send(*client, "got it!"); // reply we got it // this confirmation is a good idea to implement later
+    //std::cout << fPhotonData.photon_size();
+    //std::cout << "Got the photon data." << "\n";
 #endif
   }
 
@@ -187,18 +208,28 @@ namespace RAT {
     // Also, geometry info has to sync. optical detector indexes between Chroma and RAT
 
     //sending optical info found in /data/OPTICS.ratdb
-    std::ifstream optics ("/home/nudot/ratpac-chroma/data/OPTICS.ratdb");
+#ifdef _HAS_CHROMA_INTERFACE
+    std::string path = std::string(getenv("RATROOT")) + "/data/OPTICS.ratdb";
+    std::ifstream optics ( path.c_str() );
     std::string oData;
     std::stringstream buffer;
     buffer << optics.rdbuf();
     oData = buffer.str();
+    zhelpers::s_sendmore(*client,"CFG");
     zhelpers::s_send(*client,oData);
+    std::vector<std::string> msg;
+    zhelpers::s_recv_multipart(*client, msg);
+    if ( msg.at(msg.size()-1)=="OK" ) {
+      std::cout << "ZINC accepted detector config" << std::endl;
+    }
     std::cout << "!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\n\n " << oData;
+#endif
   }
 
   void ChromaInterface::MakePhotonHitData() {
 #ifdef _HAS_CHROMA_INTERFACE
     //hit_photon->SetPMTID((int)iopdet);
+    std::cout << "Chroma returns " << fPhotonData.photon_size() << " hits" << std::endl;
     for (int i = 0; i < fPhotonData.photon_size(); i++) 
       {
 	GLG4HitPhoton* hit_photon = new GLG4HitPhoton();
@@ -232,6 +263,7 @@ namespace RAT {
 	hit_photon->SetOriginFlag(fPhotonData.photon(i).origin());
 	GLG4VEventAction::GetTheHitPMTCollection()->DetectPhoton(hit_photon);
       }
+    std::cout << "finished glg4hitphoton vector\n";
 #endif
   }
 
