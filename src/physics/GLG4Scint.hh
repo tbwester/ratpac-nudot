@@ -286,6 +286,7 @@ public:
   static void SetTimePrecGoal(double prec);
   static int GetMaxIter() { return maxiter; }
   static void SetMaxIter(int maxit) { maxiter = maxit; }
+
 };
 
 ////////////////////

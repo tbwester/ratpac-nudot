@@ -2,6 +2,7 @@
 #include <RAT/ProcBlock.hh>
 #include <RAT/Gsim.hh>
 #include <RAT/PhysicsList.hh>
+#include <RAT/PhysicsListFast.hh>
 #include <G4RunManager.hh>
 
 #ifdef G4VIS_USE
@@ -26,7 +27,8 @@ void RunManager::Init() {
   // Particle transport and interactions.  Note that this has to be
   // created outside of Gsim, since the physics list must be
   // initialized before the user tracking action.
-  theRunManager->SetUserInitialization(new PhysicsList());
+  //theRunManager->SetUserInitialization(new PhysicsList());
+  theRunManager->SetUserInitialization(new PhysicsListFast());
 
   // Create the  simulation manager.
   ratGsim = new Gsim(mainBlock);

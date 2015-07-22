@@ -1,6 +1,7 @@
 syntax = "proto3";
 
 package ratchroma;
+option optimize_for = SPEED;
 
 message CherenkovPhoton {
 	float x      		= 2;
