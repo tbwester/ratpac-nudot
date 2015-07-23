@@ -16,15 +16,9 @@ namespace RAT {
 // 		      G4LogicalVolume* vol,
 // 		      G4SurfaceProperty* surfaceProperty );
 
-string ConvertIntToString(int i)
-{
-  stringstream sstream;
-  sstream << i;
-  return sstream.str();
-}
-
 G4VPhysicalVolume *GeoSkinSurfaceFactory::Construct(DBLinkPtr table) {
-  detail << "GeoSkinSurfaceFactory: Constructing skin surface: " << table->GetIndex() << newline;
+  //detail << "GeoSkinSurfaceFactory: Constructing skin surface: " << table->GetIndex() << newline;
+  std::cout << "GeoSkinSurfaceFactory: Constructing skin surface: " << table->GetIndex() << std::endl;
 
   string skin_name = table->GetIndex();
   string lv_name;
@@ -36,6 +30,9 @@ G4VPhysicalVolume *GeoSkinSurfaceFactory::Construct(DBLinkPtr table) {
   };
 
   G4LogicalVolume* LV = G4LogicalVolumeStore::GetInstance()->GetVolume( lv_name );
+  if ( LV==NULL ) {
+    Log::Die("GeoSkinSurfaceFactory: Error building "+skin_name+", logical volume '"+lv_name+"' does not exist");
+  }
   
   string surface_name = table->GetS("surface");
   if (Materials::optical_surface.count(surface_name) == 0)

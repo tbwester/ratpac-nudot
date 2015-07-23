@@ -73,6 +73,7 @@ void PhysicsListFast::ConstructOpticalProcesses() {
   nucleonScintProcess->SetVerboseLevel(verboseLevel-1);
   alphaScintProcess->SetVerboseLevel(verboseLevel-1);
   opBoundaryProcess->SetVerboseLevel(verboseLevel-1);
+  //opBoundaryProcess->SetVerboseLevel(5);
 
   // Apply processes to all particles where applicable
   theParticleIterator->reset();
