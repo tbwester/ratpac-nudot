@@ -84,10 +84,13 @@ def src_module(env, module_name, header_subdir=""):
     if module_name=="chroma":
         # Prevent compilation of certain sources if no protobuf or zmq
         if ('_HAS_PROTOBUF', 1) not in env["CPPDEFINES"]: # hacky
+            replacement_srcs = []
             for x in src_list:
-                if ".pb.cc" in x:
-                    src_list.remove(x)
+                if ".pb.cc" not in x:
+                    replacement_srcs.append( x )
+            src_list = replacement_srcs
         if ('_HAS_ZMQ', 1) not in env["CPPDEFINES"]: # hacky
+            print "NO ZMQ SOURCES"
             for x in src_list:
                 if "zhelper" in x:
                     src_list.remove(x)
