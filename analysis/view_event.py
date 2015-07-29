@@ -24,10 +24,10 @@ c.cd(1).Divide(2,1)
 c.cd(2).Divide(2,1)
 c.cd(3).Divide(2,1)
 
-time_cut = 500.0
+time_cut = 3.0
 
 hz = ROOT.TH1D('hz','',200,-5000,5000)
-hxy = ROOT.TH2D('hxy','',20,-50,50,20,-50,50)
+hxy = ROOT.TH2D('hxy','',20,-25,25,20,-25,25)
 hz1 = ROOT.TH1D('hz1','',200,-50,50)
 hxy1 = hxy.Clone("hxy1")
 hz2 = ROOT.TH1D('hz2','',200,-50,50)
