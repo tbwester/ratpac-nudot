@@ -19,7 +19,7 @@ string ConvertIntToString(int i)
 }
 
 G4VPhysicalVolume *GeoSurfaceFactory::Construct(DBLinkPtr table) {
-  detail << "GeoSurfaceFactory: Constructing border " << table->GetIndex() << newline;
+  std::cout << "GeoSurfaceFactory: Constructing border " << table->GetIndex() << std::endl;
 
   string border_name = table->GetIndex();
   string volume1_name, volume2_name;

@@ -13,7 +13,7 @@ arch = {
     'PROFILEFLAGS' : '-pg',
 
     # Main compile flags.  Always used #-Werror removed
-    'default' : { 'CXXFLAGS' : Split('-W -Wall -ansi -pedantic -Wno-non-virtual-dtor'
+    'default' : { 'CXXFLAGS' : Split('-W -Wall -ansi -Wno-non-virtual-dtor'
                                      ' -Wno-long-long -Wwrite-strings -Wno-strict-aliasing'
                                      ' -Wpointer-arith -Wno-unused-parameter -Woverloaded-virtual -pipe'
                                      ' -fPIC -Werror'),

@@ -26,6 +26,7 @@
 #include <RAT/ConeWaveguideFactory.hh>
 #include <RAT/GeoRevolutionChimneyFactory.hh>
 #include <RAT/GeoSurfaceFactory.hh>
+#include <RAT/GeoSkinSurfaceFactory.hh>
 #include <RAT/GeoTubeIntersectionFactory.hh>
 #include <RAT/GeoPerfBoxFactory.hh>
 #include <RAT/GeoCutTubeFactory.hh>
@@ -57,6 +58,7 @@ GeoBuilder::GeoBuilder()
   new GeoLensFactory();
   new GeoPolygonFactory();
   new GeoSurfaceFactory();
+  new GeoSkinSurfaceFactory();
   new GeoConvexLensFactory();
   new GeoTubeIntersectionFactory();
   new GeoPerfBoxFactory();
@@ -70,12 +72,11 @@ GeoBuilder::GeoBuilder()
   geo_source = RATGEOTABLES;
 }
 
-
-G4VPhysicalVolume *GeoBuilder::ConstructAll(std::string geo_tablename) 
-{
+  G4VPhysicalVolume *GeoBuilder::ConstructAll(std::string geo_tablename, G4VPhysicalVolume* prebuiltWorld) 
+  {
   // Get all geometry tables that have been loaded
-  DBLinkGroup geo = DB::Get()->GetLinkGroup(geo_tablename);
-  G4VPhysicalVolume *world = 0;
+    DBLinkGroup geo = DB::Get()->GetLinkGroup(geo_tablename);
+    G4VPhysicalVolume *world = prebuiltWorld;
 
   // Plan: Scan list repeatedly, looking for volume with mother that
   //       already has been constructed.  This should reduce the size
@@ -103,25 +104,32 @@ G4VPhysicalVolume *GeoBuilder::ConstructAll(std::string geo_tablename)
       try {
 	// if found one, we use the GDML parser and skip the rest of this loop!
 	gdmlfilename = table->GetS("gdml_file");
-	std::cout << "Parsing GDML File: " << gdmlfilename << std::endl;
-	geo_source = GDMLFILE;
-	// we need the glg4data and expriment to get right folder
-	string glg4data = "";
-	if (getenv("GLG4DATA") != NULL) {
-	  glg4data = string(getenv("GLG4DATA")) + "/";
-	}
-	string experiment = DB::Get()->GetLink("DETECTOR")->GetS("experiment");
-	// parse the file
-	gdml_parser.Read( glg4data+"/"+experiment+"/"+gdmlfilename );
-	// return the world volume
-	//return gdml_parser.GetWorldVolume();
-	world = gdml_parser.GetWorldVolume();
 	geo.erase(i_table);
 	break;
       }
       catch (DBNotFoundError &e) {
 	// do nothing. keep going.
       } 
+
+// 	std::cout << "Parsing GDML File: " << gdmlfilename << std::endl;
+// 	geo_source = GDMLFILE;
+// 	// we need the glg4data and expriment to get right folder
+// 	string glg4data = "";
+// 	if (getenv("GLG4DATA") != NULL) {
+// 	  glg4data = string(getenv("GLG4DATA")) + "/";
+// 	}
+// 	string experiment = DB::Get()->GetLink("DETECTOR")->GetS("experiment");
+// 	// parse the file
+// 	gdml_parser.Read( glg4data+"/"+experiment+"/"+gdmlfilename );
+// 	// return the world volume
+// 	//return gdml_parser.GetWorldVolume();
+// 	world = gdml_parser.GetWorldVolume();
+// 	geo.erase(i_table);
+// 	break;
+//       }
+//       catch (DBNotFoundError &e) {
+// 	// do nothing. keep going.
+//       } 
 
       string mother;
       string type;
@@ -148,6 +156,7 @@ G4VPhysicalVolume *GeoBuilder::ConstructAll(std::string geo_tablename)
       }
 
       if (type == "border"){
+	// Border Surface Definition
         string volume1, volume2;
         try {
           volume1 = table->GetS("volume1");
@@ -159,10 +168,8 @@ G4VPhysicalVolume *GeoBuilder::ConstructAll(std::string geo_tablename)
         } catch (DBNotFoundError &e) {
         Log::Die("GeoBuilder error: border " + name + " has no volume2");
         }
-        //G4LogicalVolume* LogVol1 = GeoFactory::FindPhysMother(volume1);
-        //G4LogicalVolume* LogVol2 = GeoFactory::FindPhysMother(volume2);
-        G4VPhysicalVolume* LogVol1 = GeoFactory::FindPhysMother(volume1); // redundant
-        G4VPhysicalVolume* LogVol2 = GeoFactory::FindPhysMother(volume2); // redundant
+        G4VPhysicalVolume* LogVol1 = GeoFactory::FindPhysMother(volume1);
+        G4VPhysicalVolume* LogVol2 = GeoFactory::FindPhysMother(volume2);
 
         if (LogVol1 != 0 && LogVol2 != 0) {
           try {
@@ -178,6 +185,15 @@ G4VPhysicalVolume *GeoBuilder::ConstructAll(std::string geo_tablename)
               // No mother yet to be built
               Log::Die("GeoBuilder error: Cannot find "+volume1+" or "+volume2+" for " + name);
             }
+      }
+      else if ( type=="skin" ) {
+	// Check if volume defined already before processing.
+	// to d
+	// make surface
+	std::cout << "GeoBuilder: Skin Surface " << std::endl;
+	GeoFactory::ConstructWithFactory(type, table);
+	geo.erase(i_table); // finish
+	break;
       }
       else{
         if (mother == "" || GeoFactory::FindMother(mother) != 0) { // Found volume to build
@@ -195,10 +211,10 @@ G4VPhysicalVolume *GeoBuilder::ConstructAll(std::string geo_tablename)
           geo.erase(i_table);
           break;
         } else if (geo.count(mother) == 0) { // No mother yet to be built
-              Log::Die("GeoBuilder error: Cannot find mother volume " + mother
-                      + " for " + name);
-            }
-      }
+	  Log::Die("GeoBuilder error: Cannot find mother volume " + mother
+		   + " for " + name);
+	}
+      }//else
       
     } // end for loop looking for next volume to build
 
@@ -220,5 +236,44 @@ G4VPhysicalVolume *GeoBuilder::ConstructAll(std::string geo_tablename)
 
   return world;
 }
+
+  G4VPhysicalVolume* GeoBuilder::ConstructGDML(std::string geo_tablename) {
+    // Get all geometry tables that have been loaded
+    DBLinkGroup geo = DB::Get()->GetLinkGroup(geo_tablename);
+    G4VPhysicalVolume *world = 0;
+
+    DBLinkGroup::iterator i_table;
+    for (i_table = geo.begin(); i_table != geo.end(); ++i_table) {
+      string name = i_table->first;
+      DBLinkPtr table = i_table->second;
+      
+      // look for GDML entry
+      string gdmlfilename;
+      try {
+	// if found one, we use the GDML parser and skip the rest of this loop!
+	gdmlfilename = table->GetS("gdml_file");
+	std::cout << "Parsing GDML File: " << gdmlfilename << std::endl;
+	geo_source = GDMLFILE;
+	// we need the glg4data and expriment to get right folder
+	string glg4data = "";
+	if (getenv("GLG4DATA") != NULL) {
+	  glg4data = string(getenv("GLG4DATA")) + "/";
+	}
+	string experiment = DB::Get()->GetLink("DETECTOR")->GetS("experiment");
+	// parse the file
+	gdml_parser.Read( glg4data+"/"+experiment+"/"+gdmlfilename );
+	// return the world volume
+	world = gdml_parser.GetWorldVolume();
+	// remove from table
+	geo.erase(i_table);
+	break;
+      }
+      catch (DBNotFoundError &e) {
+	// do nothing. keep going.
+      } 
+      
+    }
+    return world;
+  }// end of construct GDML
 
 } // namespace RAT

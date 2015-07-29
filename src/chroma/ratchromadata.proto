@@ -1,6 +1,7 @@
 syntax = "proto3";
 
 package ratchroma;
+option optimize_for = SPEED;
 
 message CherenkovPhoton {
 	float x      		= 2;
@@ -31,6 +32,6 @@ message ScintStep {
 
 message ChromaData {
 	int32 eventid				= 1;
-	repeated CherenkovPhoton cherekovdata	= 2;
+	repeated CherenkovPhoton cherenkovdata	= 2;
 	repeated ScintStep stepdata		= 3;
 }

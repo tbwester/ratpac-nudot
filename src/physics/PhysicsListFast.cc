@@ -1,4 +1,4 @@
-#include <Shielding.hh>
+#include <QGSP_BERT.hh>
 #include <G4FastSimulationManagerProcess.hh>
 #include <G4OpticalPhoton.hh>
 #include <G4OpRayleigh.hh>
@@ -9,26 +9,26 @@
 #include <RAT/GLG4OpAttenuation.hh>
 #include <RAT/GLG4Scint.hh>
 #include <RAT/GLG4SteppingAction.hh>
-#include <RAT/PhysicsList.hh>
+#include <RAT/PhysicsListFast.hh>
 
 namespace RAT {
 
-PhysicsList::PhysicsList() : Shielding() {}
+PhysicsListFast::PhysicsListFast() : QGSP_BERT() {}
 
-PhysicsList::~PhysicsList() {}
+PhysicsListFast::~PhysicsListFast() {}
 
-void PhysicsList::ConstructParticle() {
-  Shielding::ConstructParticle();
+void PhysicsListFast::ConstructParticle() {
+  QGSP_BERT::ConstructParticle();
   G4OpticalPhoton::OpticalPhotonDefinition();
 }
 
-void PhysicsList::ConstructProcess() {
+void PhysicsListFast::ConstructProcess() {
   AddParameterization();
-  Shielding::ConstructProcess();
+  QGSP_BERT::ConstructProcess();
   ConstructOpticalProcesses();
 }
 
-void PhysicsList::ConstructOpticalProcesses() {
+void PhysicsListFast::ConstructOpticalProcesses() {
   // Cherenkov: default G4Cerenkov
   //
   // Request that Cerenkov photons be tracked first, before continuing
@@ -73,6 +73,7 @@ void PhysicsList::ConstructOpticalProcesses() {
   nucleonScintProcess->SetVerboseLevel(verboseLevel-1);
   alphaScintProcess->SetVerboseLevel(verboseLevel-1);
   opBoundaryProcess->SetVerboseLevel(verboseLevel-1);
+  //opBoundaryProcess->SetVerboseLevel(5);
 
   // Apply processes to all particles where applicable
   theParticleIterator->reset();
@@ -92,7 +93,7 @@ void PhysicsList::ConstructOpticalProcesses() {
   }
 }
 
-void PhysicsList::AddParameterization() {
+void PhysicsListFast::AddParameterization() {
   G4FastSimulationManagerProcess* fastSimulationManagerProcess =
     new G4FastSimulationManagerProcess();
   theParticleIterator->reset();

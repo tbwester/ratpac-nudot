@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <string>
+#include <fstream>
 
 #if defined(_HAS_ZMQ) && defined(_HAS_PROTOBUF)
 #define _HAS_CHROMA_INTERFACE
@@ -10,11 +11,13 @@
 
 #ifdef _HAS_PROTOBUF
 #include "ratchromadata.pb.h"
+#include "photonHit.pb.h"
 #endif
 
 #ifdef _HAS_ZMQ
 #include "zhelpers.hpp"
 #endif
+
 
 class G4Track;
 class G4VParticleChange;
@@ -26,26 +29,31 @@ class ChromaInterface {
 
 public:
 
+  static ChromaInterface* GetTheChromaInterface();
+
+private:
+  // during this into a singleton -- this is a terrible hack!
+
   ChromaInterface();
   ~ChromaInterface();
 
-  bool isActive();
+public:
+
+  static bool isActive();
 
   void initializeServerConnection();
   void closeServerConnection();
-
   void readStoreKillCherenkovPhotons( std::vector< G4Track* >* secondaries );
   void readStoreKillScintillationPhotons( const G4Step* astep, G4VParticleChange* scint_photons );
-
+  void storeStepInfo( const G4Step* aStep, int nscintphotons_in_step );
   void ClearData();
-  
-  void SetIdentity();
-  void JoinQueue();
   void SendPhotonData();
   void ReceivePhotonData();
   void SendDetectorConfigData();
   void MakePhotonHitData();
 #ifdef _HAS_ZMQ
+  void JoinQueue();  
+  void SetIdentity();  
   zmq::socket_t * S_Client_Socket (zmq::context_t & context);
 #endif
 
@@ -59,11 +67,16 @@ protected:
 #endif
 #ifdef _HAS_PROTOBUF
   ratchroma::ChromaData message; // data we send to Chroma
+  hitPhotons::PhotonHits fPhotonData;
 #endif
-
-  bool fActive;
+  static bool fActive;
   std::string fStrQueueAddress;
   std::string ClientIdentity;
+
+public:
+  
+  static ChromaInterface* gSingleton;
+
 };
 
 }// end of RAT namespace

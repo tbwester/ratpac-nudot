@@ -5,9 +5,12 @@
 #include <G4PhysicalVolumeStore.hh>
 #include <G4LogicalVolumeStore.hh>
 #include <G4LogicalBorderSurface.hh>
+#include <G4LogicalSkinSurface.hh>
 #include <G4VPhysicalVolume.hh>
 #include <G4SolidStore.hh>
 #include <G4SDManager.hh>
+#include <G4Material.hh>
+#include <G4MaterialTable.hh>
 #include <BWVetGenericChamber.hh>
 #include <RAT/DetectorConstruction.hh>
 #include <RAT/PhotonThinning.hh>
@@ -71,14 +74,17 @@ G4VPhysicalVolume* DetectorConstruction::Construct() {
     }
   }
 
-  info << "Constructing detector materials...\n";
-  ConstructMaterials();
-
   // Delete the old detector if we are constructing a new one
   G4GeometryManager::GetInstance()->OpenGeometry();
   G4PhysicalVolumeStore::GetInstance()->Clean();
   G4LogicalVolumeStore::GetInstance()->Clean();
   G4SolidStore::GetInstance()->Clean();
+
+  GeoBuilder geo;
+  fWorldPhys = geo.ConstructGDML(); // must come before so it doesn't produce duplicate Material Info
+
+  info << "Constructing detector materials...\n";
+  ConstructMaterials();
 
   // Add sensitive volumes here (only veto for now)
   G4SDManager* sdman = G4SDManager::GetSDMpointer();
@@ -89,8 +95,9 @@ G4VPhysicalVolume* DetectorConstruction::Construct() {
   // Setup photon thinning parameters
   PhotonThinning::Init();
 
-  GeoBuilder geo;
-  fWorldPhys = geo.ConstructAll();
+  G4VPhysicalVolume* constructedWorld = geo.ConstructAll("GEO",fWorldPhys);
+  if ( constructedWorld!=NULL )
+    fWorldPhys = constructedWorld;
 
   if ( geo.GetBuilderSource()==GeoBuilder::GDMLFILE ) {
     SetupGDMLSD();
@@ -98,6 +105,18 @@ G4VPhysicalVolume* DetectorConstruction::Construct() {
 
   info << "Dump Surface Info...\n";
   G4LogicalBorderSurface::DumpInfo();
+  G4LogicalSkinSurface::DumpInfo();
+
+
+  const G4MaterialTable* mat_table = G4Material::GetMaterialTable();
+  for ( G4MaterialTable::const_iterator imat= mat_table->begin(); imat!=mat_table->end(); imat++ ) {
+    std::cout << "============================================================" << std::endl;
+    std::cout << "Material: " << (*imat)->GetName() << std::endl;
+    if ( (*imat)->GetMaterialPropertiesTable() )
+      (*imat)->GetMaterialPropertiesTable()->DumpTable();
+    else
+      std::cout << "No property table." << std::endl;
+  }
 
   return fWorldPhys;
 }
@@ -234,7 +253,7 @@ void DetectorConstruction::SetupGDMLSD() {
 	  }
 	  opdetsd->AddOpDetChannel( channelid, volume );
 	  nopchannels += 1;
-	  info << "Found Optical Channel instance. PVname=" << volume->GetName() << " ChannelID=" << channelid << newline;
+	  info << "Found Optical Channel instance. PVname=" << volume->GetName() << " ChannelID=" << channelid << " CopyNo=" << volume->GetCopyNo() << newline;
 	}//end of is sensitive
       }//end of if found channel name
     }//loop over physical volumes

@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package hitPhotons;
+
+message Photon {
+	int32 PMTID = 1;
+	double Time = 2;
+	double KineticEnergy = 3;
+	double posX = 4;
+	double posY = 5;
+	double posZ = 6;
+	double momX = 7;
+	double momY = 8;
+	double momZ = 9;
+	double polX = 10;
+	double polY = 11;
+	double polZ = 12;
+	int32 trackID = 14;
+	enum OriginFlag {
+     		CHERENKOV = 0;
+     		SCINTILLATION = 1;
+     		REEMISSION = 2;
+     		CHROMA = 3;
+		}		
+	OriginFlag origin = 15;
+}
+
+
+message PhotonHits {
+	int32 count = 1;
+	repeated Photon photon = 2;
+}

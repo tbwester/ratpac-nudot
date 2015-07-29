@@ -8,6 +8,7 @@
 #include <iostream>
 #include <iomanip>
 #include <string>
+#include <vector>
 #include <sstream>
 
 #include <time.h>
@@ -45,13 +46,15 @@ namespace zhelpers {
   //  Receive 0MQ string from socket and convert into string
   std::string s_recv (zmq::socket_t & socket);
 
+  bool s_recv_multipart( zmq::socket_t& socket, std::vector<std::string>& msgparts );
+
   //  Convert string to 0MQ string and send to socket
   bool s_send (zmq::socket_t & socket, const std::string & string);
 
 
 // //  Sends string as 0MQ string, as multipart non-terminal
 // static bool
-// s_sendmore (zmq::socket_t & socket, const std::string & string) {
+  bool s_sendmore (zmq::socket_t & socket, const std::string & string);
 
 //     zmq::message_t message(string.size());
 //     memcpy (message.data(), string.data(), string.size());

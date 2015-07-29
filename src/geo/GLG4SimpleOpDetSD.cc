@@ -17,6 +17,7 @@
 #include "G4Step.hh"
 #include "G4HCofThisEvent.hh"
 #include "G4TouchableHistory.hh"
+#include "G4TouchableHandle.hh"
 #include "G4ios.hh"
 #include "G4SDManager.hh"
 
@@ -64,8 +65,21 @@ G4bool GLG4SimpleOpDetSD::ProcessHits(G4Step* aStep, G4TouchableHistory* hist)
 
   // get optical id
   G4StepPoint* prestep = aStep->GetPreStepPoint();
-  G4VPhysicalVolume* pv = prestep->GetPhysicalVolume();
-  int channelid = pv_to_channelid_map[pv];
+
+  bool found_opdetpv = false;
+  int depth = 0;
+  int channelid = -1;
+  G4VPhysicalVolume* pv = NULL;
+  while ( !found_opdetpv ) {
+    G4TouchableHandle theTouchable = prestep->GetTouchableHandle();
+    pv = theTouchable->GetVolume(depth);
+    if ( pv_to_channelid_map.find( pv )!=pv_to_channelid_map.end() ) {
+      channelid = pv_to_channelid_map[pv];
+      found_opdetpv = true;
+    }
+    depth++;
+  }
+  //std::cout << "hit pv: " << pv->GetName() << " id=" << channelid << std::endl;
   G4double time = aStep->GetTrack()->GetGlobalTime();
   G4double ke = aStep->GetTrack()->GetKineticEnergy();
   G4ThreeVector pos = aStep->GetTrack()->GetPosition();

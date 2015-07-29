@@ -305,86 +305,94 @@ bool Materials::BuildMaterial(string namedb, DBLinkPtr table) {
     pressure = CLHEP::STP_Pressure;
   }
 
-  G4Material* tempptr = 
-    new G4Material(namedb, densitydb, nelementsdb + nmaterialsdb,
-                   state, temperature, pressure);
 
-  string formula = "GOOD";
-  try {
-    formula = table->GetS("formula");
+  G4Material* tempptr = G4Material::GetMaterial( namedb );
+  if ( tempptr!=NULL ) {
+    std::cout << "Modifying Material: " << namedb << std::endl;
   }
-  catch (DBNotFoundError &e) {
-    formula = "BAD";
-  }
+  else {
+    std::cout << "Defining new Material: " << namedb << std::endl;
+    tempptr = new G4Material(namedb, densitydb, nelementsdb + nmaterialsdb,
+			     state, temperature, pressure);
 
-  if (formula != "BAD"){
-    tempptr->SetChemicalFormula(formula);
-  }
-
-  double mol = 0;
-  formula = "GOOD";
-  try {
-    mol = table->GetD("mol");
-  }
-  catch (DBNotFoundError &e) {
-    formula = "BAD";
-  }
-
-  if (formula != "BAD") {
-    MPT = new G4MaterialPropertiesTable();
-    MPT->AddConstProperty("MOL", mol/CLHEP::g);
-    tempptr->SetMaterialPropertiesTable(MPT);
-  }
-
-  if (nelementsdb > 0) {
-    vector<string> elemname = table->GetSArray("elements");
-    vector<double> elemprop = table->GetDArray("elemprop");
-
-    if (elemname.size() != elemprop.size()) {
-      G4cout << "Death...oh Materials material reader, "
-             << " how you have forsaken me" << G4endl; //fixme tk
-      exit(-1);
+    string formula = "GOOD";
+    try {
+      formula = table->GetS("formula");
+    }
+    catch (DBNotFoundError &e) {
+      formula = "BAD";
     }
 
-    for (vector<string>::size_type i=0; i<elemname.size(); i++) {
-      tempptr->AddElement(G4Element::GetElement(elemname[i]), elemprop[i]);
-    }
-  }
-
-  if (nmaterialsdb > 0) {
-    vector<string> elemname = table->GetSArray("materials");
-    vector<double> elemprop = table->GetDArray("matprop");
-
-    if (elemname.size() != elemprop.size()) {
-      G4cout << "Death...oh Materials material reader, "
-             << "how you have forsaken me"<<G4endl; //fixme tk
-      exit(-1);
+    if (formula != "BAD"){
+      tempptr->SetChemicalFormula(formula);
     }
 
-    for (vector<string>::size_type i=0; i<elemname.size(); i++) {
-      std::string addmatname = elemname[i];
-      G4Material* addmatptr = NULL;
-      G4NistManager* man = G4NistManager::Instance();
-      addmatptr = man->FindOrBuildMaterial(addmatname);
-      if (!addmatptr) {
-        addmatptr = G4Material::GetMaterial(elemname[i]);
+    double mol = 0;
+    formula = "GOOD";
+    try {
+      mol = table->GetD("mol");
+    }
+    catch (DBNotFoundError &e) {
+      formula = "BAD";
+    }
+    
+    if (formula != "BAD") {
+      MPT = new G4MaterialPropertiesTable();
+      MPT->AddConstProperty("MOL", mol/CLHEP::g);
+      tempptr->SetMaterialPropertiesTable(MPT);
+    }
+    
+    if (nelementsdb > 0) {
+      vector<string> elemname = table->GetSArray("elements");
+      vector<double> elemprop = table->GetDArray("elemprop");
+      
+      if (elemname.size() != elemprop.size()) {
+	G4cout << "Death...oh Materials material reader, "
+	       << " how you have forsaken me" << G4endl; //fixme tk
+	exit(-1);
       }
-
-      // If we encounter a material that hasn't been build,
-      // add the material that contains it to the queue
-      if (addmatptr != NULL) {
-        tempptr->AddMaterial(addmatptr, elemprop[i]);
-      }
-      else {
-        G4MaterialTable* tmp_table =
-          (G4MaterialTable*) tempptr->GetMaterialTable();
-        std::vector<G4Material*>::iterator it = tmp_table->begin() + tempptr->GetIndex(); 
-        delete tempptr;
-        tmp_table->erase(it); 
-        return false; 
+      
+      for (vector<string>::size_type i=0; i<elemname.size(); i++) {
+	tempptr->AddElement(G4Element::GetElement(elemname[i]), elemprop[i]);
       }
     }
+    
+    if (nmaterialsdb > 0) {
+      vector<string> elemname = table->GetSArray("materials");
+      vector<double> elemprop = table->GetDArray("matprop");
+      
+      if (elemname.size() != elemprop.size()) {
+	G4cout << "Death...oh Materials material reader, "
+	       << "how you have forsaken me"<<G4endl; //fixme tk
+	exit(-1);
+      }
+      
+      for (vector<string>::size_type i=0; i<elemname.size(); i++) {
+	std::string addmatname = elemname[i];
+	G4Material* addmatptr = NULL;
+	G4NistManager* man = G4NistManager::Instance();
+	addmatptr = man->FindOrBuildMaterial(addmatname);
+	if (!addmatptr) {
+	  addmatptr = G4Material::GetMaterial(elemname[i]);
+	}
+	
+	// If we encounter a material that hasn't been build,
+	// add the material that contains it to the queue
+	if (addmatptr != NULL) {
+	  tempptr->AddMaterial(addmatptr, elemprop[i]);
+	}
+	else {
+	  G4MaterialTable* tmp_table =
+	    (G4MaterialTable*) tempptr->GetMaterialTable();
+	  std::vector<G4Material*>::iterator it = tmp_table->begin() + tempptr->GetIndex(); 
+	  delete tempptr;
+	  tmp_table->erase(it); 
+	  return false; 
+	}
+      }
+    }
   }
+
 
   return true;
 }
@@ -496,7 +504,7 @@ Materials::BuildMaterialPropertiesTable(G4Material* material, DBLinkPtr table) {
         *i == "WLSSCINTILLATIONYIELD" || *i == "SCINTILLATIONYIELD"   ||
         *i == "LAMBERTIAN_REFLECTION" || *i == "LAMBERTIAN_FORWARD"   ||
         *i == "LAMBERTIAN_BACKWARD"   || *i == "ELECTRICFIELD"        ||
-        *i == "TOTALNUM_INT_SITES") {
+        *i == "TOTALNUM_INT_SITES"    || *i == "RAYLEIGH" ) {
       mpt->AddConstProperty(i->c_str(), table->GetD(*i));
       continue;
     }
