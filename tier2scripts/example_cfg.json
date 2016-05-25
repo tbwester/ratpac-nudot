@@ -1,0 +1,12 @@
+{ "job": {
+      	"script":"/net/hisrv0001/home/taritree/nudot/ratpac-nudot/tier2scripts/run_nudot_beta.sh",
+	"startjob":"0",
+	"njobs":"20",
+	"nargs":"3",
+	"packagefiles":["/net/hisrv0001/home/taritree/nudot/rat.tar.gz",
+			"/net/hisrv0001/home/taritree/kpipe/production/python2.6.9.tar"],
+	"args":[ {"argname":"id","value":"%d","njobids":"1","transfer":"False","type":"arg"},
+		 {"argname":"kdar-out","value":"output_nudot_%05d.root","njobids":"1","transfer":"True","type":"output","dest":"spacing30cm"},
+	 	 {"argname":"events","value":"1000","njobids":"0","transfer":"False","type":"arg"} ]
+	}
+}

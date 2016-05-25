@@ -4,8 +4,8 @@ def gen_macro( outfile, jobid, nevents_per_job ):
     part1 = """/glg4debug/glg4param omit_muon_processes  0.0
 /glg4debug/glg4param omit_hadronic_processes  0.0
 
-/rat/db/set DETECTOR experiment \"nudotv0\"
-/rat/db/set DETECTOR geo_file \"nudotv0/nudotv0.geo\"
+/rat/db/set DETECTOR experiment \"nudotv1\"
+/rat/db/set DETECTOR geo_file \"nudotv1/nudotv1.geo\"
 #/tracking/storeTrajectory 1
 #/tracking/discardParticleTrajectory opticalphoton
 
@@ -26,7 +26,7 @@ def gen_macro( outfile, jobid, nevents_per_job ):
     print >> fout,""
     print >> fout,"/generator/add combo gun2:point:uniform"
     print >> fout,"/generator/vtx/set e-  0.0 0.0 0.0 0.0 1.1 1.1"
-    print >> fout,"/generator/pos/set 0 0 200.0"
+    print >> fout,"/generator/pos/set 0 0 450.0"
     print >> fout,""
     print >> fout,run_str
     fout.close()
