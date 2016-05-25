@@ -73,6 +73,34 @@ To check the status of your jobs:
 $ python run_tier2.py --check example_cfg.json
 </pre>
 
+### The Configuration JSON file
+
+Example of a file
+
+<pre>
+{ "job": {
+      	"script":"/net/hisrv0001/home/taritree/nudot/ratpac-nudot/tier2scripts/run_nudot_beta.sh",
+	"startjob":"0",
+	"njobs":"20",
+	"nargs":"3",
+	"packagefiles":["/net/hisrv0001/home/taritree/nudot/rat.tar.gz",
+			"/net/hisrv0001/home/taritree/kpipe/production/python2.6.9.tar"],
+	"args":[ {"argname":"id","value":"%d","njobids":"1","transfer":"False","type":"arg"},
+		 {"argname":"kdar-out","value":"output_nudot_%05d.root","njobids":"1","transfer":"True","type":"output","dest":"spacing30cm"},
+	 	 {"argname":"events","value":"1000","njobids":"0","transfer":"False","type":"arg"} ]
+	}
+}
+</pre>
+
+The trickiest part of this file is the argument list provided in "args":[...,...,...]. The order matters, the are given to the executable script in the order they appear in the list.
+
+Each argument is provided as a dictionary with the following structure:
+
+* "argname":just the name given to the argument, used internally
+* "value": the value of the argument. Note that you can provide a location for an integer in the argument. We will pass the job number to this argument.
+* "type":either can be "arg", "input", "output". If "output", then this file will be asked to be transferred from the node back to the folder from which run_tier2.py was called. If "input", then this file will be marked to be transferred to the node.
+* "transfer":If "type" was either "input" or "output". Then this file will be transferred to/from the node.
+* "njobids":Number of jobs to be passed into this argument (check this).
 
 ### Example condor script made by run_tier2.py
 
