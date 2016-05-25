@@ -15,7 +15,7 @@ parser.add_argument( "setup_file",type=str,help="json file with setup of submiss
 parser.add_argument( "--check",default=False,help="only checks if all files made",action='store_true')
 parser.add_argument( "--submit",default=False,help="submit jobs (does not resubmit completed files)",action='store_true')
 parser.add_argument( "--redo",default=False,help="submit jobs (will resubmit completed files)",action='store_true')
-parser.add_argument( "--test",default=False,help="test mode. runs until submission, which it will skip.",action='store_true')
+parser.add_argument( "--test",default=False,help="test mode. runs until submission, which it will skip. makes the condor scripts.",action='store_true')
 parser.add_argument( "--limit",default=-1,type=int,help="limit the number of jobs made",nargs=1 )
 
 # tier 2 running utilities for KPipe rat-pac
