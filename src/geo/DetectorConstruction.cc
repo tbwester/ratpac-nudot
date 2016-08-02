@@ -162,7 +162,7 @@ void DetectorConstruction::SetupGDMLSD() {
 	std::string opdet_lv_name = table->GetS("opdet_lv_name");
 	opdet_lv_names.push_back( opdet_lv_name );
       }
-      catch (DBNotFoundError &e) {
+      catch (DBNotFoundError &e2) {
 	// do nothing
 	info << "[WARNING] Did not find 'opdet_lv_name'. Proceeding without OpDetSD assignment." << newline;
       }
@@ -200,7 +200,7 @@ void DetectorConstruction::SetupGDMLSD() {
 	std::string opchannel_pv_name = table->GetS("opchannel_pv_name");
         opchannel_pv_names.push_back( opchannel_pv_name );
       }
-      catch (DBNotFoundError &e) {
+      catch (DBNotFoundError &e2) {
         info << "[WARNING] Did not find 'opchannel_pv_name'." << newline;
       }
     }

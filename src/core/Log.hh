@@ -88,6 +88,8 @@ Log::Die("Could not open " + filename + " for input.");
 
 namespace RAT {
 
+#ifndef __CLING__
+
 class Log {
 public:
   
@@ -359,6 +361,8 @@ void Log::TraceDBAccess(const std::string &table, const std::string &index,
   
   AddDBEntry(key, ss.str());  
 }
+
+#endif
 
 } // namespace RAT
 

@@ -119,25 +119,31 @@ if conf.CheckLibWithHeader('bz2', 'bzlib.h', 'c'):
 if conf.CheckLibWithHeader('z','zlib.h','c'):
     conf.env.Append(CPPDEFINES=[('_HAS_Z',1)])
 
-#Build with zmq support if header found
-if "ZMQ_INC_DIR" in os.environ:
-    conf.env.Append(CPPPATH=[os.environ["ZMQ_INC_DIR"]])
-if "ZMQ_LIB_DIR" in os.environ:
-    conf.env.Append(LIBPATH=[os.environ["ZMQ_LIB_DIR"]])
-if conf.CheckLibWithHeader('zmq','zmq.h','c'):
-    conf.env.Append(CPPDEFINES=[('_HAS_ZMQ',1)])
+# FOR CHROMA
+
+if os.environ["RAT_ENABLE_CHROMA"]=='1':
+
+    if conf.CheckLib('protobuf'):
+        conf.env.Append(CPPDEFINES=[('_HAS_PROTOBUF',1)])
+        # Protobuf requires c++11
+        env.Append(CXXFLAGS=" -std=c++11 -Wno-deprecated-register")
+
+    #Build with zmq support if header found
+    if "ZMQ_INC_DIR" in os.environ:
+        conf.env.Append(CPPPATH=[os.environ["ZMQ_INC_DIR"]])
+    if "ZMQ_LIB_DIR" in os.environ:
+        conf.env.Append(LIBPATH=[os.environ["ZMQ_LIB_DIR"]])
+    if conf.CheckLibWithHeader('zmq','zmq.h','c'):
+        conf.env.Append(CPPDEFINES=[('_HAS_ZMQ',1)])
 
 
-#Build with Google Protobuf support if lib found
-if "PROTOBUF_LIB_DIR" in os.environ:
-    conf.env.Append(LIBPATH=[os.environ["PROTOBUF_LIB_DIR"]])
-if "PROTOBUF_INC_DIR" in os.environ:
-    protobufdirs = [x[0] for x in os.walk(os.environ["PROTOBUF_INC_DIR"])]
-    conf.env.Append(CPPPATH=[os.environ["PROTOBUF_INC_DIR"]])
-if conf.CheckLib('protobuf'):
-    conf.env.Append(CPPDEFINES=[('_HAS_PROTOBUF',1)])
-    # Protobuf requires c++11
-    env.Append(CXXFLAGS=" -std=c++11 -Wno-deprecated-register")
+    #Build with Google Protobuf support if lib found
+    if "PROTOBUF_LIB_DIR" in os.environ:
+        conf.env.Append(LIBPATH=[os.environ["PROTOBUF_LIB_DIR"]])
+    if "PROTOBUF_INC_DIR" in os.environ:
+        protobufdirs = [x[0] for x in os.walk(os.environ["PROTOBUF_INC_DIR"])]
+        conf.env.Append(CPPPATH=[os.environ["PROTOBUF_INC_DIR"]])
+
 if "ENABLE_GPROF" in os.environ and os.environ["ENABLE_GPROF"]=="1":
     conf.env.Append(LINKFLAGS=" -lprofiler")
     conf.env.Append(CPPDEFINES=[('HAS_GPROF',1)])

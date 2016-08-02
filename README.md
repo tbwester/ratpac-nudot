@@ -14,6 +14,7 @@ Simulation code for NuDot
 * Geant4 (checked things worked with geant4.9.6.p04)
 * scons
 
+
 ## building
 * instructions in doc/installation.rst
 * make sure ROOT and geant4 environment variables set
@@ -29,6 +30,16 @@ Simulation code for NuDot
 * do something awesome
 * to put your code onto develop: git checkout develop; git merge [username]_[featurename]
 * delete the branch
+
+## Chroma Interface Optional
+
+This copy has an extremely developmental feature: an interface to Chroma, which simulates photon transport on a GPU. Current state is that it is not really working.
+
+But to build with it anyway:
+
+* go into ./configure and change USECHROMA=1
+* one needs to have zmq and google protobufs
+* one also needs to clone and install the ratchroma interface ...
 
 ## Geometry
 

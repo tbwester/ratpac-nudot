@@ -59,6 +59,11 @@ for key in ['ASFLAGS','CCFLAGS','CPPFLAGS','CPPPATH','LIBPATH','LIBS',
 if ROOTARCH.find("gcc") >= 0:
     rootopts['CCFLAGS'].append('-Wno-long-long')
 
+version = subprocess.check_output(['root-config','--version']).strip()
+if version[0]=='6':
+    print "scons: ROOT : Using ROOT 6"
+    rootopts['CCFLAGS'].append('-std=c++11')
+
 # Returns a dictionary when you import this file using:
 # rootopts = SConscript('config/ROOT.scons')
 #
