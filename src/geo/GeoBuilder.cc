@@ -236,7 +236,8 @@ GeoBuilder::GeoBuilder()
 	gdmlfilename = table->GetS("gdml_file");
       }
       catch ( DBNotFoundError &e) {
-	//std::cout << "Could not find GDML database entry" << std::endl;
+	std::cout << "Could not find GDML database in this entry." << std::endl;
+	continue;
 	//return world;	
       }
 
