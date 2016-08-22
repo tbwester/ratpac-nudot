@@ -7,6 +7,7 @@
 
 #include <G4PVPlacement.hh>
 #include <G4PVReplica.hh>
+#include <G4VPhysicalVolume.hh>
 #include <G4PhysicalVolumeStore.hh>
 
 #include <G4LogicalVolume.hh>
@@ -60,8 +61,8 @@ G4LogicalVolume *GeoFactory::FindMother(const std::string mother_name)
 {
   G4LogicalVolumeStore* store = G4LogicalVolumeStore::GetInstance();
 
-  for (vector<G4LogicalVolume*>::iterator i_volume = store->begin();
-       i_volume != store->end(); ++i_volume) {
+  for (vector<G4LogicalVolume*>::iterator i_volume = store->begin();i_volume != store->end(); ++i_volume) {
+       
     G4LogicalVolume* testvolume = *i_volume;
     // Cast to G4String to avoid ambiguious overload
     if (testvolume->GetName() == G4String(mother_name)) {
@@ -69,13 +70,22 @@ G4LogicalVolume *GeoFactory::FindMother(const std::string mother_name)
     }
   }
 
+  // G4PhysicalVolumeStore* pvstore = G4PhysicalVolumeStore::GetInstance(); 
+  // for (vector<G4VPhysicalVolume*>::iterator i_volume = pvstore->begin(); i_volume != pvstore->end(); ++i_volume) {
+    
+  //   G4VPhysicalVolume* testvolume = *i_volume;
+  //   // Cast to G4String to avoid ambiguious overload                                                                                                                          
+  //   if (testvolume->GetName() == G4String(mother_name)) {
+  //     return NULL;
+  //   }
+  // }
+
   return 0;
 }
 
 G4VPhysicalVolume *GeoFactory::FindPhysMother(const std::string mother_name)
 {
   G4PhysicalVolumeStore* store = G4PhysicalVolumeStore::GetInstance();
-
   for (vector<G4VPhysicalVolume*>::iterator i_volume = store->begin();
        i_volume != store->end(); ++i_volume) {
     G4VPhysicalVolume* testvolume = *i_volume;
@@ -83,11 +93,11 @@ G4VPhysicalVolume *GeoFactory::FindPhysMother(const std::string mother_name)
     if (testvolume->GetName() == G4String(mother_name))
       return testvolume;
   }
-
+  
   return 0;
 }
 
-
+  
 G4VPhysicalVolume *
 GeoFactory::ConstructPhysicalVolume(G4LogicalVolume *logi,
                                     G4LogicalVolume *mother,

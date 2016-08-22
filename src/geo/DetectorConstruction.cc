@@ -80,6 +80,8 @@ G4VPhysicalVolume* DetectorConstruction::Construct() {
   G4LogicalVolumeStore::GetInstance()->Clean();
   G4SolidStore::GetInstance()->Clean();
 
+  std::cout << "[DETECTOR CONSTRUCTION]" << std::endl;
+
   GeoBuilder geo;
   fWorldPhys = geo.ConstructGDML(); // must come before so it doesn't produce duplicate Material Info
 

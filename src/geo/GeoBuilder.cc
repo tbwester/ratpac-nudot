@@ -99,37 +99,15 @@ GeoBuilder::GeoBuilder()
 
       DBLinkPtr table = i_table->second;
 
-      // look for GDML entry
-      string gdmlfilename;
       try {
-	// if found one, we use the GDML parser and skip the rest of this loop!
-	gdmlfilename = table->GetS("gdml_file");
+      	// we don't use this here. see DetectorConstruction.cc
+	std::string gdmlfilename = table->GetS("gdml_file");
 	geo.erase(i_table);
 	break;
       }
       catch (DBNotFoundError &e) {
-	// do nothing. keep going.
+       	// do nothing. keep going.
       } 
-
-// 	std::cout << "Parsing GDML File: " << gdmlfilename << std::endl;
-// 	geo_source = GDMLFILE;
-// 	// we need the glg4data and expriment to get right folder
-// 	string glg4data = "";
-// 	if (getenv("GLG4DATA") != NULL) {
-// 	  glg4data = string(getenv("GLG4DATA")) + "/";
-// 	}
-// 	string experiment = DB::Get()->GetLink("DETECTOR")->GetS("experiment");
-// 	// parse the file
-// 	gdml_parser.Read( glg4data+"/"+experiment+"/"+gdmlfilename );
-// 	// return the world volume
-// 	//return gdml_parser.GetWorldVolume();
-// 	world = gdml_parser.GetWorldVolume();
-// 	geo.erase(i_table);
-// 	break;
-//       }
-//       catch (DBNotFoundError &e) {
-// 	// do nothing. keep going.
-//       } 
 
       string mother;
       string type;
@@ -238,6 +216,9 @@ GeoBuilder::GeoBuilder()
 }
 
   G4VPhysicalVolume* GeoBuilder::ConstructGDML(std::string geo_tablename) {
+
+    std::cout << "GeoBuilder::ConstructGDML(" << geo_tablename << ")" << std::endl;
+
     // Get all geometry tables that have been loaded
     DBLinkGroup geo = DB::Get()->GetLinkGroup(geo_tablename);
     G4VPhysicalVolume *world = 0;
@@ -249,29 +230,31 @@ GeoBuilder::GeoBuilder()
       
       // look for GDML entry
       string gdmlfilename;
+
+      // if found one, we use the GDML parser and skip the rest of this loop!
       try {
-	// if found one, we use the GDML parser and skip the rest of this loop!
 	gdmlfilename = table->GetS("gdml_file");
-	std::cout << "Parsing GDML File: " << gdmlfilename << std::endl;
-	geo_source = GDMLFILE;
-	// we need the glg4data and expriment to get right folder
-	string glg4data = "";
-	if (getenv("GLG4DATA") != NULL) {
-	  glg4data = string(getenv("GLG4DATA")) + "/";
-	}
-	string experiment = DB::Get()->GetLink("DETECTOR")->GetS("experiment");
-	// parse the file
-	gdml_parser.Read( glg4data+"/"+experiment+"/"+gdmlfilename );
-	// return the world volume
-	world = gdml_parser.GetWorldVolume();
-	// remove from table
-	geo.erase(i_table);
-	break;
       }
-      catch (DBNotFoundError &e) {
-	// do nothing. keep going.
-      } 
-      
+      catch ( DBNotFoundError &e) {
+	//std::cout << "Could not find GDML database entry" << std::endl;
+	//return world;	
+      }
+
+      std::cout << "Parsing GDML File: " << gdmlfilename << std::endl;
+      geo_source = GDMLFILE;
+      // we need the glg4data and expriment to get right folder
+      string glg4data = "";
+      if (getenv("GLG4DATA") != NULL) {
+	glg4data = string(getenv("GLG4DATA")) + "/";
+      }
+      string experiment = DB::Get()->GetLink("DETECTOR")->GetS("experiment");
+      // parse the file
+      gdml_parser.Read( glg4data+"/"+experiment+"/"+gdmlfilename );
+      // return the world volume
+      world = gdml_parser.GetWorldVolume();
+      // remove from table
+      geo.erase(i_table);
+      break;
     }
     return world;
   }// end of construct GDML
