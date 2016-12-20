@@ -293,7 +293,7 @@ DBTable *Parser::Next()
   Tokenizer::Type toktype = tokenizer.Next();
   // This fanciness is to ensure tbl deleted if we throw an exception
   // or leave this method for any reason.
-  auto_ptr<DBTable> tbl(new DBTable());
+  std::unique_ptr<DBTable> tbl(new DBTable());
   string identifier;
 
   Tokenizer::Type array_type = Tokenizer::TYPE_ERROR;

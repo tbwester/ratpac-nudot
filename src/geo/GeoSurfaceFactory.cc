@@ -88,6 +88,9 @@ G4VPhysicalVolume *GeoSurfaceFactory::Construct(DBLinkPtr table) {
       if (Materials::optical_surface.count(surface_name) == 0)
         Log::Die("GeoSurfaceFactory: Error building "+border_name+", surface "
                 + surface_name + " does not exist");
+      // G4LogicalBorderSurface* mysurface = new G4LogicalBorderSurface("interface"+volume1_name+"_"+volume2_name,
+      // 								     Phys1,Phys2,
+      // 								     Materials::optical_surface[surface_name]);
       new G4LogicalBorderSurface("interface"+volume1_name+"_"+volume2_name,
 				 Phys1,Phys2,
 				 Materials::optical_surface[surface_name]);

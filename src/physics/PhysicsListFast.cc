@@ -1,4 +1,5 @@
 #include <QGSP_BERT.hh>
+#include <G4VUserPhysicsList.hh>
 #include <G4FastSimulationManagerProcess.hh>
 #include <G4OpticalPhoton.hh>
 #include <G4OpRayleigh.hh>
@@ -76,6 +77,7 @@ void PhysicsListFast::ConstructOpticalProcesses() {
   //opBoundaryProcess->SetVerboseLevel(5);
 
   // Apply processes to all particles where applicable
+  G4ParticleTable::G4PTblDicIterator* theParticleIterator =  G4ParticleTable::GetParticleTable()->GetIterator();
   theParticleIterator->reset();
   while((*theParticleIterator)()) {
     G4ParticleDefinition* particle = theParticleIterator->value();
@@ -96,6 +98,7 @@ void PhysicsListFast::ConstructOpticalProcesses() {
 void PhysicsListFast::AddParameterization() {
   G4FastSimulationManagerProcess* fastSimulationManagerProcess =
     new G4FastSimulationManagerProcess();
+  G4ParticleTable::G4PTblDicIterator* theParticleIterator =  G4ParticleTable::GetParticleTable()->GetIterator();
   theParticleIterator->reset();
   while((*theParticleIterator)()) {
     G4ParticleDefinition* particle = theParticleIterator->value();
