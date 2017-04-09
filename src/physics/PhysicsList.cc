@@ -1,10 +1,12 @@
 #include <string>
 #include <stdexcept>
 #include <Shielding.hh>
+#include <G4Version.hh>
 #include <G4FastSimulationManagerProcess.hh>
 #include <G4OpticalPhoton.hh>
 #include <G4OpRayleigh.hh>
 #include <G4ParticleDefinition.hh>
+#include <G4ParticleTable.hh>
 #include <G4ProcessManager.hh>
 #include <G4Cerenkov.hh>
 #include <G4OpBoundaryProcess.hh>
@@ -107,7 +109,10 @@ void PhysicsList::ConstructOpticalProcesses() {
   opBoundaryProcess->SetVerboseLevel(verboseLevel-1);
 
   // Apply processes to all particles where applicable
+
+#if (G4VERSION_NUMBER>1021)
   G4ParticleTable::G4PTblDicIterator* theParticleIterator =  G4ParticleTable::GetParticleTable()->GetIterator();
+#endif
   theParticleIterator->reset();
   while((*theParticleIterator)()) {
     G4ParticleDefinition* particle = theParticleIterator->value();
@@ -128,7 +133,9 @@ void PhysicsList::ConstructOpticalProcesses() {
 void PhysicsList::AddParameterization() {
   G4FastSimulationManagerProcess* fastSimulationManagerProcess =
     new G4FastSimulationManagerProcess();
+#if (G4VERSION_NUMBER>1021)
   G4ParticleTable::G4PTblDicIterator* theParticleIterator =  G4ParticleTable::GetParticleTable()->GetIterator();
+#endif
   theParticleIterator->reset();
   while((*theParticleIterator)()) {
     G4ParticleDefinition* particle = theParticleIterator->value();
