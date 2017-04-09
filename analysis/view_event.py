@@ -1,22 +1,32 @@
-import sys
+import os,sys
 import ROOT
 ROOT.gSystem.Load('libRATEvent')
 from ROOT.RAT import DSReader
-from root_numpy import root2array
 import numpy as np
-import pandas as pd
 from math import sqrt
 
-input = sys.argv[1]
+sys.argv.append("-b") # batch mode
 
-pmtinfo = pd.DataFrame( root2array('../data/nudotv0/PMTINFO.root', 'pmtinfo' ) )
-pmtinfo = pmtinfo.set_index('opdetid')
+input_rfile = sys.argv[1]
 
-reader = DSReader(input)
+def load_pmt_info():
+    rdata = ROOT.TFile( os.environ["RATROOT"]+"/data/nudotv1/PMTINFO.root" )
+    pmtinfo = rdata.Get("pmtinfo")
+    nentries = pmtinfo.GetEntries()
+    pmtdata = {}
+    for ientry in range(nentries):
+        pmtinfo.GetEntry(ientry)
+        pmtdata[pmtinfo.opdetid] = ( pmtinfo.x, pmtinfo.y, pmtinfo.z )
+    rdata.Close()
+    return pmtdata
+
+pmtinfo = load_pmt_info()
+
+reader = DSReader(input_rfile)
 
 nevents = reader.GetTotal()
 
-out = ROOT.TFile('output_test.root','recreate')
+out = ROOT.TFile('output_ana_test.root','recreate')
 
 c = ROOT.TCanvas('c','',1200,1200)
 c.Divide(1,3)
@@ -111,9 +121,9 @@ for iev in xrange(0,nevents):
             pmt = mc.GetMCPMT( ipmt )
             npe_pmtid = pmt.GetMCPhotonCount()
             pmtid = pmt.GetID()
-            x = pmtinfo.loc[pmtid]['x']
-            y = pmtinfo.loc[pmtid]['y']
-            z = pmtinfo.loc[pmtid]['z']
+            x = pmtinfo[pmtid][0]
+            y = pmtinfo[pmtid][1]
+            z = pmtinfo[pmtid][2]
 
             if pmtid>=90000:
                 nvetopmts += 1
@@ -237,4 +247,5 @@ hz.Draw()
 c.cd(2)
 hxy.Draw("COLZ")
 c.Update()
+c.SaveAs("display.png")
 raw_input()
