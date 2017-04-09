@@ -1,7 +1,14 @@
-int simple()
+// to run
+// root
+// [0] .L simple.C
+// [1] simple("output.root")
+
+int simple( std::string input_file )
 {
 
-  RAT::DSReader reader("/home/twester/ratpac-nudot/output.root");
+  // THIS JUST DUMPS THE NUMBER OF PMT hits
+  
+  RAT::DSReader reader(input_file.c_str());
   
   int nevents = reader.GetTotal();
 
