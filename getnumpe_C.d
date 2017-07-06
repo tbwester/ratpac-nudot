@@ -1,0 +1,52 @@
+
+# DO NOT DELETE
+
+./getnumpe_C.so: /home/taritree/software/root_v5.34.36/include/TTree.h
+./getnumpe_C.so: /home/taritree/software/root_v5.34.36/include/TBranch.h
+./getnumpe_C.so: /home/taritree/software/root_v5.34.36/include/TNamed.h
+./getnumpe_C.so: /home/taritree/software/root_v5.34.36/include/TObject.h
+./getnumpe_C.so: /home/taritree/software/root_v5.34.36/include/Rtypes.h
+./getnumpe_C.so: /home/taritree/software/root_v5.34.36/include/RConfig.h
+./getnumpe_C.so: /home/taritree/software/root_v5.34.36/include/RVersion.h
+./getnumpe_C.so: /home/taritree/software/root_v5.34.36/include/DllImport.h
+./getnumpe_C.so: /home/taritree/software/root_v5.34.36/include/Rtypeinfo.h
+./getnumpe_C.so: /home/taritree/software/root_v5.34.36/include/snprintf.h
+./getnumpe_C.so: /home/taritree/software/root_v5.34.36/include/strlcpy.h
+./getnumpe_C.so: /home/taritree/software/root_v5.34.36/include/TGenericClassInfo.h
+./getnumpe_C.so: /home/taritree/software/root_v5.34.36/include/TSchemaHelper.h
+./getnumpe_C.so: /home/taritree/software/root_v5.34.36/include/TStorage.h
+./getnumpe_C.so: /home/taritree/software/root_v5.34.36/include/TVersionCheck.h
+./getnumpe_C.so: /home/taritree/software/root_v5.34.36/include/Riosfwd.h
+./getnumpe_C.so: /home/taritree/software/root_v5.34.36/include/TBuffer.h
+./getnumpe_C.so: /home/taritree/software/root_v5.34.36/include/TString.h
+./getnumpe_C.so: /home/taritree/software/root_v5.34.36/include/TMathBase.h
+./getnumpe_C.so: /home/taritree/software/root_v5.34.36/include/TObjArray.h
+./getnumpe_C.so: /home/taritree/software/root_v5.34.36/include/TSeqCollection.h
+./getnumpe_C.so: /home/taritree/software/root_v5.34.36/include/TCollection.h
+./getnumpe_C.so: /home/taritree/software/root_v5.34.36/include/TIterator.h
+./getnumpe_C.so: /home/taritree/software/root_v5.34.36/include/TAttFill.h
+./getnumpe_C.so: /home/taritree/software/root_v5.34.36/include/TDataType.h
+./getnumpe_C.so: /home/taritree/software/root_v5.34.36/include/TDictionary.h
+./getnumpe_C.so: /home/taritree/software/root_v5.34.36/include/Property.h
+./getnumpe_C.so: /home/taritree/software/root_v5.34.36/include/ESTLType.h
+./getnumpe_C.so: /home/taritree/software/root_v5.34.36/include/TAttLine.h
+./getnumpe_C.so: /home/taritree/software/root_v5.34.36/include/TAttMarker.h
+./getnumpe_C.so: /home/taritree/software/root_v5.34.36/include/TArrayD.h
+./getnumpe_C.so: /home/taritree/software/root_v5.34.36/include/TArray.h
+./getnumpe_C.so: /home/taritree/software/root_v5.34.36/include/TArrayI.h
+./getnumpe_C.so: /home/taritree/software/root_v5.34.36/include/TClass.h
+./getnumpe_C.so: /home/taritree/software/root_v5.34.36/include/TObjString.h
+./getnumpe_C.so: /home/taritree/software/root_v5.34.36/include/ThreadLocalStorage.h
+./getnumpe_C.so: /home/taritree/software/root_v5.34.36/include/RConfigure.h
+./getnumpe_C.so: /home/taritree/software/root_v5.34.36/include/TVirtualTreePlayer.h
+./getnumpe_C.so: /home/taritree/software/root_v5.34.36/include/TFile.h
+./getnumpe_C.so: /home/taritree/software/root_v5.34.36/include/TDirectoryFile.h
+./getnumpe_C.so: /home/taritree/software/root_v5.34.36/include/TDirectory.h
+./getnumpe_C.so: /home/taritree/software/root_v5.34.36/include/TList.h
+./getnumpe_C.so: /home/taritree/software/root_v5.34.36/include/TDatime.h
+./getnumpe_C.so: /home/taritree/software/root_v5.34.36/include/TUUID.h
+./getnumpe_C.so: /home/taritree/software/root_v5.34.36/include/TMap.h
+./getnumpe_C.so: /home/taritree/software/root_v5.34.36/include/THashTable.h
+./getnumpe_C.so: /home/taritree/software/root_v5.34.36/include/TUrl.h
+./getnumpe_C.so: /home/taritree/software/root_v5.34.36/include/cintdictversion.h /home/taritree/software/root_v5.34.36/include/RVersion.h
+getnumpe_C__ROOTBUILDVERSION= 5.34/36

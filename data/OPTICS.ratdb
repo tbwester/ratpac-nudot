@@ -80,14 +80,15 @@ index: "stainless_steel",
 valid_begin : [0, 0],
 valid_end : [0, 0],
 surface: 1,
-finish: "ground",
+finish: "polished",
 model: "glisur",
 type: "dielectric_metal",
-polish: 0.1,
+polish: 1.0,
 REFLECTIVITY_option: "wavelength",
 REFLECTIVITY_value1: [60.0,   200.0,  300.0,  400.0,   600.0,  800.0,  ],
 REFLECTIVITY_value2: [0.35, 0.35, 0.45, 0.55,  0.65, 0.67, ],
-#REFLECTIVITY_value2: [ 1.0,    1.0,    1.0,    1.0,      1.0,    1.0, ],
+//REFLECTIVITY_value2: [0.0, 0.0, 0.0, 0.0,  0.0, 0.0, ],
+//REFLECTIVITY_value2: [ 1.0,    1.0,    1.0,    1.0,      1.0,    1.0, ],
 ABSLENGTH_option: "wavelength",
 ABSLENGTH_value1: [60d,  800d, ],
 ABSLENGTH_value2: [0.00001d, 0.00001d, ],
@@ -358,15 +359,16 @@ valid_begin : [0, 0],
 valid_end : [0, 0],
 surface: 1,
 finish: "ground",
+//finish: "polished",
 model: "glisur",
 type: "dielectric_dielectric",
-polish: 0.9,
+polish: 1.0,
 RINDEX_option: "wavelength",
 RINDEX_value1: [60d, 200d, 300d, 600d, 800d, ],
 RINDEX_value2: [1.458d, 1.458d, 1.458d, 1.458d, 1.458d, ],
 ABSLENGTH_option: "wavelength",
 ABSLENGTH_value1: [60d, 200d, 300d, 330d, 500d, 600d, 770d, 800d, ],
-ABSLENGTH_value2: [0.1d-3, 0.1d-3, 0.1d-3, 1.0d3, 2.0d3, 1.0d3, 0.5d3, 0.1d-3, ],
+ABSLENGTH_value2: [0.1e-3, 0.1e-3, 0.1e-3, 1.0e3, 2.0e3, 1.0e3, 0.5e3, 0.1e-3, ],
 PROPERTY_LIST: ["RINDEX", "ABSLENGTH", ]
 }
 
@@ -565,6 +567,7 @@ ABSLENGTH_option: "wavelength",
 ABSLENGTH_value1: [200.0, 300.0, 310.0, 320.0, 330.0, 340.0, 350.0, 360.0, 370.0, 380.0, 390.0, 400.0, 450.0, 500.0, 570.0, 590.0, 600.0, 650.0, 680.0, 770.0, 800.0, ],
 ABSLENGTH_value2: [0.1e-3, 0.1e-3, 23.0, 39.0, 67.0, 100.0, 180.0, 360.0, 950.0, 2200.0, 3000.0, 4500.0, 9000.0, 20.0e3, 40.0e3, 40.0e3, 25.0e3, 20.0e3, 15.0e3, 10.0e3, 0.1e-3, ],
 REEMISSION_PROB_option: "wavelength",
+
 REEMISSION_PROB_value1: [200.0, 290.0, 310.0, 350.0, 390.0, 500.0, 800.0, ],
 REEMISSION_PROB_value2: [0.41, 0.20, 0.10, 0.05, 0.0, 0.0, 0.0, ],
 PROPERTY_LIST: ["ABSLENGTH", "REEMISSION_PROB", ]
@@ -685,18 +688,20 @@ PROPERTY_LIST: ["RINDEX", "REFLECTIVITY", "ABSLENGTH", ]
 {
 name: "OPTICS",
 index: "acrylic_uvt",
-// Values for SNO UVT acrylic, extended down to 60nm
+// acrylic for 128 -> 420 wavelength shifting
 valid_begin : [0, 0],
 valid_end : [0, 0],
+// 190nm and below is bogus to make opaque
+ABSLENGTH_option: "wavelength",
+ABSLENGTH_value1: [0.0, 130.0, 340.0, 420.0, 800.0],
+ABSLENGTH_value2: [1.0e-5, 1.0e-5, 1.0e-5, 100.00e3, 200.00e3, ],
 RINDEX_option: "wavelength",
 RINDEX_value1: [60.0, 200.0, 210.0, 220.0, 230.0, 240.0, 250.0, 260.0, 270.0, 280.0, 290.0, 300.0, 310.0, 320.0, 330.0, 340.0, 350.0, 360.0, 370.0, 380.0, 390.0, 400.0, 410.0, 420.0, 430.0, 440.0, 450.0, 460.0, 470.0, 480.0, 490.0, 500.0, 510.0, 520.0, 530.0, 540.0, 550.0, 560.0, 570.0, 580.0, 590.0, 600.0, 610.0, 620.0, 630.0, 640.0, 650.0, 660.0, 670.0, 680.0, 690.0, 700.0, 710.0, 720.0, 730.0, 740.0, 750.0, 760.0, 770.0, 780.0, 790.0, 800.0, ],
 RINDEX_value2: [1.597, 1.597, 1.584, 1.573, 1.564, 1.556, 1.550, 1.544, 1.539, 1.534, 1.531, 1.527, 1.524, 1.521, 1.519, 1.516, 1.514, 1.512, 1.510, 1.509, 1.507, 1.506, 1.505, 1.503, 1.502, 1.501, 1.500, 1.499, 1.499, 1.498, 1.497, 1.496, 1.496, 1.495, 1.494, 1.494, 1.493, 1.493, 1.492, 1.492, 1.491, 1.491, 1.490, 1.490, 1.490, 1.489, 1.489, 1.488, 1.488, 1.488, 1.488, 1.487, 1.487, 1.487, 1.486, 1.486, 1.486, 1.486, 1.485, 1.485, 1.485, 1.485, ],
-
-// 190nm and below is bogus to make opaque
-ABSLENGTH_option: "wavelength",
-ABSLENGTH_value1: [60.0, 199.0, 200.0, 300.0, 320.0, 340.0, 360.0, 380.0, 400.0, 420.0, 440.0, 500.0, 600.0, 800.0],
-ABSLENGTH_value2: [1.0e-3, 1.0e-3, 0.49e1, 2.04e1, 5.56e1, 14.28e1, 25.00e1, 50.00e1, 100.00e1, 100.00e1, 200.00e1, 200.00e1, 200.00e1, 200.00e1],
-PROPERTY_LIST: ["RINDEX", "ABSLENGTH", ]
+REEMISSION_PROB_option: "wavelength",
+REEMISSION_PROB_value1: [420.0, ],
+REEMISSION_PROB_value2: [0.9, ],
+PROPERTY_LIST: ["RINDEX", "ABSLENGTH", "REEMISSION_PROB", ]
 }
 
 {
@@ -911,16 +916,18 @@ valid_begin : [0, 0],
 valid_end : [0, 0],
 RINDEX_option: "wavelength",
 RINDEX_value1: [60d, 200d, 800d, ],
-RINDEX_value2: [1.23d, 1.23d, 1.23d, ],
+RINDEX_value2: [1.45d, 1.45d, 1.23d, ],
 ABSLENGTH_option: "wavelength",
 ABSLENGTH_value1: [ 60d, 200d,   800d, ],
-//ABSLENGTH_value2: [ 7000.0d, 7000.0d, 7000.0d ],
-ABSLENGTH_value2: [ 1.0d6, 1.0d6, 1.0d6 ],
+ABSLENGTH_value2: [ 1.0d9, 1.0d9, 1.0d9 ],
+//ABSLENGTH_value2: [ 1.0d6, 1.0d6, 1.0d6 ],
 OPSCATFRAC_option: "wavelength",
 OPSCATFRAC_value1: [60d, 800d, ],
 OPSCATFRAC_value2: [0.0d, 0.0d, ],
-//RAYLEIGH: 70.0d,
-RAYLEIGH: 1.0d6,
+RAYLEIGH_option: "wavelength",
+RAYLEIGH_value1: [60d, 800d, ],
+RAYLEIGH_value2: [6.0d2, 6.0d2, ],
+//RAYLEIGH: 1.0d6,
 SCINTILLATION_option: "dy_dwavelength",
 SCINTILLATION_value1: [100d, 125d, 128d,       131d, 800d, ],
 SCINTILLATION_value2: [0d,     0d, 13333.33d,  0.0d, 0.0d, ],
@@ -931,4 +938,5 @@ SCINTWAVEFORMalpha_value2: [0.7d, 0.3d],
 SCINTWAVEFORMneutron_value1: [-6.0d,-1500d],
 SCINTWAVEFORMneutron_value2: [0.5d, 0.5d],
 PROPERTY_LIST: ["RINDEX", "ABSLENGTH","OPSCATFRAC","RAYLEIGH", "SCINTILLATION", "SCINTWAVEFORM", "SCINTWAVEFORMalpha", "SCINTWAVEFORMneutron" ]
+//PROPERTY_LIST: ["RINDEX" ]
 }

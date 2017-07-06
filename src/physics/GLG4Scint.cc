@@ -185,7 +185,6 @@ GLG4Scint::PostPostStepDoIt(const G4Track& aTrack, const G4Step& aStep) {
   timer.Start();
   GLG4Scint_num_calls ++;
 #endif
-
   // Below this anonymous namespace is label PostStepDoIt_DONE
   {
     // prepare to generate an event, organizing to
@@ -290,6 +289,7 @@ GLG4Scint::PostPostStepDoIt(const G4Track& aTrack, const G4Step& aStep) {
         mpt_scint->GetProperty("REEMISSION_PROB");
 
       if (mpv_scint_reemission == NULL) {
+        //RAT::Log::Die("reemit prob = 0");
         goto PostStepDoIt_DONE;
       }
 
@@ -299,6 +299,7 @@ GLG4Scint::PostPostStepDoIt(const G4Track& aTrack, const G4Step& aStep) {
       numSecondaries = (G4int)(CLHEP::RandPoisson::shoot(p_reemission));
 
       if (numSecondaries == 0) {
+        //RAT::Log::Die("no reemitted");
         goto PostStepDoIt_DONE;
       }
       weight = aTrack.GetWeight();
@@ -420,6 +421,7 @@ GLG4Scint::PostPostStepDoIt(const G4Track& aTrack, const G4Step& aStep) {
         // Normal scintillation
         G4double CIIvalue =
           G4UniformRand() * ScintillationIntegral->GetMaxValue();
+        G4cout << "CIIvalue: " << CIIvalue << G4endl;
         sampledMomentum = ScintillationIntegral->GetEnergy(CIIvalue);
 #ifdef G4DEBUG
         if (verboseLevel > 1) {
@@ -435,6 +437,7 @@ GLG4Scint::PostPostStepDoIt(const G4Track& aTrack, const G4Step& aStep) {
           (G4UniformRand() *
            ReemissionIntegral->GetValue(aTrack.GetKineticEnergy(),
                                         this_is_REALLY_STUPID));
+        G4cout << "CIIvalue: " << CIIvalue << G4endl;
         if (CIIvalue == 0.0) {
           // Return unchanged particle and no secondaries  
           aParticleChange.SetNumberOfSecondaries(0);

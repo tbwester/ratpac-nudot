@@ -8,7 +8,7 @@ CountProc::CountProc() : Processor("count")
 {
   dscount = 0;
   evcount = 0;
-  updateInterval = 1; // Print count message for every event
+  updateInterval = 100; // Print count message for every event
 }
 
 CountProc::~CountProc()
@@ -36,7 +36,7 @@ Processor::Result CountProc::DSEvent(DS::Root *ds)
 {
   dscount++;
   evcount += ds->GetEVCount();
-
+  updateInterval = 10000;
   if (dscount % updateInterval == 0)
     info << dformat("CountProc: Event %d (%d triggered events)\n",
 		    dscount, evcount);

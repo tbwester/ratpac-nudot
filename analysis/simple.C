@@ -12,7 +12,7 @@ int simple()
     int npmts = mc->GetMCPMTCount();
 
     std::cout <<  "Event " << iev << std::endl;
-    std::cout << "  nPEs=" << npes << " npmts=" << npmts << std::endl;
+    std::cout << "llllll  nPEs=" << npes << " npmts=" << npmts << std::endl;
   }
 
   return 0;
