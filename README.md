@@ -3,6 +3,8 @@
 
 Simulation code for NuDot
 
+This fork contains geometry, scripts and settings for the Bo cryostat monte carlo
+
 ## Checking out
 
 * using git flow pattern (more info: https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)

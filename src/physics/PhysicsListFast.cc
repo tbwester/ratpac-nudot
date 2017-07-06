@@ -77,7 +77,9 @@ void PhysicsListFast::ConstructOpticalProcesses() {
   //opBoundaryProcess->SetVerboseLevel(5);
 
   // Apply processes to all particles where applicable
+#if (G4VERSION_NUMBER>1021)
   G4ParticleTable::G4PTblDicIterator* theParticleIterator =  G4ParticleTable::GetParticleTable()->GetIterator();
+#endif
   theParticleIterator->reset();
   while((*theParticleIterator)()) {
     G4ParticleDefinition* particle = theParticleIterator->value();
@@ -98,7 +100,9 @@ void PhysicsListFast::ConstructOpticalProcesses() {
 void PhysicsListFast::AddParameterization() {
   G4FastSimulationManagerProcess* fastSimulationManagerProcess =
     new G4FastSimulationManagerProcess();
+#if (G4VERSION_NUMBER>1021)
   G4ParticleTable::G4PTblDicIterator* theParticleIterator =  G4ParticleTable::GetParticleTable()->GetIterator();
+#endif
   theParticleIterator->reset();
   while((*theParticleIterator)()) {
     G4ParticleDefinition* particle = theParticleIterator->value();
