@@ -174,7 +174,7 @@
 <structure>
 
   <volume name="volPhotoCathode">
-    <materialref ref="glass"/>
+    <materialref ref="LAr"/>
     <solidref ref="pmt_glass"/>
   </volume>
   <volume name="volTemp">
@@ -182,7 +182,7 @@
     <solidref ref="elpmt"/>
   </volume>
   <volume name="volTPBPlate">
-    <materialref ref="LAr"/> <!-- acrylic_uvt -->
+    <materialref ref="acrylic_uvt"/> <!-- acrylic_uvt -->
     <solidref ref="tpbplate"/>
   </volume>
   <!-- <volume name="volSourceA">

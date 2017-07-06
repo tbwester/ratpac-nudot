@@ -3,9 +3,9 @@
 MACFILE='mac/bo_final.mac'
 #pi=`echo "4*a(1)" | bc -l`
 
-#for i in `seq 0 15`;
-array=( 0 )
-for i in "${array[@]}"
+for i in `seq 0 15`;
+#array=( 0 )
+#for i in "${array[@]}"
 do
 	len=`echo "$i*10" | bc -l`
 
