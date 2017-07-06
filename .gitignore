@@ -19,3 +19,7 @@ src/core/config.hh
 .settings
 
 *~
+
+#root data files
+ntuple.root
+output.root
