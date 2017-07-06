@@ -1,0 +1,117 @@
+
+-------- EEEE ------- G4Exception-START -------- EEEE -------
+*** G4Exception : InvalidRead
+      issued by : G4GDMLRead::Read()
+Unable to open document: /home/twester/ratpac-nudot/data//reflect/
+*** Fatal Exception *** core dump ***
+-------- EEEE -------- G4Exception-END --------- EEEE -------
+
+
+*** G4Exception: Aborting execution ***
+RAT, version v0.0.1-185-g5a8f972
+Status messages enabled: info 
+Hostname: nunet PID: 31540
+DB: Loading /home/twester/ratpac-nudot/data/BNL_WLS_MODEL.ratdb ... Success!
+DB: Loading /home/twester/ratpac-nudot/data/CHROMA.ratdb ... Success!
+DB: Loading /home/twester/ratpac-nudot/data/DAQ.ratdb ... Success!
+DB: Loading /home/twester/ratpac-nudot/data/DETECTOR.ratdb ... Success!
+DB: Loading /home/twester/ratpac-nudot/data/ELEMENTS.ratdb ... Success!
+DB: Loading /home/twester/ratpac-nudot/data/IBD.ratdb ... Success!
+DB: Loading /home/twester/ratpac-nudot/data/IO.ratdb ... Success!
+DB: Loading /home/twester/ratpac-nudot/data/MATERIALS.ratdb ... Success!
+DB: Loading /home/twester/ratpac-nudot/data/MC.ratdb ... Success!
+DB: Loading /home/twester/ratpac-nudot/data/NOISE.ratdb ... Success!
+DB: Loading /home/twester/ratpac-nudot/data/NTUPLE.ratdb ... Success!
+DB: Loading /home/twester/ratpac-nudot/data/OPTICS.ratdb ... Success!
+DB: Loading /home/twester/ratpac-nudot/data/PMT.ratdb ... Success!
+DB: Loading /home/twester/ratpac-nudot/data/PMTCHARGE.ratdb ... Success!
+DB: Loading /home/twester/ratpac-nudot/data/PMTTRANSIT.ratdb ... Success!
+DB: Loading /home/twester/ratpac-nudot/data/RUN.ratdb ... Success!
+DB: Loading /home/twester/ratpac-nudot/data/SPECTRUM.ratdb ... Success!
+DB: Loading /home/twester/ratpac-nudot/data/WIMP.ratdb ... Success!
+
+*************************************************************
+ Geant4 version Name: geant4-10-01-patch-02 [MT]   (19-June-2015)
+                      Copyright : Geant4 Collaboration
+                      Reference : NIM A 506 (2003), 250-303
+                            WWW : http://cern.ch/geant4
+*************************************************************
+
+<<< Geant4 Physics List simulation engine: QGSP_BERT 4.0
+
+Visualization Manager instantiating with verbosity "warnings (3)"...
+Visualization Manager initialising...
+Registering graphics systems...
+
+You have successfully registered the following graphics systems.
+Current available graphics systems are:
+  ASCIITree (ATree)
+  DAWNFILE (DAWNFILE)
+  G4HepRep (HepRepXML)
+  G4HepRepFile (HepRepFile)
+  OpenGLImmediateQt (OGLIQt)
+  OpenGLStoredQt (OGLSQt)
+  RayTracer (RayTracer)
+  VRML1FILE (VRML1FILE)
+  VRML2FILE (VRML2FILE)
+
+Registering model factories...
+
+You have successfully registered the following model factories.
+Registered model factories:
+  generic
+  drawByCharge
+  drawByParticleID
+  drawByOriginVolume
+  drawByAttribute
+
+Registered filter factories:
+  chargeFilter
+  particleFilter
+  originVolumeFilter
+  attributeFilter
+
+You have successfully registered the following user vis actions.
+Run Duration User Vis Actions: none
+End of Event User Vis Actions: none
+End of Run User Vis Actions: none
+
+Some /vis commands (optionally) take a string to specify colour.
+Available colours:
+  black, blue, brown, cyan, gray, green, grey, magenta, red, white, yellow
+
+DB: Setting DETECTOR[] experiment to reflect
+DB: Setting DETECTOR[] geo_file to reflect/reflect.geo
+Loading experiment-specific RATDB files for: reflect
+DB: Loading /home/twester/ratpac-nudot/data/reflect/PMTINFO.ratdb ... Success!
+Loading detector geometry from reflect/reflect.geo
+[DETECTOR CONSTRUCTION]
+Registering box
+Registering tube
+Registering torus
+Registering sphere
+Registering reflector
+Registering reflector_waveguide
+Registering pmtarray
+Registering pmtcoverage
+Registering waterboxarray
+Registering bubble
+Registering ptube
+Registering psphere
+Registering revarray
+Registering tubearray
+Registering revolve
+Registering revolveChimney
+Registering lens
+Registering polygon
+Registering border
+Registering skin
+Registering convexlens
+Registering tubeinter
+Registering perfbox
+Registering cut_tube
+Registering watchmanshield
+GeoBuilder::ConstructGDML(GEO)
+Parsing GDML File: 
+G4GDML: Reading '/home/twester/ratpac-nudot/data//reflect/'...
+G4GDML: VALIDATION ERROR! unable to read data from file at line: 0

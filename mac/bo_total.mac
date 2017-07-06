@@ -1,0 +1,27 @@
+/glg4debug/glg4param omit_muon_processes  0.0
+/glg4debug/glg4param omit_hadronic_processes  0.0
+
+/rat/db/set DETECTOR experiment "bo_total"
+/rat/db/set DETECTOR geo_file "bo_total/bo_total.geo"
+/tracking/storeTrajectory 1
+#/tracking/discardParticleTrajectory opticalphoton
+#/chroma/activate
+/run/initialize
+
+# BEGIN EVENT LOOP
+/rat/proc count
+/rat/procset update 1
+
+# Use IO.default_output_filename
+/rat/proclast outroot
+#END EVENT LOOP
+
+/generator/add combo gun:point
+/generator/vtx/set opticalphoton  0.0 0.0 1.0 0.00000969
+/generator/pos/set 0.0 0.0 8.1
+#/generator/pos/set 0 0 0.0
+
+
+#/control/execute mac/vis.mac
+
+/run/beamOn 10000

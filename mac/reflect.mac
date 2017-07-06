@@ -17,11 +17,11 @@
 #END EVENT LOOP
 
 /generator/add combo gun:point
-/generator/vtx/set opticalphoton  1.0 -1.0 0.0 1
-/generator/pos/set -70.11 70.11 0.0
+/generator/vtx/set opticalphoton  1.0 -1.0 0.0 0.00000295
+/generator/pos/set -701.1 701.1 0.0
 #/generator/pos/set 0 0 0.0
 
 
 #/control/execute mac/vis.mac
 
-/run/beamOn 10
+/run/beamOn 1000
