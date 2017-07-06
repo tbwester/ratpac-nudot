@@ -1,7 +1,7 @@
 RAT, version v0.0.1-188-gb58a1d1
 Status messages enabled: info detail 
-Hostname: nunet PID: 24053
-Seeding random number generator: 78347662
+Hostname: nunet PID: 24184
+Seeding random number generator: 119963105
 DB: Loading /home/twester/ratpac-nudot/data/BNL_WLS_MODEL.ratdb ... Success!
 DB: Loading /home/twester/ratpac-nudot/data/CHROMA.ratdb ... Success!
 DB: Loading /home/twester/ratpac-nudot/data/DAQ.ratdb ... Success!
@@ -332,6 +332,9 @@ Defining new Material: steel
 Loaded material: [styrofoam]
 G4Material::GetMaterial() WARNING: The material: styrofoam does not exist in the table. Return NULL pointer.
 Defining new Material: styrofoam
+Loaded material: [tpc_acrylic]
+G4Material::GetMaterial() WARNING: The material: tpc_acrylic does not exist in the table. Return NULL pointer.
+Defining new Material: tpc_acrylic
 Loaded material: [tungsten]
 G4Material::GetMaterial() WARNING: The material: tungsten does not exist in the table. Return NULL pointer.
 Defining new Material: tungsten
@@ -357,7 +360,6 @@ Loading optics: LAr
  storing material property LAr::ABSLENGTH
  storing material property LAr::OPSCATFRAC
  storing material property LAr::RAYLEIGH
-Could not read property RAYLEIGH of LAr
  storing material property LAr::SCINTILLATION
  storing material property LAr::SCINTWAVEFORM
  storing material property LAr::SCINTWAVEFORMalpha
@@ -393,6 +395,7 @@ Loading optics: acrylic_uva_McMaster
 Loading optics: acrylic_uvt
  storing material property acrylic_uvt::RINDEX
  storing material property acrylic_uvt::ABSLENGTH
+ storing material property acrylic_uvt::REEMISSION_PROB
 Loading optics: acrylic_uvt_RPT
  storing material property acrylic_uvt_RPT::RINDEX
  storing material property acrylic_uvt_RPT::ABSLENGTH
@@ -817,16 +820,19 @@ SCINTWAVEFORMneutron
 ============================================================
 Material: LAr
 ABSLENGTH
-1.5498e-06   1e+06
-6.19921e-06   1e+06
-2.0664e-05   1e+06
+1.5498e-06   1e+09
+6.19921e-06   1e+09
+2.0664e-05   1e+09
 OPSCATFRAC
 1.5498e-06   0
 2.0664e-05   0
+RAYLEIGH
+1.5498e-06   600
+2.0664e-05   600
 RINDEX
 1.5498e-06   1.23
-6.19921e-06   1.23
-2.0664e-05   1.23
+6.19921e-06   1.45
+2.0664e-05   1.45
 SCINTILLATION
 1.5498e-06   0
 9.46444e-06   0
@@ -950,20 +956,13 @@ RINDEX
 ============================================================
 Material: acrylic_uvt
 ABSLENGTH
-1.5498e-06   2000
-2.0664e-06   2000
-2.47968e-06   2000
-2.81782e-06   2000
-2.952e-06   1000
-3.0996e-06   1000
-3.26274e-06   500
-3.44401e-06   250
-3.64659e-06   142.8
-3.87451e-06   55.6
-4.13281e-06   20.4
-6.19921e-06   4.9
-6.23036e-06   0.001
-2.0664e-05   0.001
+0   1e-05
+1.5498e-06   200000
+2.952e-06   100000
+3.64659e-06   1e-05
+9.53725e-06   1e-05
+REEMISSION_PROB
+2.952e-06   0.9
 RINDEX
 1.5498e-06   1.485
 1.56942e-06   1.485
@@ -4322,6 +4321,9 @@ REFLECTIVITY
 1.5498e-06   0.98
 2.0664e-05   0.98
 ============================================================
+Material: tpc_acrylic
+No property table.
+============================================================
 Material: tungsten
 No property table.
 ============================================================
@@ -4413,6 +4415,7 @@ GLG4Scint[alpha] {
   myLowerMassLimit=3354.64
 }
 Process Name OpBoundary : Type[Optical] : SubType[32]
+Materials property vector zero wavelength!
 GLG4PosGen_Point::SetState: Could not parse three floats from input string
 
 phot:   for  gamma    SubType= 12  BuildTable= 0
@@ -5104,7 +5107,7 @@ CoulombScat:   for  pi-, integral: 1     SubType= 1  BuildTable= 1
 
 ================================================================
 Gsim: Simulating run 1
-Gsim: Run start at Thu, 06 Jul 2017 18:12:34 +0000 (GMT) +568647000 nsec
+Gsim: Run start at Thu, 06 Jul 2017 18:13:57 +0000 (GMT) +620054000 nsec
 Setting up PDF PMTTime model for DEFAULT
 Setting up PDF PMTCharge model for DEFAULT
 outroot: No output file specified, opening output.root
@@ -5119,8 +5122,8 @@ CountProc: Event 70000 (0 triggered events)
 CountProc: Event 80000 (0 triggered events)
 CountProc: Event 90000 (0 triggered events)
 CountProc: Event 100000 (0 triggered events)
-Run time:     80.76 sec
-CPU usage: user    76.65 sec	sys   0.46 sec
+Run time:     80.99 sec
+CPU usage: user    77.87 sec	sys   0.47 sec
 Processor usage statistics
 --------------------------
              Event source: 0.001 sec/event
