@@ -3,7 +3,7 @@
 
 Simulation code for NuDot
 
-This fork contains geometry, scripts and settings for the Bo cryostat monte carlo
+This fork contains geometry, scripts and settings for the Bo cryostat optical monte carlo
 
 ## Checking out
 
@@ -12,8 +12,8 @@ This fork contains geometry, scripts and settings for the Bo cryostat monte carl
 * git checkout develop (this moves you to the develop branch)
 
 ## Dependencies
-* ROOT 5
-* Geant4 (checked things worked with geant4.9.6.p04)
+* ROOT 6 (tested with v6.08/02)
+* Geant4 (tested with v4.10.03)
 * scons
 
 
@@ -23,8 +23,12 @@ This fork contains geometry, scripts and settings for the Bo cryostat monte carl
 * ./configure
 * scons
 
-## Running
-* rat
+## Running Bo optical simulation
+* ./bo\_src\_autorun.sh
+* ./bo\_final\_autorun.sh
+
+The first command produces an ntuple of photon hits on the TPB plate. The second command outputs the number of hits on the PMT from photons coming from the TPB plate.
+
 
 ## Adding a feature
 * git checkout develop

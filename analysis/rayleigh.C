@@ -1,3 +1,13 @@
+// ====================================================
+//
+// rayleigh.C
+// 
+// script intended to test rayleigh scattering physics
+// now used to produce ntuple of information for each
+// photon hit in the bo_src simulation
+//
+// ====================================================
+
 #include <iostream>
 #include <sstream>
 #include <fstream>
