@@ -53,6 +53,7 @@ int gqe() {
   float xh, yh, zh;
   bool hit;
   float wpe_total = 0; // weighted pe total
+  float npe_total = 0;
   while (ds != 0) {
     // create track navigation interface
     RAT::TrackNav nav(ds);
@@ -70,6 +71,7 @@ int gqe() {
           yh = n->GetEndpoint()[1];
           zh = n->GetEndpoint()[2];
           double dist = TMath::Sqrt(xh*xh + yh*yh);
+          npe_total++;
           wpe_total += weight(dist, weights);
       }
       else {
@@ -81,13 +83,13 @@ int gqe() {
     }
     ds = reader.NextEvent();
   }
-  std::ofstream outfile;
-  outfile.open("/home/twester/ratpac-nudot/gqe_log.txt");
+  //std::ofstream outfile;
+  //outfile.open("/home/twester/ratpac-nudot/gqe_log.txt");
   
   //int nhits = ntuple->Draw("hit>>hist","hit==1","goff"); 
   //outfile << nhits << std::endl;
 
-  std::cout << "Weighted Hits: " << wpe_total << std::endl;
+  std::cout << "W: " << wpe_total << ", H: " << npe_total << std::endl;
 
   //TFile* fout = new TFile("/home/twester/ratpac-nudot/ntuple.root", "RECREATE");
   //ntuple->Write();
@@ -99,7 +101,7 @@ int gqe() {
 double weight(double r, std::vector<dblvec> &weightvec) {
   double x1, y1, x2, y2;  
   bool foundpts = false;
-  //Assume weightvec is sorted
+  //Assume weightvec is sorted ascending
   for (size_t it = 0; it != weightvec.size(); it++) {
     if (weightvec[it][0] > r && it != 0) {
       x1 = weightvec[it-1][0];
