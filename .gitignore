@@ -20,9 +20,10 @@ src/core/config.hh
 
 *~
 
-#root data files
+#root data and build files
 ntuple.root
 output.root
+*.d
 
 #log files
 *.log
