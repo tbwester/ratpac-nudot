@@ -18,7 +18,7 @@
 
 /generator/add combo gun2:point
 /generator/vtx/set opticalphoton  0.0 0.0 1.0 90 0.00000969 0.00000969
-/generator/pos/set 0.0 0 93.03125
+/generator/pos/set 0.0 0 -293.96875
 #/generator/pos/set 0 0 0.0
 
 

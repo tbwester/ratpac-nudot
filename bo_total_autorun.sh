@@ -14,7 +14,8 @@ PLTR=15.24
 DSTEP=1
 NEVENTSPLT=10000
 NEVENTSSRC=100000
-DISTLIST=( -6.8 9.7 6 7 8 9 10 11 12 13 14 )
+DISTLIST=($(seq -29 1 29))
+#DISTLIST=( 15 16 17 18 19 4 3 2 1 0 -1 -2 -3 -4 )
 ROFLIST=( 0.0 ) #( 0.0 0.05 0.1 0.15 0.2 0.25 ) 
 ## END CONFIGURATION ##
 
@@ -59,7 +60,7 @@ if [ 1 -eq 1 ]; then
             len2=`echo "($i*10)-9.128125" | bc -l` #const offset puts face of holder at 'd' away
             len3=`echo "300-($i*10)" | bc -l`
 
-            echo "Processing d="$len3"mm, r="$rd"mm"
+            echo "Processing d="$len3"mm, r="$rd"mm" >> gqe_log.txt
 
             #replace vertex lines in mac file
             line='21s/.*/\/generator\/pos\/set 0.0 '$rd' '$len'/'
@@ -73,7 +74,7 @@ if [ 1 -eq 1 ]; then
 
             #run rat & root script
             rat -q $MACFILESRC
-            root -l -b -q "analysis/gqe.C()"  #$len3, $rd)"
+            root -l -b -q "analysis/gqe.C()" >> gqe_log.txt #$len3, $rd)"
         done
     done
 fi
