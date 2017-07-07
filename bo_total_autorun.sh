@@ -14,7 +14,7 @@ PLTR=15.24
 DSTEP=1
 NEVENTSPLT=10000
 NEVENTSSRC=100000
-DISTLIST=($(seq -29 5 29))
+DISTLIST=($(seq -29 1 29))
 #DISTLIST=( 15 16 17 18 19 4 3 2 1 0 -1 -2 -3 -4 )
 ROFLIST=( 0.0 ) #( 0.0 0.05 0.1 0.15 0.2 0.25 ) 
 ## END CONFIGURATION ##
@@ -26,7 +26,7 @@ else
     rm analysis/weights.txt
     echo "Plate Radius: "$PLTR
     echo "Step Size: "$DSTEP
-    echo "Events/Point: "$NEVENTS
+    echo "Events/Point: "$NEVENTSPLT
     echo "Creating weight file..."
 
     for i in `seq 0 $DSTEP $PLTR`;
