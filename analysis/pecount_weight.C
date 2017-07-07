@@ -13,7 +13,7 @@ typedef std::vector<double> dblvec;
 double weight(double r, std::vector<dblvec> &weightvec);
 
 int pecount_weight(float len=0) {
-
+/*
   //Fill weight vector
   std::vector<dblvec> weights;
   std::ifstream ifile;
@@ -30,9 +30,10 @@ int pecount_weight(float len=0) {
     }
     weights.push_back(v);
   }
-
+*/
   std::ofstream outfile;
-  outfile.open("/home/twester/ratpac-nudot/bo_src_log.txt", std::ios_base::app);
+  //outfile.open("/home/twester/ratpac-nudot/bo_src_log.txt", std::ios_base::app);
+  outfile.open("/home/twester/ratpac-nudot/analysis/weights.txt", std::ios_base::app);
 
   RAT::DSReader reader("/home/twester/ratpac-nudot/output.root");
   
@@ -55,6 +56,7 @@ int pecount_weight(float len=0) {
         int PMTID = pmt->GetID();
         //std::cout << npmts << "\t" << PMTID << std::endl;
         int phs = pmt->GetMCPhotonCount();
+        /*
         for (int j = 0; j < phs; j++) {
             RAT::DS::MCPhoton* theph = pmt->GetMCPhoton(j);
             float x = theph->GetPosition()[0];
@@ -66,6 +68,7 @@ int pecount_weight(float len=0) {
             //h->Fill(theph->GetPosition()[0], theph->GetPosition()[1]);
             //std::cout << theph->GetLambda() << std::endl;
         }
+        */
         PMTID == 0 ? petotalplate += phs : petotal += phs;//npes;
     }
     //petotal += npes;
@@ -74,7 +77,7 @@ int pecount_weight(float len=0) {
 
   }
   std::cout << "writing to files\n";
-  outfile << len << "\t" << petotal << "\t" << petotalplate << "\n"; 
+  outfile << len << "," << (double)petotalplate / (double)nevents << "\n"; 
   TFile* fout = new TFile("here.root","UPDATE");
   h->Write();
   fout->Close();
@@ -98,7 +101,7 @@ double weight(double r, std::vector<dblvec> &weightvec) {
   }
   //Just in case we are slightly outside the plate, just use 5%
   if (!foundpts) {
-    return 0.06;
+    return 0.077;
   }
   //std::cout << "(" << x1 << ", " << y1 << ") (" << x2 << ", " << y2 << ")\n";
   //Linear interpolate between two closest points in weightvec
