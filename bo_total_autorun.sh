@@ -14,7 +14,7 @@ PLTR=15.24
 DSTEP=1
 NEVENTSPLT=10000
 NEVENTSSRC=100000
-DISTLIST=($(seq -29 1 29))
+DISTLIST=($(seq -29 5 29))
 #DISTLIST=( 15 16 17 18 19 4 3 2 1 0 -1 -2 -3 -4 )
 ROFLIST=( 0.0 ) #( 0.0 0.05 0.1 0.15 0.2 0.25 ) 
 ## END CONFIGURATION ##
@@ -74,7 +74,9 @@ if [ 1 -eq 1 ]; then
 
             #run rat & root script
             rat -q $MACFILESRC
-            root -l -b -q "analysis/gqe.C()" >> gqe_log.txt #$len3, $rd)"
+            OUTPUT="$(root -l -b -q 'analysis/gqe.C' | cat)"
+            echo $OUTPUT
+            echo $OUTPUT >> gqe_log.txt #$len3, $rd)"
         done
     done
 fi

@@ -23,3 +23,6 @@ src/core/config.hh
 #root data files
 ntuple.root
 output.root
+
+#log files
+*.log
