@@ -3,7 +3,7 @@
 
 Simulation code for NuDot
 
-This fork contains geometry, scripts and settings for the Bo cryostat optical monte carlo
+This fork contains geometry, scripts and settings for the Bo cryostat optical simulation
 
 ## Checking out
 
@@ -24,11 +24,11 @@ This fork contains geometry, scripts and settings for the Bo cryostat optical mo
 * scons
 
 ## Running Bo optical simulation
-* ./bo\_src\_autorun.sh
-* ./bo\_final\_autorun.sh
+* ./bo\_total\_autorun.sh [new]
 
-The first command produces an ntuple of photon hits on the TPB plate. The second command outputs the number of hits on the PMT from photons coming from the TPB plate.
+This script runs the two optical simulations (plate-to-source with 420nm light and source-to-plate with 128nm light). The outputs (final counts of hits on the PMT) are saved to gqe\_log.txt. The parameters for the simulation stages are set within the bash script, and can (and should) be modified.
 
+Additional material parameters are set within data/OPTICS.ratdb.
 
 ## Adding a feature
 * git checkout develop
