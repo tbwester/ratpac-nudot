@@ -27,3 +27,96 @@ RAT: Libraries loaded. Processing analysis/gqe.C... Got 100000 events. W: 428.02
 Processing d=460mm, r=0mm
 RAT: Libraries loaded. Processing analysis/gqe.C... Got 100000 events. W: 446.332, H: 2985 (int) 0
 Processing d=450mm, r=0mm
+RAT: Libraries loaded. Processing analysis/gqe.C... Got 100000 events. W: 483.155, H: 3251 (int) 0
+Processing d=440mm, r=0mm
+RAT: Libraries loaded. Processing analysis/gqe.C... Got 100000 events. W: 517.645, H: 3413 (int) 0
+Processing d=430mm, r=0mm
+RAT: Libraries loaded. Processing analysis/gqe.C... Got 100000 events. W: 540.107, H: 3588 (int) 0
+Processing d=420mm, r=0mm
+RAT: Libraries loaded. Processing analysis/gqe.C... Got 100000 events. W: 554.125, H: 3647 (int) 0
+Processing d=410mm, r=0mm
+RAT: Libraries loaded. Processing analysis/gqe.C... Got 100000 events. W: 602.221, H: 3968 (int) 0
+Processing d=400mm, r=0mm
+RAT: Libraries loaded. Processing analysis/gqe.C... Got 100000 events. W: 634.034, H: 4161 (int) 0
+Processing d=390mm, r=0mm
+RAT: Libraries loaded. Processing analysis/gqe.C... Got 100000 events. W: 672.491, H: 4394 (int) 0
+Processing d=380mm, r=0mm
+RAT: Libraries loaded. Processing analysis/gqe.C... Got 100000 events. W: 693.101, H: 4587 (int) 0
+Processing d=370mm, r=0mm
+RAT: Libraries loaded. Processing analysis/gqe.C... Got 100000 events. W: 746.397, H: 4881 (int) 0
+Processing d=360mm, r=0mm
+RAT: Libraries loaded. Processing analysis/gqe.C... Got 100000 events. W: 801.511, H: 5223 (int) 0
+Processing d=350mm, r=0mm
+RAT: Libraries loaded. Processing analysis/gqe.C... Got 100000 events. W: 821.392, H: 5470 (int) 0
+Processing d=340mm, r=0mm
+RAT: Libraries loaded. Processing analysis/gqe.C... Got 100000 events. W: 876.35, H: 5737 (int) 0
+Processing d=330mm, r=0mm
+RAT: Libraries loaded. Processing analysis/gqe.C... Got 100000 events. W: 952.849, H: 6201 (int) 0
+Processing d=320mm, r=0mm
+RAT: Libraries loaded. Processing analysis/gqe.C... Got 100000 events. W: 1023.58, H: 6660 (int) 0
+Processing d=310mm, r=0mm
+RAT: Libraries loaded. Processing analysis/gqe.C... Got 100000 events. W: 1076.5, H: 6979 (int) 0
+Processing d=300mm, r=0mm
+RAT: Libraries loaded. Processing analysis/gqe.C... Got 100000 events. W: 1143.3, H: 7411 (int) 0
+Processing d=290mm, r=0mm
+RAT: Libraries loaded. Processing analysis/gqe.C... Got 100000 events. W: 1195.68, H: 7781 (int) 0
+Processing d=280mm, r=0mm
+RAT: Libraries loaded. Processing analysis/gqe.C... Got 100000 events. W: 1303.78, H: 8410 (int) 0
+Processing d=270mm, r=0mm
+RAT: Libraries loaded. Processing analysis/gqe.C... Got 100000 events. W: 1402.13, H: 8947 (int) 0
+Processing d=260mm, r=0mm
+RAT: Libraries loaded. Processing analysis/gqe.C... Got 100000 events. W: 1521.7, H: 9675 (int) 0
+Processing d=250mm, r=0mm
+RAT: Libraries loaded. Processing analysis/gqe.C... Got 100000 events. W: 1589.1, H: 10105 (int) 0
+Processing d=240mm, r=0mm
+RAT: Libraries loaded. Processing analysis/gqe.C... Got 100000 events. W: 1760.39, H: 11073 (int) 0
+Processing d=230mm, r=0mm
+RAT: Libraries loaded. Processing analysis/gqe.C... Got 100000 events. W: 1865.17, H: 11341 (int) 0
+Processing d=220mm, r=0mm
+RAT: Libraries loaded. Processing analysis/gqe.C... Got 100000 events. W: 1929.86, H: 11400 (int) 0
+Processing d=210mm, r=0mm
+RAT: Libraries loaded. Processing analysis/gqe.C... Got 100000 events. W: 2080, H: 11803 (int) 0
+Processing d=200mm, r=0mm
+RAT: Libraries loaded. Processing analysis/gqe.C... Got 100000 events. W: 2197.35, H: 12050 (int) 0
+Processing d=190mm, r=0mm
+RAT: Libraries loaded. Processing analysis/gqe.C... Got 100000 events. W: 2294.93, H: 12177 (int) 0
+Processing d=180mm, r=0mm
+RAT: Libraries loaded. Processing analysis/gqe.C... Got 100000 events. W: 2415.23, H: 12326 (int) 0
+Processing d=170mm, r=0mm
+RAT: Libraries loaded. Processing analysis/gqe.C... Got 100000 events. W: 2546.08, H: 12578 (int) 0
+Processing d=160mm, r=0mm
+RAT: Libraries loaded. Processing analysis/gqe.C... Got 100000 events. W: 2677.82, H: 12787 (int) 0
+Processing d=150mm, r=0mm
+RAT: Libraries loaded. Processing analysis/gqe.C... Got 100000 events. W: 2811.55, H: 12966 (int) 0
+Processing d=140mm, r=0mm
+RAT: Libraries loaded. Processing analysis/gqe.C... Got 100000 events. W: 2928.65, H: 13103 (int) 0
+Processing d=130mm, r=0mm
+RAT: Libraries loaded. Processing analysis/gqe.C... Got 100000 events. W: 3047.24, H: 13189 (int) 0
+Processing d=120mm, r=0mm
+RAT: Libraries loaded. Processing analysis/gqe.C... Got 100000 events. W: 3194.4, H: 13414 (int) 0
+Processing d=110mm, r=0mm
+RAT: Libraries loaded. Processing analysis/gqe.C... Got 100000 events. W: 3340.22, H: 13602 (int) 0
+Processing d=100mm, r=0mm
+RAT: Libraries loaded. Processing analysis/gqe.C... Got 100000 events. W: 3480.76, H: 13764 (int) 0
+Processing d=90mm, r=0mm
+RAT: Libraries loaded. Processing analysis/gqe.C... Got 100000 events. W: 3624.4, H: 13941 (int) 0
+Processing d=80mm, r=0mm
+RAT: Libraries loaded. Processing analysis/gqe.C... Got 100000 events. W: 3797.3, H: 14306 (int) 0
+Processing d=70mm, r=0mm
+RAT: Libraries loaded. Processing analysis/gqe.C... Got 100000 events. W: 3878.65, H: 14294 (int) 0
+Processing d=60mm, r=0mm
+RAT: Libraries loaded. Processing analysis/gqe.C... Got 100000 events. W: 3969.32, H: 14299 (int) 0
+Processing d=50mm, r=0mm
+RAT: Libraries loaded. Processing analysis/gqe.C... Got 100000 events. W: 4110.01, H: 14472 (int) 0
+Processing d=40mm, r=0mm
+RAT: Libraries loaded. Processing analysis/gqe.C... Got 100000 events. W: 4334.09, H: 15017 (int) 0
+Processing d=30mm, r=0mm
+RAT: Libraries loaded. Processing analysis/gqe.C... Got 100000 events. W: 4399.33, H: 15042 (int) 0
+Processing d=20mm, r=0mm
+RAT: Libraries loaded. Processing analysis/gqe.C... Got 100000 events. W: 4472.72, H: 15087 (int) 0
+Processing d=10mm, r=0mm
+RAT: Libraries loaded. Processing analysis/gqe.C... Got 100000 events. W: 4557.28, H: 15199 (int) 0
+Processing d=368.0mm, r=0mm
+RAT: Libraries loaded. Processing analysis/gqe.C... Got 100000 events. W: 734.671, H: 4848 (int) 0
+Processing d=203.0mm, r=0mm
+RAT: Libraries loaded. Processing analysis/gqe.C... Got 100000 events. W: 2172.44, H: 12028 (int) 0
