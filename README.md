@@ -23,12 +23,12 @@ This fork contains geometry, scripts and settings for the Bo cryostat optical si
 * ./configure
 * scons
 
-## Running Bo optical simulation
+## Running the Bo Optical Simulation
 * ./bo\_total\_autorun.sh [new]
 
 This script runs the two optical simulations (plate-to-PMT with 420nm light and source-to-plate with 128nm light). The outputs (final counts of hits on the PMT) are saved to gqe\_log.txt. The parameters for the simulation stages are set within the bash script, and can (and should) be modified.
 
-The [new] flag forces a re-run of the plate-to-PMT simulation. If this option is ommitted, or if the file analysis/weights.txt file already exists, the script will skip the plate-to-PMT simulation and use the existing weight values.
+The [new] flag forces a re-run of the plate-to-PMT simulation. If this option is ommitted, and if the file analysis/weights.txt file already exists, the script will skip the plate-to-PMT simulation and use the existing weight values.
 
 Additional material parameters are set within data/OPTICS.ratdb.
 
