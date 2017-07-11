@@ -43,7 +43,7 @@
   surface:"stainless_steel",
   reverse: 1,
 }
-/*
+
 {
   name:"GEO",
   valid_begin: [0,0],
@@ -55,4 +55,4 @@
   surface:"aluminum",
   reverse: 1,
 }
-*/
+
