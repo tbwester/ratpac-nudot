@@ -1,0 +1,6 @@
+Processing d=203.0mm, r=0mm: RAT: Libraries loaded. Processing analysis/gqe.C... Got 100000 events. W: 1092.22, H: 6066 (int) 0
+Processing d=203.0mm, r=0mm: RAT: Libraries loaded. Processing analysis/gqe.C... Got 100000 events. W: 1082.77, H: 5942 (int) 0
+Processing d=203.0mm, r=0mm: RAT: Libraries loaded. Processing analysis/gqe.C... Got 100000 events. W: 1083.46, H: 6002 (int) 0
+Processing d=368.0mm, r=0mm: RAT: Libraries loaded. Processing analysis/gqe.C... Got 100000 events. W: 381.63, H: 2472 (int) 0
+Processing d=368.0mm, r=0mm: RAT: Libraries loaded. Processing analysis/gqe.C... Got 100000 events. W: 383.695, H: 2491 (int) 0
+Processing d=368.0mm, r=0mm: RAT: Libraries loaded. Processing analysis/gqe.C... Got 100000 events. W: 391.568, H: 2540 (int) 0
