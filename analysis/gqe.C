@@ -12,17 +12,20 @@
 #include <sstream>
 #include <fstream>
 #include <vector>
+#include <string>
 #include <stdlib.h>
 
 #include "TH1.h"
 #include "TFile.h"
 #include "TMath.h"
 #include "TNtuple.h"
+#include "TDatime.h"
 
 typedef std::vector<double> dblvec;
 double weight(double r, std::vector<dblvec> &weightvec);
+string datetime(); 
 
-int gqe() {
+int gqe(string filepath="") {
   //Create NTuple for photon data 
   TNtuple *ntuple = new TNtuple("dph","photon data",
       "x0:y0:z0:x1:y1:z1:px0:py0:pz0:px1:py1:pz1:hit:steps:xh:yh:zh");
@@ -97,10 +100,11 @@ int gqe() {
           yh = 0.0;
           zh = 0.0;
       }
-      std::vector<float> fillvec = {x0, y0, z0, x1, y1, z1, px0, py0, pz0,
-                                    px1, py1, pz1, (float)hit, (float)steps,
-                                    xh, yh, zh};
-      ntuple->Fill(&fillvec[0]);
+      if (hit) {
+          std::vector<float> fillvec = {x0, y0, z0, x1, y1, z1, px0, py0, pz0,
+                                    (float)hit, (float)steps, xh, yh, zh};
+          ntuple->Fill(&fillvec[0]);
+      }
       n = c.FindNextTrack();
     }
     ds = reader.NextEvent();
@@ -112,8 +116,11 @@ int gqe() {
   //outfile << nhits << std::endl;
 
   std::cout << "W: " << wpe_total << ", H: " << npe_total << std::endl;
-
-  TFile* fout = new TFile("/home/twester/ratpac-nudot/ntuple.root", "RECREATE");
+  stringstream ss;
+  double dist = 300 - (z0 + 3.96875);
+  ss << "/home/twester/ratpac-nudot/" << filepath << "ntuple_" << dist << "_" 
+     << datetime() << ".root";
+  TFile* fout = new TFile(ss.str().c_str(), "RECREATE");
   ntuple->Write();
   fout->Close();
   return 0;
@@ -142,4 +149,13 @@ double weight(double r, std::vector<dblvec> &weightvec) {
   //Linear interpolate between two closest points in weightvec
   return y1 + (r - x1) * ( (y2 - y1) / (x2 - x1) );
 
+}
+
+string datetime() {
+    TDatime t;
+    stringstream ss;
+    ss << t.GetYear() << "-" << t.GetMonth() << "-" << t.GetDay() << "_" 
+       << t.GetHour() << t.GetMinute() << t.GetSecond();
+
+    return ss.str();
 }

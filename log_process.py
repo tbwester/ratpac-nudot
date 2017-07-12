@@ -1,7 +1,10 @@
+import sys
 import re
 
+filepath = sys.argv[1]
+
 # get log file lines
-with open("gqe_log.txt") as f:
+with open(filepath+"gqe_log.txt") as f:
     lines = f.readlines()
     
 # string to be written to new file
@@ -16,5 +19,5 @@ for i in range(len(lines)):
                 hits.group(0)[3:] + '\n'
 
 # write datastr to file
-with open("gqe_data.txt", "w") as f:
+with open(filepath+"gqe_data.txt", "w") as f:
     f.write(datastr)

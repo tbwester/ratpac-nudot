@@ -15,12 +15,18 @@ DSTEP=1
 NEVENTSPLT=10000
 NEVENTSSRC=100000
 #DISTLIST=($(seq -29 1 29))
-DISTLIST=( 9.7 9.7 9.7 -6.8 -6.8 -6.8)
+#DISTLIST=( 9.7 9.7 9.7 -6.8 -6.8 -6.8)
+DISTLIST=( -6.8)
 ROFLIST=( 0.0 ) #( 0.0 0.05 0.1 0.15 0.2 0.25 ) 
 ## END CONFIGURATION ##
 
+RUNPATH="output/"$1"/"
+echo "Saving output to "$RUNPATH
+
+mkdir -p $RUNPATH
+
 ## Generate the weight file
-if [ -f analysis/weights.txt ] && [ "$1" != "new" ] ; then
+if [ -f analysis/weights.txt ] && [ "$2" != "new" ] ; then
     echo "Found weight file."
 else
     rm analysis/weights.txt
@@ -60,7 +66,7 @@ if [ 1 -eq 1 ]; then
             len2=`echo "($i*10)-9.128125" | bc -l` #const offset puts face of holder at 'd' away
             len3=`echo "300-($i*10)" | bc -l`
 
-            echo -n "Processing d="$len3"mm, r="$rd"mm: " >> gqe_log.txt
+            echo -n "Processing d="$len3"mm, r="$rd"mm: " >> "$RUNPATH"gqe_log.txt
 
             #replace vertex lines in mac file
             line='21s/.*/\/generator\/pos\/set 0.0 '$rd' '$len'/'
@@ -74,12 +80,12 @@ if [ 1 -eq 1 ]; then
 
             #run rat & root script
             rat -q $MACFILESRC
-            OUTPUT="$(root -l -b -q 'analysis/gqe.C' | cat)"
+            OUTPUT="$(root -l -b -q 'analysis/gqe.C("'$RUNPATH'")' | cat)"
             echo $OUTPUT
-            echo $OUTPUT >> gqe_log.txt #$len3, $rd)"
+            echo $OUTPUT >> "$RUNPATH"gqe_log.txt #$len3, $rd)"
         done
     done
 fi
 # format the log file, clean up RAT log files
-python log_process.py
+python log_process.py $RUNPATH
 rm *.log
