@@ -82,6 +82,8 @@ int gqe() {
       steps = n->GetStepID();
       n->GetVolume() == "pvPMT00" ? hit = true : hit = false;
       if (hit) {
+          // photon propagates once inside the PMT volume
+          // go back one step to get the hit position on the plate
           n = c.GoPrev();
           xh = n->GetEndpoint()[0];
           yh = n->GetEndpoint()[1];
@@ -98,9 +100,6 @@ int gqe() {
       std::vector<float> fillvec = {x0, y0, z0, x1, y1, z1, px0, py0, pz0,
                                     px1, py1, pz1, (float)hit, (float)steps,
                                     xh, yh, zh};
-
-            //ntuple->Fill(x0, y0, z0, x1, y1, z1, px0, py0, pz0,
-            //      //             px1, py1, pz1, hit, steps, pxr, pyr, pzr);
       ntuple->Fill(&fillvec[0]);
       n = c.FindNextTrack();
     }
@@ -135,9 +134,9 @@ double weight(double r, std::vector<dblvec> &weightvec) {
       break;
     }
   }
-  //Just in case we are slightly outside the plate, just use 5%
+  //Just in case we are slightly outside the plate, just use 6%
   if (!foundpts) {
-    return 0.06;
+    return weightvec[weightvec.size() - 1][1];
   }
   //std::cout << "(" << x1 << ", " << y1 << ") (" << x2 << ", " << y2 << ")\n";
   //Linear interpolate between two closest points in weightvec
