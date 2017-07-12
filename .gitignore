@@ -21,6 +21,7 @@ src/core/config.hh
 *~
 
 #root data and build files
+output/*
 ntuple.root
 output.root
 *.d

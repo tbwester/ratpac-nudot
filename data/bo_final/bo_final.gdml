@@ -211,12 +211,12 @@
       <volumeref ref="volPhotoCathode"/>
       <position name="posGlass2" unit="mm" x="0" y="0" z="370"/>
     </physvol>
-
+    <!--
     <physvol name="pvTemp">
       <volumeref ref="volTemp"/>
       <position name="posGlass" unit="mm" x="0" y="0" z="370"/>
-    </physvol>
-<!-- the following volume is the tpb plate which is made sensitive for this test -->
+    </physvol> -->
+<!-- the following volume is the tpb plate -->
     <physvol name="pvPlate">
       <volumeref ref="volTPBPlate"/> <!-- volTPBPlate -->
       <position name="posPlate" unit="mm" x="0" y="0" z="301.5875"/>

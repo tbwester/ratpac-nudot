@@ -78,9 +78,9 @@ int pecount_weight(float len=0) {
   }
   std::cout << "writing to files\n";
   outfile << len << "," << (double)petotalplate / (double)nevents << "\n"; 
-  TFile* fout = new TFile("here.root","UPDATE");
-  h->Write();
-  fout->Close();
+  //TFile* fout = new TFile("here.root","UPDATE");
+  //h->Write();
+  //fout->Close();
   return 0;
 };
 
