@@ -28,7 +28,7 @@ string datetime();
 int gqe(string filepath="") {
   //Create NTuple for photon data 
   TNtuple *ntuple = new TNtuple("dph","photon data",
-      "x0:y0:z0:x1:y1:z1:px0:py0:pz0:px1:py1:pz1:hit:steps:xh:yh:zh");
+      "x0:y0:z0:px0:py0:pz0:hit:xh:yh:zh");
 
   //Fill weight vector
   std::vector<dblvec> weights;
@@ -100,11 +100,11 @@ int gqe(string filepath="") {
           yh = 0.0;
           zh = 0.0;
       }
-      if (hit) {
-          std::vector<float> fillvec = {x0, y0, z0, x1, y1, z1, px0, py0, pz0,
-                                    (float)hit, (float)steps, xh, yh, zh};
+      //if (hit) {
+          std::vector<float> fillvec = {x0, y0, z0, px0, py0, pz0,
+                                    (float)hit, xh, yh, zh};
           ntuple->Fill(&fillvec[0]);
-      }
+      //}
       n = c.FindNextTrack();
     }
     ds = reader.NextEvent();
@@ -154,8 +154,7 @@ double weight(double r, std::vector<dblvec> &weightvec) {
 string datetime() {
     TDatime t;
     stringstream ss;
-    ss << t.GetYear() << "-" << t.GetMonth() << "-" << t.GetDay() << "_" 
-       << t.GetHour() << t.GetMinute() << t.GetSecond();
+    ss << t.GetDate() << "-" << t.GetTime();
 
     return ss.str();
 }
