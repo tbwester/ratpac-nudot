@@ -12,11 +12,14 @@ datastr = 'd\tweight\thits\n'
 
 # regex to get relevant numbers from log file
 for i in range(len(lines)):
-    dist = re.search("d=\d+.0", lines[i])
+    dist = re.search("d=\d+", lines[i])
     weight = re.search("W: \d+.\d+", lines[i])
     hits = re.search("H: \d+", lines[i])
-    datastr += dist.group(0)[2:] + '\t' + weight.group(0)[3:] + '\t' + \
+    try:
+        datastr += dist.group(0)[2:] + '\t' + weight.group(0)[3:] + '\t' + \
                 hits.group(0)[3:] + '\n'
+    except:
+        print lines[i]
 
 # write datastr to file
 with open(filepath+"gqe_data.txt", "w") as f:

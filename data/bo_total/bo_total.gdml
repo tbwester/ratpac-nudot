@@ -131,7 +131,7 @@
   <tube name="cryostat" lunit="cm" aunit="deg" rmin="11*2.54" rmax="12*2.54" z="40.0*2.54" startphi="0" deltaphi="360.0"/>
   <tube name="cryostat_cap" lunit="cm" aunit="deg" rmin="0" rmax="12*2.54" z="2.0*2.54" startphi="0" deltaphi="360.0"/>
   <tube name="scint" lunit="cm" aunit="deg" rmin="0" rmax="11*2.54" z="40.0*2.54" startphi="0" deltaphi="360.0"/>
-  <tube name="tpbplate" lunit="cm" aunit="deg" rmin="0" rmax="6*2.54" z="0.1" startphi="0" deltaphi="360.0"/> <!-- 0.125*2.54-->
+  <tube name="tpbplate" lunit="cm" aunit="deg" rmin="0" rmax="6.002*2.54" z="0.1" startphi="0" deltaphi="360.0"/> <!-- 0.125*2.54-->
   <ellipsoid name="elpmt" ax="100.5" by="100.5" cz="64.5" zcut2="0" lunit="mm"/>
   <ellipsoid name="elouter" ax="101" by="101" cz="65" zcut2="0" lunit="mm"/>
   <ellipsoid name="elinner" ax="100.5" by="100.5" cz="64.5" zcut2="20" lunit="mm"/>

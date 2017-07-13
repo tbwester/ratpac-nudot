@@ -19,3 +19,15 @@
   surface:"stainless_steel",
   reverse: 1,
 }
+
+{
+  name:"GEO",
+  valid_begin: [0,0],
+  valid_end: [0,0],
+  mother:"border",
+  type:"border",
+  volume1:"pvGlass",
+  volume2:"pvScint",
+  surface:"glass",
+  reverse: 1,
+}

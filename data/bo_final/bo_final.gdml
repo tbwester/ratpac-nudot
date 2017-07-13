@@ -137,6 +137,7 @@
   <tube name="cryostat_cap" lunit="cm" aunit="deg" rmin="0" rmax="12*2.54" z="2.0*2.54" startphi="0" deltaphi="360.0"/>
   <tube name="scint" lunit="cm" aunit="deg" rmin="0" rmax="11*2.54" z="40.0*2.54" startphi="0" deltaphi="360.0"/>
   <tube name="tpbplate" lunit="cm" aunit="deg" rmin="0" rmax="6*2.54" z="0.125*2.54" startphi="0" deltaphi="360.0"/>
+  <tube name="pmtshield" lunit="mm" aunit="deg" rmin="100.5" rmax="101" z="112.4" startphi="0" deltaphi="360.0"/>
   <ellipsoid name="elpmt" ax="100.5" by="100.5" cz="64.5" zcut2="0" lunit="mm"/>
   <ellipsoid name="elouter" ax="101" by="101" cz="65" zcut2="0" lunit="mm"/>
   <ellipsoid name="elinner" ax="100.5" by="100.5" cz="64.5" zcut2="20" lunit="mm"/>
@@ -173,17 +174,21 @@
 
 <structure>
 
-  <volume name="volPhotoCathode">
-    <materialref ref="LAr"/>
+  <volume name="volGlass"> <!-- volPhotoCathode -->
+    <materialref ref="glass"/> <!-- LAr -->
     <solidref ref="pmt_glass"/>
   </volume>
-  <volume name="volTemp">
-    <materialref ref="LAr"/>
+  <volume name="volPhotoCathode"> <!-- volTemp -->
+    <materialref ref="glass"/> <!-- LAr -->
     <solidref ref="elpmt"/>
   </volume>
   <volume name="volTPBPlate">
     <materialref ref="acrylic_uvt"/> <!-- acrylic_uvt -->
     <solidref ref="tpbplate"/>
+  </volume>
+  <volume name="volPMTShield">
+    <materialref ref="stainless_steel"/> <!-- acrylic_uvt -->
+    <solidref ref="pmtshield"/>
   </volume>
   <!-- <volume name="volSourceA">
     <materialref ref="stainless_steel"/>
@@ -207,19 +212,23 @@
     <solidref ref="scint"/>
     <!-- Add Photocathodes here -->
 
-    <physvol name="pvPMT00">
-      <volumeref ref="volPhotoCathode"/>
+    <physvol name="pvGlass"> <!-- pvPMT00 -->
+      <volumeref ref="volGlass"/>
       <position name="posGlass2" unit="mm" x="0" y="0" z="370"/>
     </physvol>
-    <!--
-    <physvol name="pvTemp">
-      <volumeref ref="volTemp"/>
+    
+    <physvol name="pvPMT00">
+      <volumeref ref="volPhotoCathode"/>
       <position name="posGlass" unit="mm" x="0" y="0" z="370"/>
-    </physvol> -->
+    </physvol> 
 <!-- the following volume is the tpb plate -->
     <physvol name="pvPlate">
       <volumeref ref="volTPBPlate"/> <!-- volTPBPlate -->
       <position name="posPlate" unit="mm" x="0" y="0" z="301.5875"/>
+    </physvol>
+    <physvol name="pvShield">
+      <volumeref ref="volPMTShield"/> <!-- volTPBPlate -->
+      <position name="posShield" unit="mm" x="0" y="0" z="426.3"/>
     </physvol>
 
     <!-- End of photocathodes --> 
