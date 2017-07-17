@@ -30,7 +30,7 @@ This script runs the two optical simulations (plate-to-PMT with 420nm light and 
 
 The [new] flag forces a re-run of the plate-to-PMT simulation. If this option is ommitted, and if the file analysis/weights.txt file already exists, the script will skip the plate-to-PMT simulation and use the existing weight values.
 
-Additional material parameters are set within data/OPTICS.ratdb.
+Additional material parameters are set in data/OPTICS.ratdb.
 
 ## Adding a feature
 * git checkout develop
