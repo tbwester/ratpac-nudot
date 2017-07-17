@@ -75,6 +75,7 @@ int gqe(string filepath="") {
       py0 = n->GetMomentum()[1] / n->GetKE();
       pz0 = n->GetMomentum()[2] / n->GetKE();
       // get final tracknode parameters. could be the same as rayleigh scattering parameters
+      /*
       n = c.GoNext();
       if (n->GetProcess() == "OpRayleigh") {
           xr = n->GetEndpoint()[0];
@@ -92,7 +93,7 @@ int gqe(string filepath="") {
           pyr = 0.0;
           pzr = 0.0;
       }
-
+      */
 
       n = c.GoTrackEnd();
       x1 = n->GetEndpoint()[0];
