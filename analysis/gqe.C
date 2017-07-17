@@ -28,11 +28,7 @@ string datetime();
 int gqe(string filepath="") {
   //Create NTuple for photon data 
   TNtuple *ntuple = new TNtuple("dph","photon data",
-<<<<<<< HEAD
-      "x0:y0:z0:px0:py0:pz0:hit:xh:yh:zh:xr:yr:zr:pxr:pyr:pzr");
-=======
       "x0:y0:z0:px0:py0:pz0:hit:xh:yh:zh");
->>>>>>> 55ef32f0ea30b310fbca78c8b3e4159cf9141215
 
   //Fill weight vector
   std::vector<dblvec> weights;
@@ -60,10 +56,6 @@ int gqe(string filepath="") {
   float x0, y0, z0, x1, y1, z1;
   float px0, py0, pz0, px1, py1, pz1;
   float xh, yh, zh;
-<<<<<<< HEAD
-  float xr, yr, zr, pxr, pyr, pzr; //rayleigh positions
-=======
->>>>>>> 55ef32f0ea30b310fbca78c8b3e4159cf9141215
   float steps;
   bool hit;
   float wpe_total = 0; // weighted pe total
@@ -83,7 +75,6 @@ int gqe(string filepath="") {
       py0 = n->GetMomentum()[1] / n->GetKE();
       pz0 = n->GetMomentum()[2] / n->GetKE();
       // get final tracknode parameters. could be the same as rayleigh scattering parameters
-<<<<<<< HEAD
       n = c.GoNext();
       if (n->GetProcess() == "OpRayleigh") {
           xr = n->GetEndpoint()[0];
@@ -103,8 +94,6 @@ int gqe(string filepath="") {
       }
 
 
-=======
->>>>>>> 55ef32f0ea30b310fbca78c8b3e4159cf9141215
       n = c.GoTrackEnd();
       x1 = n->GetEndpoint()[0];
       y1 = n->GetEndpoint()[1];
@@ -132,11 +121,7 @@ int gqe(string filepath="") {
       }
       //if (hit) {
           std::vector<float> fillvec = {x0, y0, z0, px0, py0, pz0,
-<<<<<<< HEAD
-                                    (float)hit, xh, yh, zh, xr, yr, zr, pxr, pyr, pzr};
-=======
                                     (float)hit, xh, yh, zh};
->>>>>>> 55ef32f0ea30b310fbca78c8b3e4159cf9141215
           ntuple->Fill(&fillvec[0]);
       //}
       n = c.FindNextTrack();

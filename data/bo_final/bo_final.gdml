@@ -137,11 +137,7 @@
   <tube name="cryostat_cap" lunit="cm" aunit="deg" rmin="0" rmax="12*2.54" z="2.0*2.54" startphi="0" deltaphi="360.0"/>
   <tube name="scint" lunit="cm" aunit="deg" rmin="0" rmax="11*2.54" z="40.0*2.54" startphi="0" deltaphi="360.0"/>
   <tube name="tpbplate" lunit="cm" aunit="deg" rmin="0" rmax="6*2.54" z="0.125*2.54" startphi="0" deltaphi="360.0"/>
-<<<<<<< HEAD
   <tube name="pmtshield" lunit="mm" aunit="deg" rmin="100.5" rmax="101" z="138" startphi="0" deltaphi="360.0"/>
-=======
-  <tube name="pmtshield" lunit="mm" aunit="deg" rmin="100.5" rmax="101" z="112.4" startphi="0" deltaphi="360.0"/>
->>>>>>> 55ef32f0ea30b310fbca78c8b3e4159cf9141215
   <ellipsoid name="elpmt" ax="100.5" by="100.5" cz="64.5" zcut2="0" lunit="mm"/>
   <ellipsoid name="elouter" ax="101" by="101" cz="65" zcut2="0" lunit="mm"/>
   <ellipsoid name="elinner" ax="100.5" by="100.5" cz="64.5" zcut2="20" lunit="mm"/>
@@ -232,7 +228,6 @@
     </physvol>
     <physvol name="pvShield">
       <volumeref ref="volPMTShield"/> <!-- volTPBPlate -->
-<<<<<<< HEAD
       <position name="posShield" unit="mm" x="0" y="0" z="439.0"/>
     </physvol>
 
@@ -246,8 +241,8 @@
       <volumeref ref="volSource"/>
 <position name="posSource" unit="mm" x="0" y="0" z="87.871875"/>
     </physvol>-->
-    <!--
-=======
+<physvol name=pvShield>
+    <volumeref ref="volPMTShield">
       <position name="posShield" unit="mm" x="0" y="0" z="426.3"/>
     </physvol>
 
@@ -262,7 +257,6 @@
 <position name="posSource" unit="mm" x="0" y="0" z="87.871875"/>
     </physvol>
 
->>>>>>> 55ef32f0ea30b310fbca78c8b3e4159cf9141215
     <physvol name="pvSourceA">
       <volumeref ref="volSourceA"/>
 <position name="posSource" unit="mm" x="0" y="0" z="0"/>
