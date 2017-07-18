@@ -1,4 +1,7 @@
+import sys
 import numpy as np
+
+filepath = sys.argv[1]
 
 def interpolate(x):
     foundpts = False
@@ -13,12 +16,14 @@ def interpolate(x):
             break
 
     if not foundpts:
-        return weights[-1][1]
+        # we are outside the interpolate curve
+        return 0.0 #weights[-1][1]
 
     return y1 + (x - x1) * ( ( y2 - y1) / (x2 - x1) )
 
-weights = np.genfromtxt("/home/twester/ratpac-nudot/analysis/pltweights.txt", \
-                            names=["r", "weight", "hits"])
+weights = np.genfromtxt(filepath + "pltweights.txt", \
+        names=["r", "weight", "hits"])
+
 total = 0
 count = 0
 rlist = []

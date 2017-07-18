@@ -41,6 +41,11 @@
     <fraction n="0.0900" ref="nickel"/>
   </material>
 
+  <material name="aluminum" formula=" ">
+    <D value="2.700" unit="g/cm3"/>
+    <fraction n="1.0000" ref="aluminum"/>
+  </material>
+
   <material formula=" " name="air">
     <D value="0.001205" unit="g/cm3"/>
     <fraction n="0.781154" ref="nitrogen"/>
@@ -141,49 +146,29 @@
     <positionref ref="origin"/>
     <rotationref ref="identity"/>
   </subtraction>
-  <!-- source holder has radius 0.875in and is 0.5625 (1/2 + 1/16)" in height -->
-  <tube name="source1" lunit="cm" aunit="deg" rmin="0" rmax="0.875*2.54" z="0.5625*2.54" startphi="0" deltaphi="360.0"/>
-  <!-- source has radius 0.5in and is 0.09375 (3/32)" in height -->
-  <tube name="source2" lunit="cm" aunit="deg" rmin="0" rmax="0.5*2.54" z="0.125*2.54" startphi="0" deltaphi="360.0"/>
-  <!-- source slot has radius 5mm and is 0.125 (1/8)" in height -->
-  <tube name="source3" lunit="cm" aunit="deg" rmin="0" rmax="0.25" z="0.25*2.54" startphi="0" deltaphi="360.0"/>
-  <subtraction name="src_slot">
-    <first ref="source1"/>
-    <second ref="source3"/>
-    <position name="posSrcSlotOffset" unit="cm" x="0" y="0" z="0.5625*1.27"/>
-    <rotationref ref="identity"/>
-  </subtraction>
-  <!-- photons should start with 0.444 offset to be in the source gap region inside the stainless steel -->
-  <subtraction name="src_total">
-    <first ref="src_slot"/>
-    <second ref="source2"/>
-    <position name="posSrcSlotOffset2" unit="cm" x="0" y="0" z="0.34375*1.27"/>
-    <rotationref ref="identity"/>
-  </subtraction>
-  <tube name="sourcedisk" lunit="cm" aunit="deg" rmin="0.25" rmax="1.75*1.27" z="0.0625*2.54" startphi="0" deltaphi="360.0"/>
-  <tube name="sourceback" lunit="cm" aunit="deg" rmin="0" rmax="1.75*1.27" z="0.5*2.54" startphi="0" deltaphi="360.0"/>
-  <union name="src_inner">
-    <first ref="sourceback"/>
-    <second ref="sourcedisk"/>
-    <position name="posSrcOff" unit="cm" x="0" y="0" z="0.53125*1.27"/>
-    <rotationref ref="identity"/>
-  </union>
-  <tube name="sourcediskA" lunit="cm" aunit="deg" rmin="0.25" rmax="1.75*1.27" z="0.15625*2.54" startphi="0" deltaphi="360.0"/>
-  <tube name="sourcediskB" lunit="cm" aunit="deg" rmin="0.5*2.54" rmax="1.75*1.27" z="0.09375*2.54" startphi="0" deltaphi="360.0"/>
-  <tube name="sourcediskC" lunit="cm" aunit="deg" rmin="0" rmax="1.75*1.27" z="0.40625*2.54" startphi="0" deltaphi="360.0"/>
-
+  <!-- source holder is composed of 3 tubes
+       bottom: rmin = 0      rmax = 1.75" z=0.40625"
+       middle: rmin = 0.3cm  rmax = 1.75" z=0.09375"
+       top:    rmin = 0.25cm rmax = 1.75" z=0.0625"
+  -->
+  <tube name="sourcediskA" lunit="cm" aunit="deg" rmin="0.0" rmax="1.75*1.27" z="0.40625*2.54" startphi="0" deltaphi="360.0"/> 
+  <tube name="sourcediskB" lunit="cm" aunit="deg" rmin="0.3" rmax="1.75*1.27" z="0.09375*2.54" startphi="0" deltaphi="360.0"/>
+  <tube name="sourcediskC" lunit="cm" aunit="deg" rmin="0.25" rmax="1.75*1.27" z="0.0625*2.54" startphi="0" deltaphi="360.0"/>
+      
   <union name="sourcediskstage">
     <first ref="sourcediskA"/>
     <second ref="sourcediskB"/>
-    <position name="posSourcestage" unit="cm" x="0" y="0" z="-0.15625*1.27"/>
+    <position name="posSourcestage" unit="cm" x="0" y="0" z="0.5*1.27"/>
     <rotationref ref="identity"/>
   </union>
+  
   <union name="sourcediskD">
-    <first ref="sourcediskA"/>
+    <first ref="sourcediskstage"/>
     <second ref="sourcediskC"/>
-    <position name="posSource" unit="cm" x="0" y="0" z="-0.5625*1.27"/>
+    <position name="posSource" unit="cm" x="0" y="0" z="0.65625*1.27"/>
     <rotationref ref="identity"/>
   </union>
+  
 </solids>
 
 <structure>
@@ -200,15 +185,10 @@
     <materialref ref="LAr"/> <!-- acrylic_uvt -->
     <solidref ref="tpbplate"/>
   </volume>
-  <volume name="volSource">
-    <materialref ref="stainless_steel"/>
-    <solidref ref="src_inner"/>
-  </volume>
-
-  <volume name="volSourceA">
+  <!-- <volume name="volSourceA">
     <materialref ref="stainless_steel"/>
     <solidref ref="sourcediskA"/>
-  </volume>
+  </volume>-->
   <volume name="volSourceB">
     <materialref ref="stainless_steel"/>
     <solidref ref="sourcediskB"/>
@@ -216,11 +196,11 @@
   <volume name="volSourceC">
     <materialref ref="stainless_steel"/>
     <solidref ref="sourcediskC"/>
-  </volume>
+</volume> 
   <volume name="volSourceD">
-    <materialref ref="stainless_steel"/>
+    <materialref ref="aluminum"/>
     <solidref ref="sourcediskD"/>
-  </volume>
+  </volume> 
 
   <volume name="volScint">
     <materialref ref="LAr"/>
@@ -231,26 +211,26 @@
       <volumeref ref="volGlass"/>
       <position name="posGlass2" unit="mm" x="0" y="0" z="370"/>
     </physvol>
-
+    <!--
     <physvol name="pvTemp">
       <volumeref ref="volTemp"/>
       <position name="posGlass" unit="mm" x="0" y="0" z="370"/>
-    </physvol>
+    </physvol> -->
 <!-- the following volume is the tpb plate which is made sensitive for this test -->
     <physvol name="pvPMT00">
       <volumeref ref="volPhotoCathode"/> <!-- volTPBPlate -->
-      <position name="posPlate" unit="mm" x="0" y="0" z="300"/>
+      <position name="posPlate" unit="mm" x="0" y="0" z="301.5875"/>
     </physvol>
 
-    <!-- End of photocathodes -->
+    <!-- End of photocathodes --> 
     <physvol name="pvSourceD">
       <volumeref ref="volSourceD"/>
-<position name="posSource" unit="mm" x="0" y="0" z="97.0"/>
+<position name="posSource" unit="mm" x="0" y="0" z="-77.128125"/>
     </physvol>
 <!--
     <physvol name="pvSource">
       <volumeref ref="volSource"/>
-<position name="posSource" unit="mm" x="0" y="0" z="0"/>
+<position name="posSource" unit="mm" x="0" y="0" z="87.871875"/>
     </physvol>
 
     <physvol name="pvSourceA">
@@ -268,13 +248,13 @@
 -->
   </volume>
 
-  <volume name="volPhotoCathode3">
-    <materialref ref="LAr"/> <!-- stainless_steel -->
+  <volume name="volCryo">
+    <materialref ref="stainless_steel"/>
     <solidref ref="cryostat"/>
   </volume>
 
-  <volume name="volPhotoCathode2">
-    <materialref ref="LAr"/> <!-- stainless_steel -->
+  <volume name="volCryoCap">
+    <materialref ref="stainless_steel"/> <!-- stainless_steel -->
     <solidref ref="cryostat_cap"/>
   </volume>
 
@@ -282,18 +262,18 @@
     <materialref ref="air"/>
     <solidref ref="world"/>
 
-    <physvol name="pvPMT03">  <!-- pvCryo -->
-      <volumeref ref="volPhotoCathode3"/>
+    <physvol name="pvCryo">  <!-- pvCryo -->
+      <volumeref ref="volCryo"/>
       <position name="posCryo" unit="cm" x="0" y="0" z="0"/>
     </physvol>
 
-    <physvol name="pvPMT01"> <!-- pvCryoCap1 -->
-      <volumeref ref="volPhotoCathode2"/>
-      <position name="posCryoCap1" unit="cm" x="0" y="0" z="21*2.54"/>
+    <physvol name="pvCryoCap1">
+      <volumeref ref="volCryoCap"/>
+      <position name="posCryoCap1" unit="cm" x="0" y="0" z="21*2.54"/> <!-- 32.69975 -->
     </physvol>
-    <physvol name="pvPMT02"> <!-- pvCryoCap2 -->
-      <volumeref ref="volPhotoCathode2"/>
-      <position name="posCryoCap2" unit="cm" x="0" y="0" z="-21*2.54"/>
+    <physvol name="pvCryoCap2">
+      <volumeref ref="volCryoCap"/>
+      <position name="posCryoCap2" unit="cm" x="0" y="0" z="-21*2.54"/> <!-- -9.737875 -->
     </physvol>
 
    <physvol name="pvScint">

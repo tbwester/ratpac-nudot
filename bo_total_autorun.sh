@@ -12,15 +12,16 @@ GDMLFILESRC='data/bo_src/bo_src.gdml'
 # Fine-ness, events, etc.
 PLTR=15.24
 DSTEP=1
+PLTLIST=(0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 15.24)
 
-NEVENTSPLT=1000000
-NEVENTSSRC=100000
+NEVENTSPLT=10000
+NEVENTSSRC=10000
 #DISTLIST=($(seq -29 1 29))
 DISTLIST=( -6.8 )
 ROFLIST=( 0.0 0.05 0.1 0.15 0.2 0.25 ) 
 ## END CONFIGURATION ##
 
-RUNPATH="output/"$1"/"
+RUNPATH="/home/twester/ratpac-nudot/output/"$1"/"
 echo "Saving output to "$RUNPATH
 
 mkdir -p $RUNPATH
@@ -28,6 +29,8 @@ mkdir -p $RUNPATH
 ## Generate the weight file
 if [ -f analysis/weights.txt ] && [ "$2" != "new" ] ; then
     echo "Found weight file."
+    ## Save local copy to run directory
+    cp analysis/weights.txt "$RUNPATH"weights.txt
 else
     rm analysis/weights.txt
     echo "Plate Radius: "$PLTR
@@ -35,7 +38,7 @@ else
     echo "Events/Point: "$NEVENTSPLT
     echo "Creating weight file..."
 
-    for i in `seq 0 $DSTEP $PLTR`;
+    for i in "${PLTLIST[@]}";
     do
         echo "Processing r="$i"cm"
         len=`echo "$i*10" | bc -l`
@@ -48,11 +51,12 @@ else
         rat -q $MACFILEPLT
         root -l -b -q "analysis/pecount_weight.C($len)"
     done
+    cp analysis/weights.txt "$RUNPATH"weights.txt
 fi
 
 ## Do source to plate simulation
 if [ 1 -eq 1 ]; then
-    rm analysis/pltweights.txt
+    rm -f "$RUNPATH"pltweights.txt
     echo "Starting source to plate simulation."
     for i in "${DISTLIST[@]}"
     do
@@ -67,13 +71,13 @@ if [ 1 -eq 1 ]; then
             len2=`echo "($i*10)-9.128125" | bc -l` #const offset puts face of holder at 'd' away
             len3=`echo "300-($i*10)" | bc -l`
 
-            echo -n "Processing d="$len3"mm, r="$rd"mm: " >> "$RUNPATH"gqe_log.txt
+            echo "Processing d="$len3"mm, r="$rd"mm"
 
             #replace vertex lines in mac file
             line='21s/.*/\/generator\/pos\/set 0.0 '$rd' '$len'/'
             sed -i "$line" $MACFILESRC
             
-            line2='228s/.*/<position name="posSource" unit="mm" x="0" y="0" z="'$len2'"\/>/'
+            line2='237s/.*/<position name="posSource" unit="mm" x="0" y="0" z="'$len2'"\/>/'
             sed -i "${line2}" $GDMLFILESRC
 
             line3='27s/.*/\/run\/beamOn '$NEVENTSSRC'/'
@@ -81,13 +85,13 @@ if [ 1 -eq 1 ]; then
 
             #run rat & root script
             rat -q $MACFILESRC
-            root -l -b -q "analysis/WeightedHits.cc"
+            root -l -b -q 'analysis/WeightedHits.cc("'$RUNPATH'")'
             #OUTPUT="$(root -l -b -q 'analysis/gqe.C("'$RUNPATH'")' | cat)"
             #echo $OUTPUT
             #echo $OUTPUT >> "$RUNPATH"gqe_log.txt #$len3, $rd)"
         done
     done
-    python analysis/circledist.py #log_process.py $RUNPATH
+    python analysis/circledist.py $RUNPATH #log_process.py $RUNPATH
 fi
 # format the log file, clean up RAT log files
 rm *.log

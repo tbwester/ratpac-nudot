@@ -32,7 +32,7 @@ double rweight(double r, std::vector<dblvec> weightvec);
 std::vector<dblvec> vecfromfile(string fname);
 string datetime(); 
 
-void WeightedHits() {
+void WeightedHits(string ofilepath) {
     std::vector<dblvec> weights = vecfromfile(
             "/home/twester/ratpac-nudot/analysis/weights.txt");
 
@@ -49,23 +49,24 @@ void WeightedHits() {
     ntp->GetEntry(0);
 
     //Get the source position, in radius, of this run
-    double r = TMath::Sqrt(x*x + y*y);
+    double srcr = TMath::Sqrt(x*x + y*y);
 
     double whits = 0.0;
     for (int i = 0; i < ntp->GetEntries(); i++) {
         ntp->GetEntry(i);
-        double r = TMath::Sqrt(xh*xh + yh*yh);
-        whits += rweight(r, weights);
+        double pltr = TMath::Sqrt(xh*xh + yh*yh);
+        whits += rweight(pltr, weights);
     }
 
-    std::cout << "r " << r << "\thits " << whits 
+    std::cout << "r " << srcr << "\thits " << whits 
               << "\ttotal " << ntp->GetEntries() << std::endl;
 
     //Append numbers to text file
+    stringstream ofilename;
+    ofilename << ofilepath << "pltweights.txt";
     std::ofstream outfile;
-    outfile.open("/home/twester/ratpac-nudot/analysis/pltweights.txt",  
-            std::ios_base::app);
-    outfile << r << "\t" << whits << "\t" << ntp->GetEntries() << std::endl;
+    outfile.open(ofilename.str().c_str(), std::ios_base::app);
+    outfile << srcr << "\t" << whits << "\t" << ntp->GetEntries() << std::endl;
     outfile.close();
 }
 
@@ -92,7 +93,7 @@ TNtuple* GetPhotonInfo() {
             x0 = n->GetEndpoint()[0];
             y0 = n->GetEndpoint()[1];
             z0 = n->GetEndpoint()[2];
-            // get final tracknode parameters. could be the same as rayleigh scattering parameters
+            //get final tracknode parameters
 
             n = c.GoTrackEnd();
             n->GetVolume() == "pvPMT00" ? hit = true : hit = false;
