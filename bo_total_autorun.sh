@@ -12,15 +12,12 @@ GDMLFILESRC='data/bo_src/bo_src.gdml'
 # Fine-ness, events, etc.
 PLTR=15.24
 DSTEP=1
-#DISTLIST=($(seq -29 1 29))
-DISTLIST=( 9.7 -6.8 )
-ROFLIST=( 0.0 ) #( 0.0 0.05 0.1 0.15 0.2 0.25 ) 
 
-NEVENTSPLT=1000
-NEVENTSSRC=1000
+NEVENTSPLT=1000000
+NEVENTSSRC=100000
 #DISTLIST=($(seq -29 1 29))
-DISTLIST=( 9.7 -6.8 )
-ROFLIST=( 0.0 ) #( 0.0 0.05 0.1 0.15 0.2 0.25 ) 
+DISTLIST=( -6.8 )
+ROFLIST=( 0.0 0.05 0.1 0.15 0.2 0.25 ) 
 ## END CONFIGURATION ##
 
 RUNPATH="output/"$1"/"
@@ -55,6 +52,7 @@ fi
 
 ## Do source to plate simulation
 if [ 1 -eq 1 ]; then
+    rm analysis/pltweights.txt
     echo "Starting source to plate simulation."
     for i in "${DISTLIST[@]}"
     do
@@ -83,12 +81,13 @@ if [ 1 -eq 1 ]; then
 
             #run rat & root script
             rat -q $MACFILESRC
-            OUTPUT="$(root -l -b -q 'analysis/gqe.C("'$RUNPATH'")' | cat)"
-            echo $OUTPUT
-            echo $OUTPUT >> "$RUNPATH"gqe_log.txt #$len3, $rd)"
+            root -l -b -q "analysis/WeightedHits.cc"
+            #OUTPUT="$(root -l -b -q 'analysis/gqe.C("'$RUNPATH'")' | cat)"
+            #echo $OUTPUT
+            #echo $OUTPUT >> "$RUNPATH"gqe_log.txt #$len3, $rd)"
         done
     done
-    python log_process.py $RUNPATH
+    python analysis/circledist.py #log_process.py $RUNPATH
 fi
 # format the log file, clean up RAT log files
 rm *.log

@@ -1,6 +1,7 @@
 // ====================================================
 //
 // WeightedHits.cc
+// Thomas Wester July 2017
 // 
 // gets weighted hits on the tpb plate from the source
 // to plate simulation based on the plate to PMT 
@@ -28,24 +29,12 @@ TNtuple* GetPhotonInfo();
 double rweight(double r, std::vector<dblvec> weightvec);
 
 // Helper functions
+std::vector<dblvec> vecfromfile(string fname);
 string datetime(); 
 
 void WeightedHits() {
-    //Fill weight vector from file
-    std::vector<dblvec> weights;
-    std::ifstream ifile;
-    ifile.open("/home/twester/ratpac-nudot/analysis/weights.txt");
-    string line;
-    while (ifile >> line) {
-        //Split string at comma
-        dblvec v;
-        stringstream ss(line);
-        string d;
-        while (getline(ss, d, ',')) {
-            v.push_back(std::atof(d.c_str()));
-        }
-        weights.push_back(v);
-    }
+    std::vector<dblvec> weights = vecfromfile(
+            "/home/twester/ratpac-nudot/analysis/weights.txt");
 
     //Fill ntuple with values from output.root file
     TNtuple* ntp = GetPhotonInfo();
@@ -56,7 +45,7 @@ void WeightedHits() {
     ntp->SetBranchAddress("xh", &xh);
     ntp->SetBranchAddress("yh", &yh);
 
-    //All photons should be starting from the same point, so grab the first
+    //All photons start from the same point, so use the first event
     ntp->GetEntry(0);
 
     //Get the source position, in radius, of this run
@@ -64,7 +53,7 @@ void WeightedHits() {
 
     double whits = 0.0;
     for (int i = 0; i < ntp->GetEntries(); i++) {
-        ntp->GetEntry();
+        ntp->GetEntry(i);
         double r = TMath::Sqrt(xh*xh + yh*yh);
         whits += rweight(r, weights);
     }
@@ -72,12 +61,17 @@ void WeightedHits() {
     std::cout << "r " << r << "\thits " << whits 
               << "\ttotal " << ntp->GetEntries() << std::endl;
 
+    //Append numbers to text file
+    std::ofstream outfile;
+    outfile.open("/home/twester/ratpac-nudot/analysis/pltweights.txt",  
+            std::ios_base::app);
+    outfile << r << "\t" << whits << "\t" << ntp->GetEntries() << std::endl;
+    outfile.close();
 }
 
 TNtuple* GetPhotonInfo() {
     //Create NTuple for photon data 
     TNtuple *ntuple = new TNtuple("dph","photon data","x0:y0:z0:xh:yh:zh");
-
 
     RAT::DSReader reader("/home/twester/ratpac-nudot/output.root");
     int nevents = reader.GetTotal();
@@ -121,8 +115,10 @@ TNtuple* GetPhotonInfo() {
 
 
 double rweight(double r, std::vector<dblvec> weightvec) {
+    //Finds point on weight curve given r and a vector of (x, y) pairs
     double x1, y1, x2, y2;  
     bool foundpts = false;
+
     //Assume weightvec is sorted ascending
     for (size_t it = 0; it != weightvec.size(); it++) {
         if (weightvec[it][0] > r && it != 0) {
@@ -134,15 +130,37 @@ double rweight(double r, std::vector<dblvec> weightvec) {
             break;
         }
     }
-    //Just in case we are slightly outside the plate, just use 6%
+    //Just in case we are outside the curve, return the last value
     if (!foundpts) {
         return weightvec[weightvec.size() - 1][1];
     }
-    //Linear interpolate between two closest points in weightvec
+    //Linear interpolate between two closest points on the curve
     return y1 + (r - x1) * ( (y2 - y1) / (x2 - x1) );
 }
 
+std::vector<dblvec> vecfromfile(string fname) {
+    //Fill weight vector from file
+    std::vector<dblvec> vec;
+    std::ifstream ifile;
+    ifile.open(fname);
+    string line;
+    while (ifile >> line) {
+        //Split string at comma
+        dblvec v;
+        stringstream ss(line);
+        string d;
+        while (getline(ss, d, ',')) {
+            v.push_back(std::atof(d.c_str()));
+        }
+        vec.push_back(v);
+    }
+    ifile.close();
+
+    return vec;
+}
+
 string datetime() {
+    //Return string of format YYYYMMDD-HHMMSS
     TDatime t;
     stringstream ss;
     ss << t.GetDate() << "-" << t.GetTime();
