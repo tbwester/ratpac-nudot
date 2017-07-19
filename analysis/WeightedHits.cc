@@ -51,10 +51,13 @@ void WeightedHits(string ofilepath) {
     //Get the source position, in radius, of this run
     double srcr = TMath::Sqrt(x*x + y*y);
 
+    TH1F* hr = new TH1F("h", "pltr", 100, 0, 160);
+
     double whits = 0.0;
     for (int i = 0; i < ntp->GetEntries(); i++) {
         ntp->GetEntry(i);
         double pltr = TMath::Sqrt(xh*xh + yh*yh);
+        hr->Fill(pltr);
         whits += rweight(pltr, weights);
     }
 
@@ -68,6 +71,12 @@ void WeightedHits(string ofilepath) {
     outfile.open(ofilename.str().c_str(), std::ios_base::app);
     outfile << srcr << "\t" << whits << "\t" << ntp->GetEntries() << std::endl;
     outfile.close();
+
+    stringstream of2;
+    of2 << ofilepath << "hist_" << int(srcr) * 10 << ".root";
+    TFile* myfile = new TFile(of2.str().c_str(), "RECREATE");
+    hr->Write();
+    myfile->Close();
 }
 
 TNtuple* GetPhotonInfo() {
