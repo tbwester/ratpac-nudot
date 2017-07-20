@@ -21,18 +21,18 @@
 #include "TMath.h"
 #include "TNtuple.h"
 #include "TDatime.h"
+#include "TRandom.h"
+
+#include "helper.hh" /* rweight, datetime, vecfromfile */
 
 typedef std::vector<double> dblvec;
 
-// Data functions
 TNtuple* GetPhotonInfo();
-double rweight(double r, std::vector<dblvec> weightvec);
-
-// Helper functions
-std::vector<dblvec> vecfromfile(string fname);
-string datetime(); 
 
 void WeightedHits(string ofilepath) {
+    TRandom3 r;
+    r.SetSeed(time(NULL));
+
     std::vector<dblvec> weights = vecfromfile(
             "/home/twester/ratpac-nudot/analysis/weights.txt");
 
@@ -47,18 +47,14 @@ void WeightedHits(string ofilepath) {
 
     //All photons start from the same point, so use the first event
     ntp->GetEntry(0);
-
-    //Get the source position, in radius, of this run
     double srcr = TMath::Sqrt(x*x + y*y);
-
-    TH1F* hr = new TH1F("h", "pltr", 100, 0, 160);
 
     double whits = 0.0;
     for (int i = 0; i < ntp->GetEntries(); i++) {
         ntp->GetEntry(i);
         double pltr = TMath::Sqrt(xh*xh + yh*yh);
-        hr->Fill(pltr);
-        whits += rweight(pltr, weights);
+        weightedhit = rweight(pltr, weights);
+        whits += weightedhit;
     }
 
     std::cout << "r " << srcr << "\thits " << whits 
@@ -69,13 +65,13 @@ void WeightedHits(string ofilepath) {
     ofilename << ofilepath << "pltweights.txt";
     std::ofstream outfile;
     outfile.open(ofilename.str().c_str(), std::ios_base::app);
-    outfile << srcr << "\t" << whits << "\t" << ntp->GetEntries() << std::endl;
+    outfile << srcr << "," << whits << "," << ntp->GetEntries() << std::endl;
     outfile.close();
 
     stringstream of2;
-    of2 << ofilepath << "hist_" << int(srcr) * 10 << ".root";
+    of2 << ofilepath << "ntuple_" << int(srcr * 100.) << ".root";
     TFile* myfile = new TFile(of2.str().c_str(), "RECREATE");
-    hr->Write();
+    ntp->Write();
     myfile->Close();
 }
 
@@ -121,59 +117,4 @@ TNtuple* GetPhotonInfo() {
         ds = reader.NextEvent();
     }
     return ntuple;
-}
-
-
-double rweight(double r, std::vector<dblvec> weightvec) {
-    //Finds point on weight curve given r and a vector of (x, y) pairs
-    double x1, y1, x2, y2;  
-    bool foundpts = false;
-
-    //Assume weightvec is sorted ascending
-    for (size_t it = 0; it != weightvec.size(); it++) {
-        if (weightvec[it][0] > r && it != 0) {
-            x1 = weightvec[it-1][0];
-            y1 = weightvec[it-1][1];
-            x2 = weightvec[it][0];
-            y2 = weightvec[it][1];
-            foundpts = true;
-            break;
-        }
-    }
-    //Just in case we are outside the curve, return the last value
-    if (!foundpts) {
-        return weightvec[weightvec.size() - 1][1];
-    }
-    //Linear interpolate between two closest points on the curve
-    return y1 + (r - x1) * ( (y2 - y1) / (x2 - x1) );
-}
-
-std::vector<dblvec> vecfromfile(string fname) {
-    //Fill weight vector from file
-    std::vector<dblvec> vec;
-    std::ifstream ifile;
-    ifile.open(fname);
-    string line;
-    while (ifile >> line) {
-        //Split string at comma
-        dblvec v;
-        stringstream ss(line);
-        string d;
-        while (getline(ss, d, ',')) {
-            v.push_back(std::atof(d.c_str()));
-        }
-        vec.push_back(v);
-    }
-    ifile.close();
-
-    return vec;
-}
-
-string datetime() {
-    //Return string of format YYYYMMDD-HHMMSS
-    TDatime t;
-    stringstream ss;
-    ss << t.GetDate() << "-" << t.GetTime();
-
-    return ss.str();
 }

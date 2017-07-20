@@ -14,10 +14,10 @@ PLTR=15.24
 DSTEP=1
 PLTLIST=(0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 15.24)
 
-NEVENTSPLT=1000000
-NEVENTSSRC=1000000
+NEVENTSPLT=10000
+NEVENTSSRC=10000
 #DISTLIST=($(seq -29 1 29))
-DISTLIST=( 9.7 )
+DISTLIST=( -6.8 )
 ROFLIST=( 0.0 0.025 0.05 0.075 0.1 0.15 0.2 0.25 0.295 0.3 ) 
 ## END CONFIGURATION ##
 
@@ -93,5 +93,9 @@ if [ 1 -eq 1 ]; then
     done
     python analysis/circledist.py $RUNPATH #log_process.py $RUNPATH
 fi
-# format the log file, clean up RAT log files
+
+# final creation of pe spectrum
+root -l -b -q 'analysis/WeightedHits.cc("'$RUNPATH'")'
+
+# clean up RAT log files
 rm *.log
