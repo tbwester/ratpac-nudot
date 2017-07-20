@@ -15,7 +15,7 @@ DSTEP=1
 PLTLIST=(0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 15.24)
 
 NEVENTSPLT=10000
-NEVENTSSRC=10000
+NEVENTSSRC=1000000
 #DISTLIST=($(seq -29 1 29))
 DISTLIST=( -6.8 )
 ROFLIST=( 0.0 0.025 0.05 0.075 0.1 0.15 0.2 0.25 0.295 0.3 ) 
@@ -91,11 +91,11 @@ if [ 1 -eq 1 ]; then
             #echo $OUTPUT >> "$RUNPATH"gqe_log.txt #$len3, $rd)"
         done
     done
-    python analysis/circledist.py $RUNPATH #log_process.py $RUNPATH
+    # old version python analysis/circledist.py $RUNPATH #log_process.py $RUNPATH
 fi
 
 # final creation of pe spectrum
-root -l -b -q 'analysis/WeightedHits.cc("'$RUNPATH'")'
+root -l -b -q 'analysis/PESpectrum.cc("'$RUNPATH'",'$NEVENTSSRC')'
 
 # clean up RAT log files
 rm *.log

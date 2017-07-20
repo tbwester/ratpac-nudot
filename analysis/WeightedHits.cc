@@ -29,16 +29,23 @@ typedef std::vector<double> dblvec;
 
 TNtuple* GetPhotonInfo();
 
-void WeightedHits(string ofilepath) {
+void WeightedHits(string filepath) {
     TRandom3 r;
     r.SetSeed(time(NULL));
 
-    std::vector<dblvec> weights = vecfromfile(
-            "/home/twester/ratpac-nudot/analysis/weights.txt");
+    stringstream ifilename;
+    ifilename << filepath << "weights.txt";
+    std::vector<dblvec> weights = vecfromfile(ifilename.str().c_str());
+
+    //for (size_t it = 0; it != weights.size(); it++) {
+    //    std::cout << weights[it][0] << ", " << weights[it][1] << std::endl;
+    //}
+
 
     //Fill ntuple with values from output.root file
     TNtuple* ntp = GetPhotonInfo();
 
+    TH1F* hwh = new TH1F("hwh", "weighted hit dist", 100, 0, 1);
     float x, y, xh, yh;
     ntp->SetBranchAddress("x0", &x);
     ntp->SetBranchAddress("y0", &y);
@@ -53,7 +60,9 @@ void WeightedHits(string ofilepath) {
     for (int i = 0; i < ntp->GetEntries(); i++) {
         ntp->GetEntry(i);
         double pltr = TMath::Sqrt(xh*xh + yh*yh);
-        weightedhit = rweight(pltr, weights);
+        double weightedhit = rweight(pltr, weights);
+        //std::cout << weightedhit << " ";
+        hwh->Fill(weightedhit);
         whits += weightedhit;
     }
 
@@ -62,16 +71,17 @@ void WeightedHits(string ofilepath) {
 
     //Append numbers to text file
     stringstream ofilename;
-    ofilename << ofilepath << "pltweights.txt";
+    ofilename << filepath << "pltweights.txt";
     std::ofstream outfile;
     outfile.open(ofilename.str().c_str(), std::ios_base::app);
     outfile << srcr << "," << whits << "," << ntp->GetEntries() << std::endl;
     outfile.close();
 
     stringstream of2;
-    of2 << ofilepath << "ntuple_" << int(srcr * 100.) << ".root";
+    of2 << filepath << "ntuple_" << int(srcr * 100.) << ".root";
     TFile* myfile = new TFile(of2.str().c_str(), "RECREATE");
     ntp->Write();
+    hwh->Write();
     myfile->Close();
 }
 

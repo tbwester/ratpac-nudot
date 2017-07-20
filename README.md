@@ -26,11 +26,11 @@ This fork contains geometry, scripts and settings for the Bo cryostat optical si
 ## Running the Bo Optical Simulation
 * ./bo\_total\_autorun.sh [runpath] [new]
 
-This script runs the two optical simulations (plate-to-PMT with 420nm light and source-to-plate with 128nm light). The outputs (final counts of hits on the PMT) are saved to output/[runpath]/gqe\_data.txt. The parameters for the simulation stages are set within the bash script, and can (and should) be modified.
+This script runs the two optical simulations (plate-to-PMT with 420nm light and source-to-plate with 128nm light). The output is a simulated PE spectrum which is saved to output/[runpath]/pespec.root. The parameters for the simulation (number of events and positions to test) are set within the bash script, and can be modified.
 
-The [new] flag forces a re-run of the plate-to-PMT simulation. If this option is ommitted, and if the file analysis/weights.txt file already exists, the script will skip the plate-to-PMT simulation and use the existing weight values.
+The [new] flag forces a re-run of the plate-to-PMT simulation. If this option is ommitted, and if the file output/[runpath]/weights.txt file already exists, the script will skip the plate-to-PMT simulation and use the existing weight values for the source-to-plate simulation.
 
-Additional material parameters are set in data/OPTICS.ratdb.
+Additional material parameters are set in data/OPTICS.ratdb. The simulation geometry files are in data/bo\_final/ and data/bo\_src/ for the plate-to-PMT and plate-to-source simulations respectively. Both files should have the same geometry elements, but in the plate-to-PMT simulation, the PMT volume is sensitive, while in the source-to-plate simulation, the TPB plate is sensitive.
 
 ## Adding a feature
 * git checkout develop
