@@ -37,11 +37,6 @@ void WeightedHits(string filepath) {
     ifilename << filepath << "weights.txt";
     std::vector<dblvec> weights = vecfromfile(ifilename.str().c_str());
 
-    //for (size_t it = 0; it != weights.size(); it++) {
-    //    std::cout << weights[it][0] << ", " << weights[it][1] << std::endl;
-    //}
-
-
     //Fill ntuple with values from output.root file
     TNtuple* ntp = GetPhotonInfo();
 
@@ -87,7 +82,7 @@ void WeightedHits(string filepath) {
 
 TNtuple* GetPhotonInfo() {
     //Create NTuple for photon data 
-    TNtuple *ntuple = new TNtuple("dph","photon data","x0:y0:z0:xh:yh:zh");
+    TNtuple *ntuple = new TNtuple("dph","photon data","x0:y0:z0:xh:yh:zh:pz0");
 
     RAT::DSReader reader("/home/twester/ratpac-nudot/output.root");
     int nevents = reader.GetTotal();
@@ -96,6 +91,7 @@ TNtuple* GetPhotonInfo() {
 
     //Define ntuple variables
     float x0, y0, z0, xh, yh, zh;
+    float pz0;
     bool hit = false;
     while (ds != 0) {
         // create track navigation interface
@@ -108,6 +104,7 @@ TNtuple* GetPhotonInfo() {
             x0 = n->GetEndpoint()[0];
             y0 = n->GetEndpoint()[1];
             z0 = n->GetEndpoint()[2];
+            pz0 = n->GetMomentum()[2] / n->GetKE();
             //get final tracknode parameters
 
             n = c.GoTrackEnd();
@@ -119,7 +116,7 @@ TNtuple* GetPhotonInfo() {
                 xh = n->GetEndpoint()[0];
                 yh = n->GetEndpoint()[1];
                 zh = n->GetEndpoint()[2];
-                std::vector<float> fillvec = {x0, y0, z0, xh, yh, zh}; 
+                std::vector<float> fillvec = {x0, y0, z0, xh, yh, zh, pz0}; 
                 ntuple->Fill(&fillvec[0]);
             }
             n = c.FindNextTrack();

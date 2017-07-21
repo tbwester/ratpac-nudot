@@ -44,9 +44,9 @@ void PESpectrum(string filepath, int simsize) {
             &(wvx[0]), &(wvy[0]), &(wvxe[0]), &(wvye[0]));
 
     TH1F* hr = new TH1F("hr", "R distribution", 100, 0, 3.5);
-    TH1F* hpe = new TH1F("hpe", "PE Spectrum", 100, 0, 100);
-    TH1F* hpep = new TH1F("hpep", "PE Spectrum (Pois)", 100, 0, 100);
-    double sigma = 1.0;
+    TH1F* hpe = new TH1F("hpe", "PE Spectrum", 200, 0, 200);
+    TH1F* hpep = new TH1F("hpep", "PE Spectrum (Pois)", 200, 0, 200);
+    double sigma = 0.8;
     double maxradius = 3.0;
     int n = 100000;
     int total = 0;
