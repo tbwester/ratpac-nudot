@@ -85,8 +85,8 @@ TNtuple* GetPhotonInfo(string filepath) {
     TNtuple *ntuple = new TNtuple("dph","photon data","x0:y0:z0:xh:yh:zh:pz0");
 
     stringstream rootfilename;
-    rootfilename << filepath << "../output.root";
-    RAT::DSReader reader("~/ratpac-nudot/output.root");
+    rootfilename << filepath << "../../output.root";
+    RAT::DSReader reader(rootfilename.str().c_str());
     int nevents = reader.GetTotal();
 
     RAT::DS::Root *ds = reader.NextEvent();

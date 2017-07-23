@@ -18,7 +18,7 @@ int PlateCount(string filepath, float len=0) {
   outfile.open(ofilename.str().c_str(), std::ios_base::app);
 
   stringstream rootfilename;
-  rootfilename << filepath << "../output.root";
+  rootfilename << filepath << "../../output.root";
   RAT::DSReader reader(rootfilename.str().c_str());
   
   int nevents = reader.GetTotal();
