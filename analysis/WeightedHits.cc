@@ -27,7 +27,7 @@
 
 typedef std::vector<double> dblvec;
 
-TNtuple* GetPhotonInfo();
+TNtuple* GetPhotonInfo(string filepath);
 
 void WeightedHits(string filepath) {
     TRandom3 r;
@@ -38,7 +38,7 @@ void WeightedHits(string filepath) {
     std::vector<dblvec> weights = vecfromfile(ifilename.str().c_str());
 
     //Fill ntuple with values from output.root file
-    TNtuple* ntp = GetPhotonInfo();
+    TNtuple* ntp = GetPhotonInfo(filepath);
 
     TH1F* hwh = new TH1F("hwh", "weighted hit dist", 100, 0, 1);
     float x, y, xh, yh;
@@ -80,11 +80,13 @@ void WeightedHits(string filepath) {
     myfile->Close();
 }
 
-TNtuple* GetPhotonInfo() {
+TNtuple* GetPhotonInfo(string filepath) {
     //Create NTuple for photon data 
     TNtuple *ntuple = new TNtuple("dph","photon data","x0:y0:z0:xh:yh:zh:pz0");
 
-    RAT::DSReader reader("/home/twester/ratpac-nudot/output.root");
+    stringstream rootfilename;
+    rootfilename << filepath << "../output.root";
+    RAT::DSReader reader("~/ratpac-nudot/output.root");
     int nevents = reader.GetTotal();
 
     RAT::DS::Root *ds = reader.NextEvent();
