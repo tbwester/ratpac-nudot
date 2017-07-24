@@ -91,5 +91,3 @@ void PESpectrum(string filepath, int simsize) {
     hpe->Write();
     hpep->Write();
 }
-
-

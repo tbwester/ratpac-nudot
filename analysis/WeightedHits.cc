@@ -27,7 +27,7 @@
 
 typedef std::vector<double> dblvec;
 
-TNtuple* GetPhotonInfo(string filepath);
+//TNtuple* GetPhotonInfo(string filepath);
 
 void WeightedHits(string filepath) {
     TRandom3 r;
@@ -73,59 +73,11 @@ void WeightedHits(string filepath) {
     outfile.close();
 
     stringstream of2;
-    of2 << filepath << "ntuple_" << int(srcr * 100.) << ".root";
+    of2 << filepath << "PlateHits_r" << int(srcr * 100.) << ".root";
     TFile* myfile = new TFile(of2.str().c_str(), "RECREATE");
     ntp->Write();
     hwh->Write();
     myfile->Close();
 
     delete ntp; //avoid memory leaks?
-}
-
-TNtuple* GetPhotonInfo(string filepath) {
-    //Create NTuple for photon data 
-    TNtuple *ntuple = new TNtuple("dph","photon data","x0:y0:z0:xh:yh:zh:pz0");
-
-    stringstream rootfilename;
-    rootfilename << filepath << "../../output.root";
-    RAT::DSReader reader(rootfilename.str().c_str());
-    int nevents = reader.GetTotal();
-
-    RAT::DS::Root *ds = reader.NextEvent();
-
-    //Define ntuple variables
-    float x0, y0, z0, xh, yh, zh;
-    float pz0;
-    bool hit = false;
-    while (ds != 0) {
-        // create track navigation interface
-        RAT::TrackNav nav(ds);
-
-        RAT::TrackCursor c = nav.Cursor(false);
-        RAT::TrackNode *n = c.Here();
-        n = c.FindNextTrack();
-        while (n != 0) {
-            x0 = n->GetEndpoint()[0];
-            y0 = n->GetEndpoint()[1];
-            z0 = n->GetEndpoint()[2];
-            pz0 = n->GetMomentum()[2] / n->GetKE();
-            //get final tracknode parameters
-
-            n = c.GoTrackEnd();
-            n->GetVolume() == "pvPMT00" ? hit = true : hit = false;
-            if (hit) {
-                // photon propagates once inside the PMT volume
-                // go back one step to get the hit position on the plate
-                n = c.GoPrev();
-                xh = n->GetEndpoint()[0];
-                yh = n->GetEndpoint()[1];
-                zh = n->GetEndpoint()[2];
-                std::vector<float> fillvec = {x0, y0, z0, xh, yh, zh, pz0}; 
-                ntuple->Fill(&fillvec[0]);
-            }
-            n = c.FindNextTrack();
-        }
-        ds = reader.NextEvent();
-    }
-    return ntuple;
 }
