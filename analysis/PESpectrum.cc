@@ -69,7 +69,7 @@ void PESpectrum(string filepath, int simsize) {
     }
 
     stringstream ofilename;
-    ofilename << filepath << "pespec.root";
+    ofilename << filepath << "PESpec.root";
     TFile* f = new TFile(ofilename.str().c_str(), "RECREATE");
 
     //ROOT plotting junk
