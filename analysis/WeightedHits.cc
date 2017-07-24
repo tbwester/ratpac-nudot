@@ -78,6 +78,8 @@ void WeightedHits(string filepath) {
     ntp->Write();
     hwh->Write();
     myfile->Close();
+
+    delete ntp; //avoid memory leaks?
 }
 
 TNtuple* GetPhotonInfo(string filepath) {

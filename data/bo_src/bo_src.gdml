@@ -234,7 +234,7 @@
     <!-- End of photocathodes --> 
     <physvol name="pvSourceD">
         <volumeref ref="volSourceD"/>
-<position name="posSource" unit="mm" x="0" y="0" z="-77.128125"/>
+<position name="posSource" unit="mm" x="0" y="0" z="87.871875"/>
     </physvol>
     <!--
     <physvol name="pvSource">
