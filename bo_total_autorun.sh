@@ -21,7 +21,7 @@ NEVENTSSRC=1000000
 
 # Source holder position
 # originally meant to be a list, but probably won't work if more than 1 number
-DISTLIST=( 9.7 )
+DISTLIST=( -7.2 )
 
 ## END CONFIGURATION ##
 
