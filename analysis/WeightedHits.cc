@@ -3,9 +3,10 @@
 // WeightedHits.cc
 // Thomas Wester July 2017
 // 
-// gets weighted hits on the tpb plate from the source
-// to plate simulation based on the plate to PMT 
-// simulation which puts the weights in weights.txt.
+// Takes a ntuple of plate hits, and convolves the
+// plate efficiency curve with it. Returns the sum
+// of all convolved hits over the plate in 
+// pltweights.txt file.
 //
 // ====================================================
 

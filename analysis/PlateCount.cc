@@ -1,8 +1,13 @@
-/*
- * PlateCount.cc
- * Thomas Wester
- * Get the number of hits from photons at the TPB plate which hit the PMT
- */
+//============================================
+//
+// PlateCount.cc
+// Thomas Wester
+//
+// Generate the efficiency curve for the PMT
+// plate. Save the ntuple of hit positions
+// and directions.
+//
+//============================================
 
 #include <iostream>
 #include <sstream>
@@ -14,9 +19,7 @@
 #include "TFile.h"
 #include "TMath.h"
 
-#include "helper.hh"
-
-typedef std::vector<double> dblvec;
+#include "helper.hh" /* GetPhotonInfo */
 
 void PlateCount(string filepath, int simsize=0, float len=0) {
     std::ofstream outfile;
@@ -29,6 +32,8 @@ void PlateCount(string filepath, int simsize=0, float len=0) {
     int petotalplate = ntp->GetEntries();
 
     std::cout << "writing to files\n";
+
+    //Write ratio for this particular plate position
     outfile << len << "," << (double)petotalplate / (double)simsize << "\n"; 
 
     stringstream rootfilename;
