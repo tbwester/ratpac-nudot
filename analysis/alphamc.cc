@@ -1,8 +1,8 @@
 /*
  * alphamc.cc
  *
- * Runs the alpha-from-Gaussian drawing process separately from the autorun script
- * Useful for making plots on the fly
+ * Runs the alpha-from-Gaussian drawing process separately from the autorun
+ * script. Useful for making plots on the fly.
  */
 
 #include <iostream>
@@ -79,9 +79,11 @@ void alphamc() {
         hhit->Fill(hits);
         hhitp->Fill(rnd.PoissonD(hits));
 
+        // Make some extra plots
         if (count % 100000 == 0) {
             stringstream fname;
-            fname << "hist/pe" << std::setfill('0') << std::setw(3) << count << ".png";
+            fname << "hist/pe" << std::setfill('0') 
+                  << std::setw(3) << count << ".png";
             TCanvas* c1 = new TCanvas("c1", "Plots", 800, 800);
             c1->Divide(2,2);
             c1->cd(1);

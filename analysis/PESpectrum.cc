@@ -24,7 +24,7 @@
 #include "TDatime.h"
 #include "TRandom.h"
 
-#include "helper.hh"
+#include "helper.hh" /* vecfromfile, rweight */
 
 typedef std::vector<double> dblvec;
 
@@ -32,8 +32,13 @@ void PESpectrum(string filepath, int simsize) {
     TRandom3 rnd;
     rnd.SetSeed(time(NULL));
 
-    double scale = 134000. / (float)simsize;
-    double pefactors = 0.64 * 1.18 * 0.199;
+    //Number of photons per alpha, divided by number of simulated photons
+    double scale = 1.;//134000. / (float)simsize;
+    //0.64:  Relative efficiency of coated TPB plates to evap. TPB plates
+    //1.18:  Efficiency of evap. TPB plates
+    //0.199: QE of uBooNE PMT
+    //0.64:  Opacity of coated plate
+    double pefactors = 1.; //0.64 * 1.18 * 0.199 * 0.64;
 
     stringstream ifilename;
     ifilename << filepath << "pltweights.txt";
