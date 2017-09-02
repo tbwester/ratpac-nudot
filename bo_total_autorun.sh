@@ -16,8 +16,8 @@ PLTLIST=(0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 15.24)
 ROFLIST=( 0.0 0.025 0.05 0.075 0.1 0.15 0.2 0.25 0.295 0.3) 
 
 # Events/pt for each simulation
-NEVENTSPLT=100
-NEVENTSSRC=100
+NEVENTSPLT=1000000
+NEVENTSSRC=1000000
 
 # Source holder position
 # originally meant to be a list, but probably won't work if more than 1 number
