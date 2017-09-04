@@ -59,6 +59,8 @@ void PESpectrum(string filepath, int simsize) {
         wvy2.push_back(weights[it][2] * scale);
         wvye2.push_back(TMath::Sqrt(weights[it][2]) * scale);
     }
+    int minsize = wvy[wvy.size() - 1] * 0.8;
+    int maxsize = wvy[0] * 1.2;
 
     //Graphs and histograms to save
     TGraphErrors* grwhvr = new TGraphErrors(weights.size(), 
@@ -71,9 +73,9 @@ void PESpectrum(string filepath, int simsize) {
             "R distribution;Alpha Position on Source Disk (mm);Events",
             100, 0, 3.5);
     TH1F* hpe = new TH1F("hpe", 
-            "PE Spectrum;PE;Events", 500, 0, 300);
+            "PE Spectrum;PE;Events", 500, minsize, maxsize);
     TH1F* hpep = new TH1F("hpep", 
-            "PE Spectrum (Pois);PE;Events", 300, 0, 300);
+            "PE Spectrum (Pois);PE;Events", 300, minsize, maxsize);
 
     //Do source plate monte carlo
     double sigma = 0.8;     // Alpha position spread parameter
