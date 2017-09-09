@@ -703,7 +703,7 @@ ABSLENGTH_option: "wavelength",
 //ABSLENGTH_value2: [1.0e-3, 1.0e-3, 0.49e1, 2.04e1, 5.56e1, 14.28e1, 25.00e1, 50.00e1, 100.00e1, 100.00e1, 200.00e1, 200.00e1, 200.00e1, 200.00e1],
 // we will account for absorption at the end
 ABSLENGTH_value1: [ 60.0, 200.0, 800.0 ],
-ABSLENGTH_value2: [ 1.0e-9, 1.0e-9, 1.0e9 ],
+ABSLENGTH_value2: [ 1.0e-9, 1.0e-9, 1.0e4 ],
 RINDEX_option: "wavelength",
 RINDEX_value1: [ 60.0, 200.0, 800.0 ],
 RINDEX_value2: [ 1.49, 1.49, 1.49 ],
