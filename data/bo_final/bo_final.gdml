@@ -219,7 +219,7 @@
 
       <physvol name="pvPMT00">
           <volumeref ref="volPhotoCathode"/>
-          <position name="posGlass" unit="mm" x="0" y="0" z="371.35"/>
+          <position name="posGlass" unit="mm" x="0" y="0" z="372.9375"/>
       </physvol> 
 <!-- the following volume is the tpb plate -->
     <physvol name="pvPlate">
