@@ -78,7 +78,7 @@ void PESpectrum(string filepath, int simsize) {
             "PE Spectrum (Pois);PE;Events", 300, minsize, maxsize);
 
     //Do source plate monte carlo
-    double sigma = 0.8;     // Alpha position spread parameter
+    double sigma = 1.5;     // Alpha position spread parameter
     double maxradius = 3.0; // Source disk radial cutoff
     int n = 100000;         // Total number of draws
     int count = 0;          // Counter to keep track of successful draws
