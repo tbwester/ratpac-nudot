@@ -3,7 +3,7 @@
 
 /rat/db/set DETECTOR experiment "bo_final"
 /rat/db/set DETECTOR geo_file "bo_final/bo_final.geo"
-/tracking/storeTrajectory 1
+/tracking/storeTrajectory 0
 #/tracking/discardParticleTrajectory opticalphoton
 #/chroma/activate
 /run/initialize
@@ -24,4 +24,4 @@
 
 #/control/execute mac/vis.mac
 
-/run/beamOn 10000
+/run/beamOn 1000

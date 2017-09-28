@@ -16,8 +16,8 @@ PLTLIST=(0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 15.24)
 ROFLIST=( 0.0 0.025 0.05 0.075 0.1 0.15 0.2 0.25 0.295 0.3) 
 
 # Events/pt for each simulation
-NEVENTSPLT=10000
-NEVENTSSRC=100000
+NEVENTSPLT=1000
+NEVENTSSRC=1000
 
 # Source holder position
 # originally meant to be a list, but probably won't work if more than 1 number
@@ -29,6 +29,9 @@ RUNPATH=`pwd`"/output/"$1"/"
 echo "Saving output to "$RUNPATH
 
 mkdir -p $RUNPATH
+
+## randomize sim parameters
+python random_parameters.py
 
 ## Generate the weight file
 if [ -f "$RUNPATH"weights.txt ] && [ "$2" != "new" ] ; then
@@ -60,7 +63,7 @@ fi
 root -l -b -q 'analysis/PlateFit.cc("'$RUNPATH'", '$NEVENTSPLT')'
 
 ## Do source to plate simulation
-if [ 1 -eq 1 ]; then # 'if' wrapper is for testing. Set to 1 -eq 0 to disable this block
+if [ 1 -eq 0 ]; then # 'if' wrapper is for testing. Set to 1 -eq 0 to disable this block
     rm -f "$RUNPATH"pltweights.txt
     echo "Starting source to plate simulation."
     for i in "${DISTLIST[@]}" # again, probably should not have more than one distance in here...
