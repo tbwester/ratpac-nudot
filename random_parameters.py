@@ -18,11 +18,17 @@ opticsparams = {
         }
 
 geoparams = {
-        'sourceheight': {'mean': 0.01, 'sigma': 0.002}, #cm
         'glassthick': {'mean': 0.5, 'sigma': 0.1}, # cm
         'platepmtdist': {'mean': 0.13, 'sigma': 0.03}, # in
+        }
+
+srcgeoparams = {
         'colimatorheight': {'mean': 0.16, 'sigma': 0.03}, #in
-        'd': {'mean': 20.3, 'sigma': 0.4},
+        }
+
+scriptparams = {
+        'sourceheight': {'mean': 0.01, 'sigma': 0.002}, #cm
+        'd': {'mean': 20.3, 'sigma': 0.4}, #cm
         }
 
 sourceparams = {
@@ -36,14 +42,43 @@ def random_params():
 
     geovals = {}
     for param, data in geoparams.iteritems():
-        geovals[param] = '%.3f' % (np.random.normal(data['mean'], data['sigma']))
+        if param == 'glassthick':
+            rnd = np.random.normal(data['mean'], data['sigma'])
+            val = 101 - rnd
+            val2 = 65 - rnd
+            if val < 0:
+                val == 100.99
+                val2 == 64.99
+            geovals[param] = '%.3f' % (val)
+            geovals['glassthick2'] = '%.3f' % (val2)
+        elif param == 'platepmtdist':
+            val = 301.5875 + 0.125*25.4*0.5+65+np.random.normal(data['mean'], data['sigma'])*25.4
+            geovals[param] = '%.3f' % (val)
+        else:
+            geovals[param] = '%.3f' % (np.random.normal(data['mean'], data['sigma']))
+
+    srcgeovals = {}
+    for param, data in srcgeoparams.iteritems():
+        srcgeovals[param] = '%.3f' % (np.random.normal(data['mean'], data['sigma']))
+
+    scriptvals = {}
+    for param, data in scriptparams.iteritems():
+        if param == 'sourceheight':
+            val = 3.96875 - np.random.normal(data['mean'], data['sigma'])
+            scriptvals[param] = '%.3f' % (val)
+        else:
+            scriptvals[param] = '%.3f' % (np.random.normal(data['mean'], data['sigma']))
+
 
     sourcevals = {}
     for param, data in sourceparams.iteritems():
         sourcevals[param] = '%.3f' % (np.random.normal(data['mean'], data['sigma']))
 
-    return opticsvals, geovals, sourcevals
+    return opticsvals, geovals, srcgeovals, scriptvals, sourcevals
 
 if __name__ == '__main__':
     #print(opticsstring(**random_params()[0]))
-    print(sourcestring(**random_params()[2]))
+    #print(geostring(**random_params()[1]))
+    #print(srcgeostring(**random_params()[2]))
+    print(scriptstring(**random_params()[3]))
+    #print(sourcestring(**random_params()[4]))
