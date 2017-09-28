@@ -24,4 +24,4 @@
 
 #/control/execute mac/vis.mac
 
-/run/beamOn 1001
+/run/beamOn 100000

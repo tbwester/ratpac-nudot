@@ -65,6 +65,12 @@ void PESpectrum(string filepath, int simsize) {
     //Graphs and histograms to save
     TGraphErrors* grwhvr = new TGraphErrors(weights.size(), 
             &(wvx[0]), &(wvy[0]), &(wvxe[0]), &(wvye[0]));
+    TF1* fitfunc = new TF1("fitfunc", "pol4(0)", 0.0, 3.0);
+    //fitfunc->SetParameter(0, (float)simsize / 100.);
+    //fitfunc->SetParameter(1, -50.0);
+    //fitfunc->FixParameter(2, -50.0);
+    //fitfunc->FixParameter(3, 0.0);
+    grwhvr->Fit("fitfunc", "RBQ");
 
     TGraphErrors* grwhvr2 = new TGraphErrors(weights.size(), 
             &(wvx[0]), &(wvy2[0]), &(wvxe[0]), &(wvye2[0]));
@@ -74,13 +80,15 @@ void PESpectrum(string filepath, int simsize) {
             100, 0, 3.5);
     TH1F* hpe = new TH1F("hpe", 
             "PE Spectrum;PE;Events", 500, minsize, maxsize);
+    TH1F* hpe2 = new TH1F("hpe2", 
+            "PE Spectrum;PE;Events", 500, minsize, maxsize);
     TH1F* hpep = new TH1F("hpep", 
             "PE Spectrum (Pois);PE;Events", 300, minsize, maxsize);
 
     //Do source plate monte carlo
-    double sigma = 0.8;     // Alpha position spread parameter
+    double sigma = 0.3;     // Alpha position spread parameter
     double maxradius = 3.0; // Source disk radial cutoff
-    int n = 100000;         // Total number of draws
+    int n = 1000000;         // Total number of draws
     int count = 0;          // Counter to keep track of successful draws
     while (count < n) {
         double x = rnd.Gaus(0.0, sigma);
@@ -93,8 +101,10 @@ void PESpectrum(string filepath, int simsize) {
 
         count++;
         hr->Fill(r);
-        double pe = rweight(r, weights) * scale * pefactors;
+        double pe2 = rweight(r, weights) * scale * pefactors;
+        double pe = fitfunc->Eval(r) * scale * pefactors;
         hpe->Fill(pe);
+        hpe2->Fill(pe2);
         hpep->Fill(rnd.PoissonD(pe));
     }
 
@@ -117,5 +127,6 @@ void PESpectrum(string filepath, int simsize) {
     grwhvr2->Write();
     hr->Write();
     hpe->Write();
+    hpe2->Write();
     hpep->Write();
 }

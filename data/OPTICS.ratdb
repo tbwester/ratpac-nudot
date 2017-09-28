@@ -374,7 +374,8 @@ RINDEX_value1: [60d, 200d, 300d, 600d, 800d, ],
 RINDEX_value2: [1.458d, 1.458d, 1.458d, 1.458d, 1.458d, ],
 ABSLENGTH_option: "wavelength",
 ABSLENGTH_value1: [60d, 200d, 300d, 330d, 500d, 600d, 770d, 800d, ],
-ABSLENGTH_value2: [0.1e-3, 0.1e-3, 0.1e-3, 1.0e3, 2.0e3, 1.0e3, 0.5e3, 0.1e-3, ],
+//ABSLENGTH_value2: [0.1e-3, 0.1e-3, 0.1e-3, 1.0e3, 2.0e3, 1.0e3, 0.5e3, 0.1e-3, ],
+ABSLENGTH_value2: [1.0e3, 1.0e3, 1.0e3, 1.0e3, 2.0e3, 1.0e3, 0.5e3, 0.1e-3, ],
 PROPERTY_LIST: ["RINDEX", "ABSLENGTH", ]
 }
 

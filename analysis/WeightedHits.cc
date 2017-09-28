@@ -18,25 +18,26 @@
 #include <stdlib.h>
 
 #include "TH1.h"
+#include "TF1.h"
 #include "TFile.h"
 #include "TMath.h"
 #include "TNtuple.h"
 #include "TDatime.h"
 #include "TRandom.h"
+#include "TGraphErrors.h"
 
 #include "helper.hh" /* rweight, datetime, vecfromfile */
 
 typedef std::vector<double> dblvec;
 
-//TNtuple* GetPhotonInfo(string filepath);
-
 void WeightedHits(string filepath) {
-    TRandom3 r;
-    r.SetSeed(time(NULL));
 
     stringstream ifilename;
-    ifilename << filepath << "weights.txt";
-    std::vector<dblvec> weights = vecfromfile(ifilename.str().c_str());
+    ifilename << filepath << "PlateEff.root";
+    TFile* platefile = TFile::Open(ifilename.str().c_str());
+
+    TGraphErrors* gr = (TGraphErrors *)platefile->Get("Graph");
+    TF1* fitfunc = (TF1 *)gr->GetFunction("fitfunc");
 
     //Fill ntuple with values from output.root file
     TNtuple* ntp = GetPhotonInfo(filepath);
@@ -56,8 +57,7 @@ void WeightedHits(string filepath) {
     for (int i = 0; i < ntp->GetEntries(); i++) {
         ntp->GetEntry(i);
         double pltr = TMath::Sqrt(xh*xh + yh*yh);
-        double weightedhit = rweight(pltr, weights);
-        //std::cout << weightedhit << " ";
+        double weightedhit = fitfunc->Eval(pltr);
         hwh->Fill(weightedhit);
         whits += weightedhit;
     }
