@@ -4,10 +4,10 @@
 
 import numpy as np
 
-#from strings import *
+from strings import *
 
 opticsparams = {
-        'rayleigh': {'mean': 60, 'sigma': 6},
+        'rayleigh': {'mean': 600, 'sigma': 60},
         'ssref_128': {'mean': 0.35, 'sigma': 0.05},
         'ssref_420': {'mean': 0.54, 'sigma': 0.005},
         'alref_128': {'mean': 0.12, 'sigma': 0.02},
@@ -45,4 +45,5 @@ def random_params():
     return opticsvals, geovals, sourcevals
 
 if __name__ == '__main__':
-    print(random_params())
+    #print(opticsstring(**random_params()[0]))
+    print(sourcestring(**random_params()[2]))
