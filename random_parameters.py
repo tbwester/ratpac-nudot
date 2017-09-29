@@ -88,7 +88,7 @@ def main():
     mode = sys.argv[1]
     if mode == 'r':
         lineid = int(sys.argv[2])
-        with open('../paramlist.txt', 'r') as f:
+        with open('../../../paramlist.txt', 'r') as f:
             for i, line in enumerate(f):
                 if i == lineid:
                     params = json.loads(line)
