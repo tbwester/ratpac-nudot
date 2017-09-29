@@ -161,12 +161,12 @@ void PESpectrum(string filepath, int simsize) {
     rnd.SetSeed(time(NULL));
 
     //Number of photons per alpha, divided by number of simulated photons
-    double scale = 1.;//134000. / (float)simsize;
-    //0.64:  Relative efficiency of coated TPB plates to evap. TPB plates
-    //1.18:  Efficiency of evap. TPB plates
-    //0.199: QE of uBooNE PMT
-    //0.64:  Opacity of coated plate
-    double pefactors = 1.; //0.64 * 1.18 * 0.199 * 0.64;
+    double scale = 134000. / (float)simsize;
+    //0.67:  Relative efficiency of coated TPB plates to evap. TPB plates
+    //0.4:  Efficiency of evap. TPB plates
+    //0.153: QE of uBooNE PMT
+    //1.22: temperature correction  
+    double pefactors = 0.67 * 1.53 * 0.4 * 1.22;
 
     stringstream ifilename;
     ifilename << filepath << "pltweights.txt";
@@ -480,7 +480,7 @@ def geostring(*args, **kwargs):
 
       <physvol name="pvGlass"> <!-- pvPMT00 -->
           <volumeref ref="volGlass"/>
-          <position name="posGlass2" unit="mm" x="0" y="0" """ + 'z={}"/>'.format(kwargs['platepmtdist']) + \
+          <position name="posGlass2" unit="mm" x="0" y="0" """ + 'z="{}"/>'.format(kwargs['platepmtdist']) + \
       """\n      </physvol>
 
       <physvol name="pvPMT00">
@@ -908,8 +908,8 @@ PLTLIST=(0 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 15.24)
 ROFLIST=( 0.0 0.025 0.05 0.075 0.1 0.15 0.2 0.25 0.295 0.3) 
 
 # Events/pt for each simulation
-NEVENTSPLT=1000
-NEVENTSSRC=1000
+NEVENTSPLT=100000
+NEVENTSSRC=100000
 
 # Source holder position
 # originally meant to be a list, but probably won't work if more than 1 number

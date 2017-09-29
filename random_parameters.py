@@ -3,6 +3,8 @@
 # Script to randomize optical parameters
 
 import numpy as np
+import json
+import sys
 
 from strings import *
 
@@ -23,12 +25,12 @@ geoparams = {
         }
 
 srcgeoparams = {
-        'colimatorheight': {'mean': 0.16, 'sigma': 0.03}, #in
+        'colimatorheight': {'mean': 0.16, 'sigma': 0.03}, #in NOT IMPLEMENTED
         }
 
 scriptparams = {
         'sourceheight': {'mean': 0.01, 'sigma': 0.002}, #cm
-        'd': {'mean': 20.3, 'sigma': 0.4}, #cm
+        'd': {'mean': 20.3, 'sigma': 0.4}, #cm NOT IMPLEMENTED
         }
 
 sourceparams = {
@@ -74,11 +76,46 @@ def random_params():
     for param, data in sourceparams.iteritems():
         sourcevals[param] = '%.3f' % (np.random.normal(data['mean'], data['sigma']))
 
-    return opticsvals, geovals, srcgeovals, scriptvals, sourcevals
+    return {
+            'optics': opticsvals, 
+            'geo': geovals, 
+            'srcgeo': srcgeovals, 
+            'script': scriptvals, 
+            'source': sourcevals,
+            }
+
+def main():
+    mode = sys.argv[1]
+    if mode == 'r':
+        lineid = int(sys.argv[2])
+        with open('../paramlist.txt', 'r') as f:
+            for i, line in enumerate(f):
+                if i == lineid:
+                    params = json.loads(line)
+                    print(params)
+                    break
+
+        with open('data/OPTICS.ratdb', 'w') as f:
+            f.write(opticsstring(**params['optics']))
+
+        with open('data/bo_final/bo_final.gdml', 'w') as f:
+            f.write(geostring(**params['geo']))
+
+        with open('data/bo_src/bo_src.gdml' , 'w') as f:
+            f.write(srcgeostring(**params['srcgeo']))
+
+        with open('bo_total_autorun.sh', 'w') as f:
+            f.write(scriptstring(**params['script']))
+
+        with open('analysis/PESpectrum.cc', 'w') as f:
+            f.write(sourcestring(**params['source']))
+
+    elif mode == 'n':
+        nlines = int(sys.argv[2])
+        with open('../paramlist.txt', 'w') as f:
+            for _ in range(nlines):
+                json.dump(random_params(), f)
+                f.write('\n')
 
 if __name__ == '__main__':
-    #print(opticsstring(**random_params()[0]))
-    #print(geostring(**random_params()[1]))
-    #print(srcgeostring(**random_params()[2]))
-    print(scriptstring(**random_params()[3]))
-    #print(sourcestring(**random_params()[4]))
+    main()

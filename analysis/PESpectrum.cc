@@ -33,12 +33,12 @@ void PESpectrum(string filepath, int simsize) {
     rnd.SetSeed(time(NULL));
 
     //Number of photons per alpha, divided by number of simulated photons
-    double scale = 1.;//134000. / (float)simsize;
-    //0.64:  Relative efficiency of coated TPB plates to evap. TPB plates
-    //1.18:  Efficiency of evap. TPB plates
-    //0.199: QE of uBooNE PMT
-    //0.64:  Opacity of coated plate
-    double pefactors = 1.; //0.64 * 1.18 * 0.199 * 0.64;
+    double scale = 134000. / (float)simsize;
+    //0.67:  Relative efficiency of coated TPB plates to evap. TPB plates
+    //0.4:  Efficiency of evap. TPB plates
+    //0.153: QE of uBooNE PMT
+    //1.22: temperature correction  
+    double pefactors = 0.67 * 1.53 * 0.4 * 1.22;
 
     stringstream ifilename;
     ifilename << filepath << "pltweights.txt";
@@ -86,11 +86,14 @@ void PESpectrum(string filepath, int simsize) {
             "PE Spectrum (Pois);PE;Events", 300, minsize, maxsize);
 
     //Do source plate monte carlo
-    double sigma = 0.3;     // Alpha position spread parameter
+    double sigma = 0.750; // Alpha position spread parameter
     double maxradius = 3.0; // Source disk radial cutoff
     int n = 1000000;         // Total number of draws
     int count = 0;          // Counter to keep track of successful draws
     while (count < n) {
+        if (sigma < 0.0) {
+            sigma = 0.001;
+        }
         double x = rnd.Gaus(0.0, sigma);
         double y = rnd.Gaus(0.0, sigma);
         double r = TMath::Sqrt(x*x + y*y);
