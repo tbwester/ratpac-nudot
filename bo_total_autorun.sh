@@ -70,7 +70,7 @@ if [ 1 -eq 1 ]; then # 'if' wrapper is for testing. Set to 1 -eq 0 to disable th
             #rd is radial offset variable
             rd=`echo "($j*10)" | bc -l`	
             #len is variable for starting point source position
-            len=`echo "($i*10)-3.956" | bc -l` #-3.96875        
+            len=`echo "($i*10)-3.958" | bc -l` #-3.96875        
 #len2 is variable for starting source holder position
             len2=`echo "($i*10)-9.128125" | bc -l` #const offset puts face of holder at 'd' away
             len3=`echo "300-($i*10)" | bc -l`

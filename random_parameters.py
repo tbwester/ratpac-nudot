@@ -35,6 +35,11 @@ scriptparams = {
 
 sourceparams = {
         'sourcewidth': {'mean': 0.5, 'sigma': 0.4},
+        'phperalpha': {'mean': 134000, 'sigma': 4000},
+        'qe': {'mean': 0.153, 'sigma': 0.008},
+        'tpbeff': {'mean': 0.4, 'sigma': 0.04},
+        'tempscale': {'mean': 1.22, 'sigma': 0.15},
+        'tpbreleff': {'mean': 0.67, 'sigma': 0.06},
         }
 
 def random_params():
@@ -86,14 +91,17 @@ def random_params():
 
 def main():
     mode = sys.argv[1]
-    if mode == 'r':
-        lineid = int(sys.argv[2])
-        with open('../../../paramlist.txt', 'r') as f:
-            for i, line in enumerate(f):
-                if i == lineid:
-                    params = json.loads(line)
-                    print(params)
-                    break
+    if mode in ['r', 'x']:
+        if mode == 'r':
+            lineid = int(sys.argv[2])
+            with open('../../../paramlist.txt', 'r') as f:
+                for i, line in enumerate(f):
+                    if i == lineid:
+                        params = json.loads(line)
+                        print(params)
+                        break
+        elif mode == 'x':
+            params = random_params()
 
         with open('data/OPTICS.ratdb', 'w') as f:
             f.write(opticsstring(**params['optics']))

@@ -33,13 +33,12 @@ void PESpectrum(string filepath, int simsize) {
     rnd.SetSeed(time(NULL));
 
     //Number of photons per alpha, divided by number of simulated photons
-    double scale = 134000. / (float)simsize;
+    double scale = 138263.110 / (float)simsize;
     //0.67:  Relative efficiency of coated TPB plates to evap. TPB plates
     //0.4:  Efficiency of evap. TPB plates
     //0.153: QE of uBooNE PMT
     //1.22: temperature correction  
-    double pefactors = 0.67 * 1.53 * 0.4 * 1.22;
-
+    double pefactors = 0.683 * 0.145 * 0.416 * 1.255;
     stringstream ifilename;
     ifilename << filepath << "pltweights.txt";
 
@@ -59,8 +58,8 @@ void PESpectrum(string filepath, int simsize) {
         wvy2.push_back(weights[it][2] * scale);
         wvye2.push_back(TMath::Sqrt(weights[it][2]) * scale);
     }
-    int minsize = wvy[wvy.size() - 1] * 0.8;
-    int maxsize = wvy[0] * 1.2;
+    int minsize = 0.0; //wvy[wvy.size() - 1] * 0.8;
+    int maxsize = 300.0; //wvy[0] * 1.2;
 
     //Graphs and histograms to save
     TGraphErrors* grwhvr = new TGraphErrors(weights.size(), 
@@ -86,7 +85,7 @@ void PESpectrum(string filepath, int simsize) {
             "PE Spectrum (Pois);PE;Events", 300, minsize, maxsize);
 
     //Do source plate monte carlo
-    double sigma = 0.750; // Alpha position spread parameter
+    double sigma = 0.413; // Alpha position spread parameter
     double maxradius = 3.0; // Source disk radial cutoff
     int n = 1000000;         // Total number of draws
     int count = 0;          // Counter to keep track of successful draws
@@ -104,8 +103,8 @@ void PESpectrum(string filepath, int simsize) {
 
         count++;
         hr->Fill(r);
-        double pe2 = rweight(r, weights) * scale * pefactors;
-        double pe = fitfunc->Eval(r) * scale * pefactors;
+        double pe2 = rweight(r, weights); // * scale * pefactors;
+        double pe = fitfunc->Eval(r); // * scale * pefactors;
         hpe->Fill(pe);
         hpe2->Fill(pe2);
         hpep->Fill(rnd.PoissonD(pe));

@@ -138,9 +138,9 @@
         <tube name="scint" lunit="cm" aunit="deg" rmin="0" rmax="11*2.54" z="40.0*2.54" startphi="0" deltaphi="360.0"/>
         <tube name="tpbplate" lunit="cm" aunit="deg" rmin="0" rmax="6*2.54" z="0.125*2.54" startphi="0" deltaphi="360.0"/>
         <tube name="pmtshield" lunit="mm" aunit="deg" rmin="100.5" rmax="101" z="136.65" startphi="0" deltaphi="360.0"/>
-        <ellipsoid name="elpmt" ax="100.427" by="100.427" cz="64.427" zcut2="0" lunit="mm"/>
+        <ellipsoid name="elpmt" ax="100.506" by="100.506" cz="64.506" zcut2="0" lunit="mm"/>
         <ellipsoid name="elouter" ax="101" by="101" cz="65" zcut2="0" lunit="mm"/>
-        <ellipsoid name="elinner" ax="100.427" by="100.427" cz="64.427" zcut2="20" lunit="mm"/>
+        <ellipsoid name="elinner" ax="100.506" by="100.506" cz="64.506" zcut2="20" lunit="mm"/>
         <subtraction name="pmt_glass">
             <first ref="elouter"/>
             <second ref="elinner"/>
@@ -214,12 +214,12 @@
 
       <physvol name="pvGlass"> <!-- pvPMT00 -->
           <volumeref ref="volGlass"/>
-          <position name="posGlass2" unit="mm" x="0" y="0" z="371.330"/>
+          <position name="posGlass2" unit="mm" x="0" y="0" z="370.852"/>
       </physvol>
 
       <physvol name="pvPMT00">
           <volumeref ref="volPhotoCathode"/>
-          <position name="posGlass" unit="mm" x="0" y="0" z="371.330"/>
+          <position name="posGlass" unit="mm" x="0" y="0" z="370.852"/>
       </physvol> 
 <!-- the following volume is the tpb plate -->
     <physvol name="pvPlate">
