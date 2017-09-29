@@ -4,7 +4,7 @@
 
 namespace RAT {
 
-static const std::string RATVERSION = "v0.0.1-268-g41b7ce3";
+static const std::string RATVERSION = "v0.0.1-277-g92b98d0";
 
 }  // namespace RAT
 

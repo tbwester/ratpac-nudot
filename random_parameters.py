@@ -94,7 +94,7 @@ def main():
     if mode in ['r', 'x']:
         if mode == 'r':
             lineid = int(sys.argv[2])
-            with open('../../../paramlist.txt', 'r') as f:
+            with open('{}paramlist.txt'.format(sys.argv[3]), 'r') as f:
                 for i, line in enumerate(f):
                     if i == lineid:
                         params = json.loads(line)
@@ -120,7 +120,7 @@ def main():
 
     elif mode == 'n':
         nlines = int(sys.argv[2])
-        with open('../paramlist.txt', 'w') as f:
+        with open('{}paramlist.txt'.format(sys.argv[3]), 'w') as f:
             for _ in range(nlines):
                 json.dump(random_params(), f)
                 f.write('\n')
