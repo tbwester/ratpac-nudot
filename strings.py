@@ -201,10 +201,14 @@ void PESpectrum(string filepath, int simsize) {
 
     TGraphErrors* grwhvr2 = new TGraphErrors(weights.size(), 
             &(wvx[0]), &(wvy2[0]), &(wvxe[0]), &(wvye2[0]));
+    TF1* fitfunc2 = new TF1("fitfunc2", "pol4(0)", 0.0, 3.0);
+    grwhvr2->Fit("fitfunc2", "RBQ");
 
     TH1F* hr = new TH1F("hr", 
             "R distribution;Alpha Position on Source Disk (mm);Events",
             100, 0, 3.5);
+    TH1F* hhit = new TH1F("hhit",
+            "Plate Hit Distribution", 2000, 0, 100000);
     TH1F* hpe = new TH1F("hpe", 
             "PE Spectrum;PE;Events", 500, minsize, maxsize);
     TH1F* hpe2 = new TH1F("hpe2", 
@@ -233,7 +237,9 @@ void PESpectrum(string filepath, int simsize) {
         hr->Fill(r);
         double pe2 = rweight(r, weights); // * scale * pefactors;
         double pe = fitfunc->Eval(r); // * scale * pefactors;
+        double hit = fitfunc2->Eval(r); // * scale * pefactors;
         hpe->Fill(pe);
+        hhit->Fill(hit);
         hpe2->Fill(pe2);
         hpep->Fill(rnd.PoissonD(pe));
     }
@@ -257,6 +263,7 @@ void PESpectrum(string filepath, int simsize) {
     grwhvr2->Write();
     hr->Write();
     hpe->Write();
+    hhit->Write();
     hpe2->Write();
     hpep->Write();
 }

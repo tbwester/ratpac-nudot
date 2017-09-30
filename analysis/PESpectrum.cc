@@ -33,12 +33,12 @@ void PESpectrum(string filepath, int simsize) {
     rnd.SetSeed(time(NULL));
 
     //Number of photons per alpha, divided by number of simulated photons
-    double scale = 138263.110 / (float)simsize;
+    double scale = 125612.507 / (float)simsize;
     //0.67:  Relative efficiency of coated TPB plates to evap. TPB plates
     //0.4:  Efficiency of evap. TPB plates
     //0.153: QE of uBooNE PMT
     //1.22: temperature correction  
-    double pefactors = 0.683 * 0.145 * 0.416 * 1.255;
+    double pefactors = 0.647 * 0.172 * 0.363 * 1.371;
     stringstream ifilename;
     ifilename << filepath << "pltweights.txt";
 
@@ -73,10 +73,14 @@ void PESpectrum(string filepath, int simsize) {
 
     TGraphErrors* grwhvr2 = new TGraphErrors(weights.size(), 
             &(wvx[0]), &(wvy2[0]), &(wvxe[0]), &(wvye2[0]));
+    TF1* fitfunc2 = new TF1("fitfunc2", "pol4(0)", 0.0, 3.0);
+    grwhvr2->Fit("fitfunc2", "RBQ");
 
     TH1F* hr = new TH1F("hr", 
             "R distribution;Alpha Position on Source Disk (mm);Events",
             100, 0, 3.5);
+    TH1F* hhit = new TH1F("hhit",
+            "Plate Hit Distribution", 2000, 0, 100000);
     TH1F* hpe = new TH1F("hpe", 
             "PE Spectrum;PE;Events", 500, minsize, maxsize);
     TH1F* hpe2 = new TH1F("hpe2", 
@@ -85,7 +89,7 @@ void PESpectrum(string filepath, int simsize) {
             "PE Spectrum (Pois);PE;Events", 300, minsize, maxsize);
 
     //Do source plate monte carlo
-    double sigma = 0.413; // Alpha position spread parameter
+    double sigma = 0.347; // Alpha position spread parameter
     double maxradius = 3.0; // Source disk radial cutoff
     int n = 1000000;         // Total number of draws
     int count = 0;          // Counter to keep track of successful draws
@@ -105,7 +109,9 @@ void PESpectrum(string filepath, int simsize) {
         hr->Fill(r);
         double pe2 = rweight(r, weights); // * scale * pefactors;
         double pe = fitfunc->Eval(r); // * scale * pefactors;
+        double hit = fitfunc2->Eval(r); // * scale * pefactors;
         hpe->Fill(pe);
+        hhit->Fill(hit);
         hpe2->Fill(pe2);
         hpep->Fill(rnd.PoissonD(pe));
     }
@@ -129,6 +135,7 @@ void PESpectrum(string filepath, int simsize) {
     grwhvr2->Write();
     hr->Write();
     hpe->Write();
+    hhit->Write();
     hpe2->Write();
     hpep->Write();
 }
