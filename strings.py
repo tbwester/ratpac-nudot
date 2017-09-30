@@ -208,7 +208,7 @@ void PESpectrum(string filepath, int simsize) {
             "R distribution;Alpha Position on Source Disk (mm);Events",
             100, 0, 3.5);
     TH1F* hhit = new TH1F("hhit",
-            "Plate Hit Distribution", 2000, 0, 100000);
+            "Plate Hit Distribution", 2000, 0, 25000);
     TH1F* hpe = new TH1F("hpe", 
             "PE Spectrum;PE;Events", 500, minsize, maxsize);
     TH1F* hpe2 = new TH1F("hpe2", 
