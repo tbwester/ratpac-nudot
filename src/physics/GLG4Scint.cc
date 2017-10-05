@@ -671,11 +671,11 @@ void GLG4Scint::MyPhysicsTable::Dump() const {
       (data[i].timeIntegral)->DumpValues();
     else
       G4cout << "NULL" << G4endl;
-      G4cout << "   resolutionScale=" << data[i].resolutionScale
-             << "   birksConstant=" << data[i].birksConstant
-             << "   ref_dE_dx=" << data[i].ref_dE_dx << G4endl
-             << "   light yield=" << data[i].light_yield << G4endl;
-
+    G4cout << "   resolutionScale=" << data[i].resolutionScale
+	   << "   birksConstant=" << data[i].birksConstant
+	   << "   ref_dE_dx=" << data[i].ref_dE_dx << G4endl
+	   << "   light yield=" << data[i].light_yield << G4endl;
+    
     G4cout << "Quenching = \n";
     if (data[i].QuenchingArray != NULL)
       data[i].QuenchingArray->DumpValues();

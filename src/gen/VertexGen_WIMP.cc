@@ -171,21 +171,22 @@ double VertexGen_WIMP::VelIntegral(double vmin,double v0,double vE, double vesc)
       double ke = fEnergyDistLo + i * step;
 
       double v_min = v_0 * sqrt(ke / (r * E_0));
-
+      
       double rate = Helmff(ke,m_nucleus)*R_0/(r* E_0)*VelIntegral(v_min,v_0,v_E,v_esc);
-							      
-
+      
+      
       // Relative rate (constant coefficients may be dropped)
       dRdQ[i] = rate;
       //warn << ke / CLHEP::keV << " " << rate << newline;
       //distribution integral
       normal+=dRdQ[i]*step;
     }
-
-  if(normal>0)
-    for(int i=0;i<nsamples;i++)
-      dRdQ[i] /=normal;
-
+    
+    if(normal>0) {
+      for(int i=0;i<nsamples;i++)
+	dRdQ[i] /=normal;
+    }
+    
     fEnergyDist = new CLHEP::RandGeneral(dRdQ, nsamples);    
   }
   
