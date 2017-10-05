@@ -42,15 +42,33 @@ sourceparams = {
         'tpbreleff': {'mean': 0.67, 'sigma': 0.06},
         }
 
-def random_params():
+def random_params(defaults=False, stddevs=False):
     opticsvals = {}
     for param, data in opticsparams.iteritems():
-        opticsvals[param] = '%.3f' % (np.random.normal(data['mean'], data['sigma']))
+        mean = data['mean']
+        sig = data['sigma']
+        if defaults:
+            sig = 0.0
+        if stddevs:
+            mean = data['sigma']
+            opticsvals[param] = '%.3f' % (mean)
+            continue
+
+        opticsvals[param] = '%.3f' % (np.random.normal(mean, sig))
 
     geovals = {}
     for param, data in geoparams.iteritems():
+        mean = data['mean']
+        sig = data['sigma']
+        if defaults:
+            sig = 0.0
+        if stddevs:
+            mean = data['sigma']
+            geovals[param] = '%.3f' % (mean)
+            continue
+
         if param == 'glassthick':
-            rnd = np.random.normal(data['mean'], data['sigma'])
+            rnd = np.random.normal(data['mean'], 0.0)
             val = 101 - rnd
             val2 = 65 - rnd
             if val < 0:
@@ -59,27 +77,54 @@ def random_params():
             geovals[param] = '%.3f' % (val)
             geovals['glassthick2'] = '%.3f' % (val2)
         elif param == 'platepmtdist':
-            val = 301.5875 + 0.125*25.4*0.5+65+np.random.normal(data['mean'], data['sigma'])*25.4
+            val = 301.5875 + 0.125*25.4*0.5+65+np.random.normal(mean, sig)*25.4
             geovals[param] = '%.3f' % (val)
         else:
-            geovals[param] = '%.3f' % (np.random.normal(data['mean'], data['sigma']))
+            geovals[param] = '%.3f' % (np.random.normal(mean, sig))
 
     srcgeovals = {}
     for param, data in srcgeoparams.iteritems():
-        srcgeovals[param] = '%.3f' % (np.random.normal(data['mean'], data['sigma']))
+        mean = data['mean']
+        sig = data['sigma']
+        if defaults:
+            sig = 0.0
+        if stddevs:
+            mean = data['sigma']
+            srcgeovals[param] = '%.3f' % (mean)
+            continue
+
+        srcgeovals[param] = '%.3f' % (np.random.normal(mean, sig))
 
     scriptvals = {}
     for param, data in scriptparams.iteritems():
+        mean = data['mean']
+        sig = data['sigma']
+        if defaults:
+            sig = 0.0
+        if stddevs:
+            mean = data['sigma']
+            scriptvals[param] = '%.3f' % (mean)
+            continue
+
         if param == 'sourceheight':
-            val = 3.96875 - np.random.normal(data['mean'], data['sigma'])
+            val = 3.96875 - np.random.normal(mean, sig)
             scriptvals[param] = '%.3f' % (val)
         else:
-            scriptvals[param] = '%.3f' % (np.random.normal(data['mean'], data['sigma']))
+            scriptvals[param] = '%.3f' % (np.random.normal(mean, sig))
 
 
     sourcevals = {}
     for param, data in sourceparams.iteritems():
-        sourcevals[param] = '%.3f' % (np.random.normal(data['mean'], data['sigma']))
+        mean = data['mean']
+        sig = data['sigma']
+        if defaults:
+            sig = 0.0
+        if stddevs:
+            mean = data['sigma']
+            sourcevals[param] = '%.3f' % (mean)
+            continue
+
+        sourcevals[param] = '%.3f' % (np.random.normal(mean, sig))
 
     return {
             'optics': opticsvals, 
@@ -124,6 +169,12 @@ def main():
             for _ in range(nlines):
                 json.dump(random_params(), f)
                 f.write('\n')
+
+    elif mode == 'd':
+        with open('default_parameters.txt', 'w') as f:
+            json.dump(random_params(defaults=True), f)
+            f.write('\n')
+            json.dump(random_params(defaults=True, stddevs=True), f)
 
 if __name__ == '__main__':
     main()
